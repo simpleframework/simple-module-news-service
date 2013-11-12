@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sql-script>
+	<version>1.0.0</version>
+	<name>script</name>
+	<description></description>
+	<tran-sql>
+    <![CDATA[
+    	create table sf_news_category (
+    		id char(32) not null,
+    		parentid char(32),
+    		name varchar(32) not null,
+    		text varchar(32) not null,
+    		viewtemplate tinyint not null,
+    		mark tinyint not null,
+    		createdate datetime not null,
+        userid char(32) not null,
+    		description varchar(256),
+        oorder int not null,
+        primary key(id),
+        unique (name),
+        unique (parentid, text)
+    	);
+    ]]>
+	</tran-sql>
+	<tran-sql>
+    <![CDATA[
+     	create table sf_news (
+        id char(32) not null,
+        categoryid char(32) not null,
+        domain int not null,
+        cname varchar(32),
+        status tinyint not null,
+        createdate datetime not null,
+        userid char(32) not null,
+        topic varchar(128) not null,
+        keywords varchar(128),
+        author varchar(32),
+        source varchar(32),
+        recommendation int not null,
+        recommendationdate datetime,
+        recommendationduration int not null,
+        imagemark bit not null,
+        contentmark int not null,
+        comments int not null,
+        allowcomments bit not null,
+        indexed bit not null,
+        views int not null,
+        description varchar(256),
+        content text,
+        oorder int not null,
+        primary key(id),
+        index (cname) using btree 
+      );
+    ]]>
+	</tran-sql>
+	<tran-sql>
+    <![CDATA[
+    	create table sf_news_comment (
+        id char(32) not null,
+        parentid char(32),
+        contentid char(32) not null,
+        createdate datetime not null,
+        userid char(32) not null,
+       	content text not null,
+        primary key(id)
+      );
+    ]]>
+	</tran-sql>
+</sql-script>

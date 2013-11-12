@@ -1,0 +1,17 @@
+package net.simpleframework.module.news.impl;
+
+import net.simpleframework.module.common.content.impl.AbstractCommentService;
+import net.simpleframework.module.news.INewsCommentService;
+import net.simpleframework.module.news.INewsContextAware;
+import net.simpleframework.module.news.NewsComment;
+
+/**
+ * Licensed under the Apache License, Version 2.0
+ * 
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         http://code.google.com/p/simpleframework/
+ *         http://www.simpleframework.net
+ */
+public class NewsCommentService extends AbstractCommentService<NewsComment> implements
+		INewsCommentService, INewsContextAware {
+}
