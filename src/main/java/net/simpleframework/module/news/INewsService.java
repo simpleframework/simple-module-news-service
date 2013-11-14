@@ -1,12 +1,8 @@
 package net.simpleframework.module.news;
 
-import net.simpleframework.ado.ColumnData;
-import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.lucene.ILuceneManager;
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.ctx.common.bean.TimePeriod;
-import net.simpleframework.ctx.service.ado.db.IDbBeanService;
-import net.simpleframework.module.common.content.EContentStatus;
+import net.simpleframework.module.common.content.IContentService;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -15,35 +11,9 @@ import net.simpleframework.module.common.content.EContentStatus;
  *         http://code.google.com/p/simpleframework/
  *         http://www.simpleframework.net
  */
-public interface INewsService extends IDbBeanService<News> {
+public interface INewsService extends IContentService<News> {
 
-	/**
-	 * 按指定条件查找
-	 * 
-	 * @param category
-	 *           类目
-	 * @param status
-	 *           状态
-	 * @param timePeriod
-	 *           时间范围
-	 * @param filterItems
-	 *           其它条件
-	 * @param orderColumns
-	 *           排序
-	 * @return
-	 */
-	IDataQuery<News> query(NewsCategory category, EContentStatus status, TimePeriod timePeriod,
-			FilterItems filterItems, ColumnData... orderColumns);
-
-	IDataQuery<News> query(NewsCategory category, EContentStatus status, TimePeriod timePeriod,
-			FilterItems filterItems);
-
-	IDataQuery<News> query(NewsCategory category, EContentStatus status);
-
-	IDataQuery<News> queryNews(NewsCategory category, TimePeriod timePeriod,
-			ColumnData... orderColumns);
-
-	IDataQuery<News> queryNews(String category);
+	IDataQuery<News> queryContentBeans(String category);
 
 	/**
 	 * 查找图片新闻

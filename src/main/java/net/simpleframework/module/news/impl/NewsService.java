@@ -25,7 +25,10 @@ import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.ctx.common.bean.TimePeriod;
 import net.simpleframework.ctx.task.ExecutorRunnable;
+import net.simpleframework.module.common.content.AbstractCategoryBean;
 import net.simpleframework.module.common.content.EContentStatus;
+import net.simpleframework.module.common.content.impl.AbstractContentService;
+import net.simpleframework.module.news.INewsContextAware;
 import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.News;
 import net.simpleframework.module.news.NewsCategory;
@@ -37,19 +40,21 @@ import net.simpleframework.module.news.NewsCategory;
  *         http://code.google.com/p/simpleframework/
  *         http://www.simpleframework.net
  */
-public class NewsService extends AbstractNewsService<News> implements INewsService {
+public class NewsService extends AbstractContentService<News> implements INewsService,
+		INewsContextAware {
 
 	private final ColumnData[] DEFAULT_ORDER = new ColumnData[] { new ColumnData("createdate",
 			EOrder.desc) };
 
 	@Override
-	public IDataQuery<News> queryByParams(final FilterItems filterItems) {
-		return queryByParams(filterItems, DEFAULT_ORDER);
+	protected ColumnData[] getDefaultOrderColumns() {
+		return DEFAULT_ORDER;
 	}
 
 	@Override
-	public IDataQuery<News> query(final NewsCategory oCategory, final EContentStatus status,
-			final TimePeriod timePeriod, FilterItems filterItems, final ColumnData... orderColumns) {
+	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory,
+			final EContentStatus status, final TimePeriod timePeriod, FilterItems filterItems,
+			final ColumnData... orderColumns) {
 		if (filterItems == null) {
 			filterItems = FilterItems.of();
 		}
@@ -69,35 +74,23 @@ public class NewsService extends AbstractNewsService<News> implements INewsServi
 	}
 
 	@Override
-	public IDataQuery<News> query(final NewsCategory oCategory, final EContentStatus status,
-			final TimePeriod timePeriod, final FilterItems filterItems) {
-		return query(oCategory, status, timePeriod, filterItems, DEFAULT_ORDER);
-	}
-
-	@Override
-	public IDataQuery<News> query(final NewsCategory oCategory, final EContentStatus status) {
-		return query(oCategory, status, null, null);
-	}
-
-	@Override
-	public IDataQuery<News> queryNews(final NewsCategory oCategory, final TimePeriod timePeriod,
-			final ColumnData... orderColumns) {
-		return query(oCategory, EContentStatus.publish, timePeriod, null, orderColumns);
+	public News getBeanByName(final String name) {
+		return StringUtils.hasText(name) ? getBean("cname=?", name) : null;
 	}
 
 	@Override
 	public IDataQuery<News> queryImageNews(final NewsCategory oCategory) {
-		return query(oCategory, EContentStatus.publish, null,
+		return queryBeans(oCategory, EContentStatus.publish, null,
 				FilterItems.of().addEqualItem("imageMark", true));
 	}
 
 	@Override
-	public IDataQuery<News> queryNews(final String category) {
-		final NewsCategory oCategory = getNewsCategoryService().getBeanByName(category);
+	public IDataQuery<News> queryContentBeans(final String category) {
+		final NewsCategory oCategory = context.getNewsCategoryService().getBeanByName(category);
 		if (oCategory == null) {
 			return null;
 		}
-		return queryNews(oCategory, null, new ColumnData[] {});
+		return queryBeans(oCategory, null, new ColumnData[] {});
 	}
 
 	@Override
@@ -115,24 +108,6 @@ public class NewsService extends AbstractNewsService<News> implements INewsServi
 	}
 
 	@Override
-	public News getBeanByName(final String name) {
-		return StringUtils.hasText(name) ? getBean("cname=?", name) : null;
-	}
-
-	private String tmpdir;
-
-	protected String getTmpdir() {
-		if (tmpdir == null) {
-			final StringBuilder sb = new StringBuilder();
-			final String fs = File.separator;
-			sb.append(getModuleContext().getContextSettings().getTmpFiledir().getAbsolutePath());
-			sb.append(fs).append("news").append(fs);
-			tmpdir = sb.toString();
-		}
-		return tmpdir;
-	}
-
-	@Override
 	public ILuceneManager getLuceneService() {
 		return luceneService;
 	}
@@ -141,7 +116,7 @@ public class NewsService extends AbstractNewsService<News> implements INewsServi
 
 	@Override
 	public void onInit() throws Exception {
-		luceneService = new NewsLuceneService(new File(getTmpdir() + "index"));
+		luceneService = new NewsLuceneService(new File(context.getTmpdir() + "index"));
 		if (!luceneService.indexExists()) {
 			getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
 				@Override
@@ -164,8 +139,9 @@ public class NewsService extends AbstractNewsService<News> implements INewsServi
 			@Override
 			public void onAfterDelete(final IDbEntityManager<?> service, final IParamsValue paramsValue) {
 				super.onAfterDelete(service, paramsValue);
-				final NewsAttachmentService aService = getAttachmentService();
-				final NewsCommentService cService = getCommentService();
+				final NewsAttachmentService aService = (NewsAttachmentService) context
+						.getAttachmentService();
+				final NewsCommentService cService = (NewsCommentService) context.getCommentService();
 				for (final News news : coll(paramsValue)) {
 					final ID id = news.getId();
 					aService.deleteWith("contentId=?", id);
