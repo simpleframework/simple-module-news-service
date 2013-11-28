@@ -2,8 +2,10 @@ package net.simpleframework.module.news.impl;
 
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ado.db.DbEntityTable;
+import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
+import net.simpleframework.ctx.task.ExecutorRunnable;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
 import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.AttachmentLob;
@@ -23,6 +25,18 @@ import net.simpleframework.module.news.NewsComment;
  *         http://www.simpleframework.net
  */
 public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext {
+
+	@Override
+	public void onInit(final IApplicationContext application) throws Exception {
+		super.onInit(application);
+
+		getTaskExecutor().addScheduledTask(60 * 10, new ExecutorRunnable() {
+			@Override
+			protected void task() throws Exception {
+				getNewsService().doUnRecommendationTask();
+			}
+		});
+	}
 
 	@Override
 	protected DbEntityTable[] getEntityTables() {
