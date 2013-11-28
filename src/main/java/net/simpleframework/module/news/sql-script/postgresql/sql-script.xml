@@ -42,6 +42,7 @@
         imagemark bool not null,
         contentmark int4 not null,
         comments int4 not null,
+        lastcommentdate timestamp,
         allowcomments bool not null,
         indexed bool not null,
         views int4 not null,

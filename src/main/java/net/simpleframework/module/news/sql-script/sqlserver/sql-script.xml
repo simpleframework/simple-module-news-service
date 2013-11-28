@@ -42,6 +42,7 @@
         imagemark smallint not null,
         contentmark int not null,
         comments int not null,
+        lastcommentdate datetime,
         allowcomments smallint not null,
         indexed smallint not null,
         views int not null,

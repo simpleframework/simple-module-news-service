@@ -1,5 +1,7 @@
 package net.simpleframework.module.news;
 
+import java.util.Date;
+
 import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
@@ -39,6 +41,9 @@ public class News extends AbstractContentBean {
 
 	/* 统计信息-评论数。此信息需要和关联表同步 */
 	private int comments;
+
+	/* 最后一次更新统计comments的时间 */
+	private Date lastCommentDate;
 
 	/* 是否允许评论 */
 	private boolean allowComments = true;
@@ -100,6 +105,14 @@ public class News extends AbstractContentBean {
 
 	public void setComments(final int comments) {
 		this.comments = comments;
+	}
+
+	public Date getLastCommentDate() {
+		return lastCommentDate;
+	}
+
+	public void setLastCommentDate(final Date lastCommentDate) {
+		this.lastCommentDate = lastCommentDate;
 	}
 
 	public boolean isAllowComments() {

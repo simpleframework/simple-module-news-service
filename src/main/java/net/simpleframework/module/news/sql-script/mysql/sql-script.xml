@@ -42,6 +42,7 @@
         imagemark bit not null,
         contentmark int not null,
         comments int not null,
+        lastcommentdate datetime,
         allowcomments bit not null,
         indexed bit not null,
         views int not null,
