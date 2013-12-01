@@ -202,10 +202,13 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 		}
 
 		@Override
-		protected void objectToDocument(final Object object, final LuceneDocument doc)
+		protected boolean objectToDocument(final Object object, final LuceneDocument doc)
 				throws IOException {
-			super.objectToDocument(object, doc);
 			final News news = (News) object;
+			if (news.getStatus() != EContentStatus.publish) {
+				return false;
+			}
+			super.objectToDocument(object, doc);
 			doc.addStringFields("keyWord", StringUtils.split(news.getKeyWords(), " "), false);
 			doc.addTextField("topic", news.getTopic(), false);
 			String content = news.getDescription();
@@ -213,6 +216,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 				content = trimContent(news.getContent());
 			}
 			doc.addTextField("content", content, false);
+			return true;
 		}
 	}
 }
