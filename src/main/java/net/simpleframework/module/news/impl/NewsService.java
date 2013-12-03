@@ -192,7 +192,8 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 
 		@Override
 		protected Object documentToObject(final LuceneDocument doc, final Class<?> beanClass) {
-			return context.getNewsService().getBean(doc.get("id"));
+			final News news = context.getNewsService().getBean(doc.get("id"));
+			return news != null && news.getStatus() == EContentStatus.publish ? news : null;
 		}
 
 		@Override
@@ -202,13 +203,10 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 		}
 
 		@Override
-		protected boolean objectToDocument(final Object object, final LuceneDocument doc)
+		protected void objectToDocument(final Object object, final LuceneDocument doc)
 				throws IOException {
-			final News news = (News) object;
-			if (news.getStatus() != EContentStatus.publish) {
-				return false;
-			}
 			super.objectToDocument(object, doc);
+			final News news = (News) object;
 			doc.addStringFields("keyWord", StringUtils.split(news.getKeyWords(), " "), false);
 			doc.addTextField("topic", news.getTopic(), false);
 			String content = news.getDescription();
@@ -216,7 +214,6 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 				content = trimContent(news.getContent());
 			}
 			doc.addTextField("content", content, false);
-			return true;
 		}
 	}
 }
