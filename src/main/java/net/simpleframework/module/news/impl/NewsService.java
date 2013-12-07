@@ -80,7 +80,9 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 	@Override
 	public IDataQuery<News> queryImageNews(final NewsCategory oCategory) {
 		return queryBeans(oCategory, EContentStatus.publish, null,
-				FilterItems.of().addEqualItem("imageMark", true));
+				FilterItems.of().addEqualItem("imageMark", true), new ColumnData[] {
+						new ColumnData("recommendation", EOrder.desc),
+						new ColumnData("createdate", EOrder.desc) });
 	}
 
 	@Override
@@ -89,7 +91,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 		if (oCategory == null) {
 			return null;
 		}
-		return queryBeans(oCategory, null, new ColumnData[] {});
+		return queryBeans(oCategory, null, ColumnData.BLANK);
 	}
 
 	@Override
