@@ -1,7 +1,8 @@
 package net.simpleframework.module.news.impl;
 
 import static net.simpleframework.common.I18n.$m;
-import net.simpleframework.ado.db.DbEntityTable;
+import net.simpleframework.ado.IADOManagerFactory;
+import net.simpleframework.ado.db.DbManagerFactory;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
@@ -30,18 +31,18 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	public void onInit(final IApplicationContext application) throws Exception {
 		super.onInit(application);
 
+		final IADOManagerFactory aFactory = getADOManagerFactory();
+		if (aFactory instanceof DbManagerFactory) {
+			((DbManagerFactory) aFactory).regist(Attachment.TBL, AttachmentLob.TBL, NewsComment.TBL,
+					NewsCategory.TBL, News.TBL);
+		}
+
 		getTaskExecutor().addScheduledTask(60 * 10, new ExecutorRunnable() {
 			@Override
 			protected void task() throws Exception {
 				getNewsService().doUnRecommendationTask();
 			}
 		});
-	}
-
-	@Override
-	protected DbEntityTable[] getEntityTables() {
-		return new DbEntityTable[] { Attachment.TBL, AttachmentLob.TBL, NewsComment.TBL,
-				NewsCategory.TBL, News.TBL };
 	}
 
 	@Override
