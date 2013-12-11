@@ -8,7 +8,6 @@ import java.util.Map;
 
 import net.simpleframework.ado.ColumnData;
 import net.simpleframework.ado.EFilterRelation;
-import net.simpleframework.ado.EOrder;
 import net.simpleframework.ado.FilterItem;
 import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
@@ -42,8 +41,7 @@ import net.simpleframework.module.news.NewsCategory;
 public class NewsService extends AbstractContentService<News> implements INewsService,
 		INewsContextAware {
 
-	private final ColumnData[] DEFAULT_ORDER = new ColumnData[] { new ColumnData("createdate",
-			EOrder.desc) };
+	private final ColumnData[] DEFAULT_ORDER = new ColumnData[] { ColumnData.DESC("createdate") };
 
 	@Override
 	protected ColumnData[] getDefaultOrderColumns() {
@@ -58,8 +56,8 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 			filterItems = FilterItems.of();
 		}
 
-		filterItems.addEqualItem("domain", getModuleContext().getDomain())
-				.addEqualItem("categoryId", oCategory).addEqualItem("createdate", timePeriod);
+		filterItems.addEqual("domain", getModuleContext().getDomain())
+				.addEqual("categoryId", oCategory).addEqual("createdate", timePeriod);
 
 		if (status != null) {
 			filterItems.add(new FilterItem("status", status));
@@ -80,9 +78,8 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 	@Override
 	public IDataQuery<News> queryImageNews(final NewsCategory oCategory) {
 		return queryBeans(oCategory, EContentStatus.publish, null,
-				FilterItems.of().addEqualItem("imageMark", true), new ColumnData[] {
-						new ColumnData("recommendation", EOrder.desc),
-						new ColumnData("createdate", EOrder.desc) });
+				FilterItems.of().addEqual("imageMark", true),
+				new ColumnData[] { ColumnData.DESC("recommendation"), ColumnData.DESC("createdate") });
 	}
 
 	@Override
@@ -91,7 +88,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 		if (oCategory == null) {
 			return null;
 		}
-		return queryBeans(oCategory, null, ColumnData.BLANK);
+		return queryBeans(oCategory, null, ColumnData.EMPTY);
 	}
 
 	@Override
