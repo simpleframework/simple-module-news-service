@@ -3,8 +3,8 @@ package net.simpleframework.module.news.impl;
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
-import net.simpleframework.ctx.ModuleException;
 import net.simpleframework.ctx.service.ado.db.AbstractDbBeanService;
+import net.simpleframework.module.common.content.ContentException;
 import net.simpleframework.module.news.INewsCategoryService;
 import net.simpleframework.module.news.INewsContextAware;
 import net.simpleframework.module.news.NewsCategory;
@@ -31,7 +31,7 @@ public class NewsCategoryService extends AbstractDbBeanService<NewsCategory> imp
 					final IParamsValue paramsValue) {
 				for (final NewsCategory category : coll(paramsValue)) {
 					if (context.getNewsService().queryBeans(category, null).getCount() > 0) {
-						throw ModuleException.of($m("NewsCategoryService.0"));
+						throw ContentException.of($m("NewsCategoryService.0"));
 					}
 				}
 			}
