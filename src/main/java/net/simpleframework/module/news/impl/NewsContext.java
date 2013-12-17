@@ -1,8 +1,8 @@
 package net.simpleframework.module.news.impl;
 
 import static net.simpleframework.common.I18n.$m;
-import net.simpleframework.ado.IADOManagerFactory;
-import net.simpleframework.ado.db.DbManagerFactory;
+import net.simpleframework.ado.db.DbEntityTable;
+import net.simpleframework.ado.db.IDbEntityTableRegistry;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
@@ -25,17 +25,12 @@ import net.simpleframework.module.news.NewsComment;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext {
+public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext,
+		IDbEntityTableRegistry {
 
 	@Override
 	public void onInit(final IApplicationContext application) throws Exception {
 		super.onInit(application);
-
-		final IADOManagerFactory aFactory = getADOManagerFactory();
-		if (aFactory instanceof DbManagerFactory) {
-			((DbManagerFactory) aFactory).regist(Attachment.TBL, AttachmentLob.TBL, NewsComment.TBL,
-					NewsCategory.TBL, News.TBL);
-		}
 
 		getTaskExecutor().addScheduledTask(60 * 10, new ExecutorRunnable() {
 			@Override
@@ -43,6 +38,12 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 				getNewsService().doUnRecommendationTask();
 			}
 		});
+	}
+
+	@Override
+	public DbEntityTable[] createEntityTables() {
+		return new DbEntityTable[] { Attachment.TBL, AttachmentLob.TBL, NewsComment.TBL,
+				NewsCategory.TBL, News.TBL };
 	}
 
 	@Override
