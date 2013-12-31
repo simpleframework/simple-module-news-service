@@ -13,8 +13,19 @@ import net.simpleframework.module.common.content.AbstractCategoryBean;
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
 public class NewsCategory extends AbstractCategoryBean {
 
+	/* 域，用在在线系统。默认为0 */
+	private int domain;
+
 	/* 查看模板 */
 	private int viewTemplate;
+
+	public int getDomain() {
+		return domain;
+	}
+
+	public void setDomain(final int domain) {
+		this.domain = domain;
+	}
 
 	public int getViewTemplate() {
 		return viewTemplate;
