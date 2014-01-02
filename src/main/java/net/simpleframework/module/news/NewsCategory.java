@@ -1,5 +1,6 @@
 package net.simpleframework.module.news;
 
+import net.simpleframework.ado.bean.IDomainBeanAware;
 import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
@@ -11,7 +12,7 @@ import net.simpleframework.module.common.content.AbstractCategoryBean;
  *         http://www.simpleframework.net
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
-public class NewsCategory extends AbstractCategoryBean {
+public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAware {
 
 	/* 域，用在在线系统。默认为0 */
 	private int domain;
@@ -19,10 +20,12 @@ public class NewsCategory extends AbstractCategoryBean {
 	/* 查看模板 */
 	private int viewTemplate;
 
+	@Override
 	public int getDomain() {
 		return domain;
 	}
 
+	@Override
 	public void setDomain(final int domain) {
 		this.domain = domain;
 	}

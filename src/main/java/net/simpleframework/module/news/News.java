@@ -2,6 +2,7 @@ package net.simpleframework.module.news;
 
 import java.util.Date;
 
+import net.simpleframework.ado.bean.IDomainBeanAware;
 import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
@@ -16,7 +17,7 @@ import net.simpleframework.module.common.content.AbstractContentBean;
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityUpdateLogAdapter",
 		"net.simpleframework.module.log.EntityDeleteLogAdapter" }, columns = { "status",
 		"recommendation", "topic" })
-public class News extends AbstractContentBean {
+public class News extends AbstractContentBean implements IDomainBeanAware {
 
 	/* 唯一名称，可为null */
 	private String cname;
@@ -59,10 +60,12 @@ public class News extends AbstractContentBean {
 		this.cname = cname;
 	}
 
+	@Override
 	public int getDomain() {
 		return domain;
 	}
 
+	@Override
 	public void setDomain(final int domain) {
 		this.domain = domain;
 	}
