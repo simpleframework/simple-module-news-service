@@ -95,7 +95,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 	public int count(final NewsCategory category) {
 		if (COUNT_STATS.size() == 0) {
 			final IDataQuery<Map<String, Object>> dq = getQueryManager().query(
-					new SQLValue("select categoryId, count(*) as cc from " + News.TBL.getName()
+					new SQLValue("select categoryId, count(*) as cc from " + getTablename(News.class)
 							+ " a where a.domain=? and a.status<>? group by categoryId",
 							getModuleContext().getDomain(), EContentStatus.delete));
 			for (Map<String, Object> row; (row = dq.next()) != null;) {

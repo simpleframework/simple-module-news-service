@@ -1,7 +1,6 @@
 package net.simpleframework.module.news;
 
 import net.simpleframework.ado.bean.ITreeBeanAware;
-import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
 import net.simpleframework.module.common.content.AbstractComment;
@@ -26,8 +25,6 @@ public class NewsComment extends AbstractComment implements ITreeBeanAware {
 	public void setParentId(final ID parentId) {
 		this.parentId = parentId;
 	}
-
-	public static final DbEntityTable TBL = new DbEntityTable(NewsComment.class, "sf_news_comment");
 
 	private static final long serialVersionUID = 5679649774061437068L;
 }

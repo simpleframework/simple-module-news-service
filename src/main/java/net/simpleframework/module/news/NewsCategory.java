@@ -1,7 +1,6 @@
 package net.simpleframework.module.news;
 
 import net.simpleframework.ado.bean.IDomainBeanAware;
-import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
 
@@ -37,8 +36,6 @@ public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAwa
 	public void setViewTemplate(final int viewTemplate) {
 		this.viewTemplate = viewTemplate;
 	}
-
-	public static final DbEntityTable TBL = new DbEntityTable(NewsCategory.class, "sf_news_category");
 
 	private static final long serialVersionUID = -1520445282796635254L;
 }

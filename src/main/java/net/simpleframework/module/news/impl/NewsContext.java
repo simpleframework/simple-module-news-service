@@ -9,7 +9,6 @@ import net.simpleframework.ctx.Module;
 import net.simpleframework.ctx.task.ExecutorRunnable;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
 import net.simpleframework.module.common.content.Attachment;
-import net.simpleframework.module.common.content.AttachmentLob;
 import net.simpleframework.module.common.content.IAttachmentService;
 import net.simpleframework.module.news.INewsCategoryService;
 import net.simpleframework.module.news.INewsCommentService;
@@ -42,8 +41,10 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 	@Override
 	public DbEntityTable[] createEntityTables() {
-		return new DbEntityTable[] { Attachment.TBL, AttachmentLob.TBL, NewsComment.TBL,
-				NewsCategory.TBL, News.TBL };
+		return new DbEntityTable[] { SF_ATTACHMENT, SF_ATTACHMENT_LOB,
+				new DbEntityTable(NewsComment.class, "sf_news_comment"),
+				new DbEntityTable(NewsCategory.class, "sf_news_category"),
+				new DbEntityTable(News.class, "sf_news") };
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package net.simpleframework.module.news;
 import java.util.Date;
 
 import net.simpleframework.ado.bean.IDomainBeanAware;
-import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
 import net.simpleframework.module.common.content.AbstractContentBean;
@@ -146,8 +145,6 @@ public class News extends AbstractContentBean implements IDomainBeanAware {
 	public String toString() {
 		return getTopic();
 	}
-
-	public static final DbEntityTable TBL = new DbEntityTable(News.class, "sf_news");
 
 	private static final long serialVersionUID = 580033858128590717L;
 
