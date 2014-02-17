@@ -102,7 +102,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 				COUNT_STATS.put(Convert.toString(row.get("categoryId")), Convert.toInt(row.get("cc")));
 			}
 		}
-		return Convert.toInt(COUNT_STATS.get(Convert.toString(category.getId())));
+		return Convert.toInt(COUNT_STATS.get(category.getId().toString()));
 	}
 
 	@Override
