@@ -84,7 +84,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 
 	@Override
 	public IDataQuery<News> queryContentBeans(final String category) {
-		final NewsCategory oCategory = context.getNewsCategoryService().getBeanByName(category);
+		final NewsCategory oCategory = newsContext.getNewsCategoryService().getBeanByName(category);
 		if (oCategory == null) {
 			return null;
 		}
@@ -114,7 +114,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 
 	@Override
 	public void onInit() throws Exception {
-		luceneService = new NewsLuceneService(new File(context.getTmpdir() + "index"));
+		luceneService = new NewsLuceneService(new File(newsContext.getTmpdir() + "index"));
 		if (!luceneService.indexExists()) {
 			getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
 				@Override
@@ -137,9 +137,9 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 			@Override
 			public void onAfterDelete(final IDbEntityManager<?> service, final IParamsValue paramsValue) {
 				super.onAfterDelete(service, paramsValue);
-				final NewsAttachmentService aService = (NewsAttachmentService) context
+				final NewsAttachmentService aService = (NewsAttachmentService) newsContext
 						.getAttachmentService();
-				final NewsCommentService cService = (NewsCommentService) context.getCommentService();
+				final NewsCommentService cService = (NewsCommentService) newsContext.getCommentService();
 				for (final News news : coll(paramsValue)) {
 					final ID id = news.getId();
 					aService.deleteWith("contentId=?", id);
@@ -191,13 +191,13 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 
 		@Override
 		protected Object documentToObject(final LuceneDocument doc, final Class<?> beanClass) {
-			final News news = context.getNewsService().getBean(doc.get("id"));
+			final News news = newsContext.getNewsService().getBean(doc.get("id"));
 			return news != null && news.getStatus() == EContentStatus.publish ? news : null;
 		}
 
 		@Override
 		protected IDataQuery<?> queryAll() {
-			return context.getNewsService().getEntityManager()
+			return newsContext.getNewsService().getEntityManager()
 					.queryBeans(new ExpressionValue("indexed=?", true));
 		}
 

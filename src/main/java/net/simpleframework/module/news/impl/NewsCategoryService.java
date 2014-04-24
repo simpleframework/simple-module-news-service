@@ -49,7 +49,7 @@ public class NewsCategoryService extends AbstractDbBeanService<NewsCategory> imp
 			public void onBeforeDelete(final IDbEntityManager<?> service,
 					final IParamsValue paramsValue) {
 				for (final NewsCategory category : coll(paramsValue)) {
-					if (context.getNewsService().queryBeans(category, null).getCount() > 0) {
+					if (newsContext.getNewsService().queryBeans(category, null).getCount() > 0) {
 						throw ContentException.of($m("NewsCategoryService.0"));
 					}
 				}

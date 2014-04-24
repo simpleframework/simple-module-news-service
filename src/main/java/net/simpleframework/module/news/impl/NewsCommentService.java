@@ -30,7 +30,7 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 				super.onBeforeDelete(manager, paramsValue);
 
 				// 修改统计值
-				final INewsService nService = context.getNewsService();
+				final INewsService nService = newsContext.getNewsService();
 				for (final NewsComment c : coll(paramsValue)) {
 					final News news = nService.getBean(c.getContentId());
 					if (news != null) {
@@ -45,7 +45,7 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 				super.onAfterInsert(manager, beans);
 
 				// 修改统计值
-				final INewsService nService = context.getNewsService();
+				final INewsService nService = newsContext.getNewsService();
 				for (final Object o : beans) {
 					final NewsComment c = (NewsComment) o;
 					final News news = nService.getBean(c.getContentId());
