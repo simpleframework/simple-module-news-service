@@ -139,7 +139,8 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 				super.onAfterDelete(service, paramsValue);
 				final NewsAttachmentService aService = (NewsAttachmentService) newsContext
 						.getAttachmentService();
-				final NewsCommentService cService = (NewsCommentService) newsContext.getCommentService();
+				final NewsCommentService cService = (NewsCommentService) newsContext
+						.getCommentService();
 				for (final News news : coll(paramsValue)) {
 					final ID id = news.getId();
 					aService.deleteWith("contentId=?", id);
