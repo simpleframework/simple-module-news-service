@@ -34,7 +34,7 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 				for (final NewsComment c : coll(paramsValue)) {
 					final News news = nService.getBean(c.getContentId());
 					if (news != null) {
-						news.setComments(queryByContent(news).getCount() - 1);
+						news.setComments(queryComments(news).getCount() - 1);
 						nService.update(new String[] { "comments" }, news);
 					}
 				}
@@ -50,7 +50,7 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 					final NewsComment c = (NewsComment) o;
 					final News news = nService.getBean(c.getContentId());
 					if (news != null) {
-						news.setComments(queryByContent(news).getCount());
+						news.setComments(queryComments(news).getCount());
 						news.setLastCommentDate(new Date());
 						nService.update(new String[] { "comments", "lastCommentDate" }, news);
 					}
