@@ -1,6 +1,6 @@
 package net.simpleframework.module.news;
 
-import net.simpleframework.ctx.service.ado.IADOTreeBeanServiceAware;
+import net.simpleframework.ctx.service.ado.ITreeBeanServiceAware;
 import net.simpleframework.module.common.content.ICommentService;
 
 /**
@@ -10,5 +10,5 @@ import net.simpleframework.module.common.content.ICommentService;
  *         http://www.simpleframework.net
  */
 public interface INewsCommentService extends ICommentService<NewsComment>,
-		IADOTreeBeanServiceAware<NewsComment> {
+		ITreeBeanServiceAware<NewsComment> {
 }

@@ -41,13 +41,6 @@ import net.simpleframework.module.news.NewsCategory;
 public class NewsService extends AbstractContentService<News> implements INewsService,
 		INewsContextAware {
 
-	private final ColumnData[] DEFAULT_ORDER = new ColumnData[] { ColumnData.DESC("createdate") };
-
-	@Override
-	protected ColumnData[] getDefaultOrderColumns() {
-		return DEFAULT_ORDER;
-	}
-
 	@Override
 	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory,
 			final EContentStatus status, final TimePeriod timePeriod, FilterItems filterItems,
@@ -66,8 +59,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 					.add(new FilterItem("status", EFilterRelation.not_equal, EContentStatus.delete));
 		}
 
-		return queryByParams(filterItems,
-				(orderColumns == null || orderColumns.length == 0) ? DEFAULT_ORDER : orderColumns);
+		return queryByParams(filterItems, orderColumns);
 	}
 
 	@Override
