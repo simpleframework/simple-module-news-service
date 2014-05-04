@@ -4,6 +4,7 @@ import java.util.Date;
 
 import net.simpleframework.ado.bean.IDateAwareBean;
 import net.simpleframework.ado.bean.IDomainBeanAware;
+import net.simpleframework.ado.bean.INameBeanAware;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
@@ -16,13 +17,16 @@ import net.simpleframework.module.common.content.ECategoryMark;
  *         http://www.simpleframework.net
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
-public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAware, IDateAwareBean {
+public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAware, INameBeanAware,
+		IDateAwareBean {
 	/* 域，用在在线系统。默认为0 */
 	private int domain;
 
 	/* 查看模板 */
 	private int viewTemplate;
 
+	/* 名称或编码，唯一 */
+	private String name;
 	/* 标识 */
 	private ECategoryMark mark;
 
@@ -47,6 +51,16 @@ public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAwa
 
 	public void setViewTemplate(final int viewTemplate) {
 		this.viewTemplate = viewTemplate;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public void setName(final String name) {
+		this.name = name;
 	}
 
 	public ECategoryMark getMark() {

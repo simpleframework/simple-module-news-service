@@ -10,7 +10,7 @@
     		parentid char(32),
         domain int4 not null,
     		name varchar(32) not null,
-    		text varchar(32) not null,
+    		text varchar(64) not null,
     		viewtemplate int2 not null,
     		mark int2 not null,
     		createdate timestamp not null,
