@@ -7,6 +7,7 @@ import net.simpleframework.ado.bean.IDomainBeanAware;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
+import net.simpleframework.module.common.content.ECategoryMark;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -21,6 +22,9 @@ public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAwa
 
 	/* 查看模板 */
 	private int viewTemplate;
+
+	/* 标识 */
+	private ECategoryMark mark;
 
 	/* 创建人 */
 	private ID userId;
@@ -43,6 +47,14 @@ public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAwa
 
 	public void setViewTemplate(final int viewTemplate) {
 		this.viewTemplate = viewTemplate;
+	}
+
+	public ECategoryMark getMark() {
+		return mark == null ? ECategoryMark.normal : mark;
+	}
+
+	public void setMark(final ECategoryMark mark) {
+		this.mark = mark;
 	}
 
 	public ID getUserId() {
