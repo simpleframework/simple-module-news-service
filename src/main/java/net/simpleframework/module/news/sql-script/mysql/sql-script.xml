@@ -19,8 +19,7 @@
         oorder int not null,
         primary key(id),
         unique (name),
-        unique (parentid, text),
-        unique (oorder)
+        unique (parentid, text)
     	);
     ]]>
 	</tran-sql>
@@ -52,8 +51,7 @@
         content text,
         oorder int not null,
         primary key(id),
-        index (cname) using btree,
-        unique (oorder) 
+        index (cname) using btree
       );
     ]]>
 	</tran-sql>
