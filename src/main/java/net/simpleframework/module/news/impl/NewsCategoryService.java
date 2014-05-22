@@ -54,15 +54,6 @@ public class NewsCategoryService extends AbstractDbBeanService<NewsCategory> imp
 					}
 				}
 			}
-
-			@Override
-			public void onBeforeUpdate(final IDbEntityManager<?> manager, final String[] columns,
-					final Object[] beans) {
-				super.onBeforeUpdate(manager, columns, beans);
-				for (final Object o : beans) {
-					assertParentId((NewsCategory) o);
-				}
-			}
 		});
 	}
 }
