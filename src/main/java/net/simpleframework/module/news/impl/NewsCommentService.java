@@ -22,6 +22,8 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 
 	@Override
 	public void onInit() throws Exception {
+		super.onInit();
+
 		addListener(new DbEntityAdapterEx() {
 
 			@Override

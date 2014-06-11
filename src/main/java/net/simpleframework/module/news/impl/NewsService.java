@@ -105,6 +105,8 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 
 	@Override
 	public void onInit() throws Exception {
+		super.onInit();
+
 		luceneService = new NewsLuceneService(new File(newsContext.getTmpdir() + "index"));
 		if (!luceneService.indexExists()) {
 			getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
