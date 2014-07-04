@@ -164,8 +164,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 				super.onAfterUpdate(service, columns, beans);
 
 				// 更新索引
-				if (columns == null || columns.length == 0
-						|| ArrayUtils.contains(columns, "keyWords", true)
+				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "keyWords", true)
 						|| ArrayUtils.contains(columns, "topic", true)
 						|| ArrayUtils.contains(columns, "content", true)) {
 					for (final Object o : beans) {
