@@ -112,9 +112,9 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 			getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
 				@Override
 				protected void task() throws Exception {
-					log.info($m("NewsService.0"));
+					getLog().info($m("NewsService.0"));
 					luceneService.rebuildIndex();
-					log.info($m("NewsService.1"));
+					getLog().info($m("NewsService.1"));
 				}
 			});
 		}
