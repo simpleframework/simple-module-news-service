@@ -6,7 +6,6 @@ import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.ctx.service.ado.db.AbstractDbBeanService;
 import net.simpleframework.module.common.content.ContentException;
 import net.simpleframework.module.news.INewsCategoryService;
@@ -28,15 +27,16 @@ public class NewsCategoryService extends AbstractDbBeanService<NewsCategory> imp
 	}
 
 	@Override
+	protected ColumnData[] getDefaultOrderColumns() {
+		return ORDER_OORDER;
+	}
+
+	@Override
 	public IDataQuery<NewsCategory> queryChildren(final NewsCategory parent,
 			final ColumnData... orderColumns) {
 		if (parent == null) {
 			final FilterItems items = FilterItems.of();
-			items.addEqual("domain", getModuleContext().getDomain());
-			items.addIsNull("parentid");
-			if (ArrayUtils.isEmpty(orderColumns)) {
-				return queryByParams(items, ColumnData.ASC("oorder"));
-			}
+			items.addEqual("domain", getModuleContext().getDomain()).addIsNull("parentid");
 			return queryByParams(items, orderColumns);
 		}
 		return super.queryChildren(parent, orderColumns);
