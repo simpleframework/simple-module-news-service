@@ -49,8 +49,10 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 			filterItems = FilterItems.of();
 		}
 
-		filterItems.addEqual("domain", getModuleContext().getDomain()).addEqual("categoryId",
-				oCategory);
+		filterItems.addEqual("domain", getModuleContext().getDomain());
+		if (oCategory != null) {
+			filterItems.addEqual("categoryId", oCategory.getId());
+		}
 		if (timePeriod != null) {
 			filterItems.addEqual("createdate", timePeriod);
 		}
