@@ -48,13 +48,9 @@ public class NewsContext extends AbstractCommonModuleContext implements INewsCon
 	}
 
 	@Override
-	public String getManagerRole() {
-		return ROLE_NEWS_MANAGER;
-	}
-
-	@Override
 	protected Module createModule() {
-		return new Module().setName(MODULE_NAME).setText($m("NewsContext.0")).setOrder(32);
+		return new Module().setManagerRole(ROLE_NEWS_MANAGER).setName(MODULE_NAME)
+				.setText($m("NewsContext.0")).setOrder(32);
 	}
 
 	@Override
