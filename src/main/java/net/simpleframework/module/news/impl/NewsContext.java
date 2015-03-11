@@ -26,6 +26,7 @@ import net.simpleframework.module.news.NewsComment;
  */
 public class NewsContext extends AbstractCommonModuleContext implements INewsContext,
 		IDbEntityTableRegistry {
+	public static String ROLE_NEWS_MANAGER;
 
 	@Override
 	public void onInit(final IApplicationContext application) throws Exception {

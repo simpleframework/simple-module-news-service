@@ -1,8 +1,6 @@
 package net.simpleframework.module.news;
 
-import static net.simpleframework.ctx.permission.IPermissionConst.ROLECHART_SYSTEM;
 import net.simpleframework.ctx.IModuleRef;
-import net.simpleframework.ctx.permission.PermissionRole;
 import net.simpleframework.module.common.ICommonModuleContext;
 import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.IAttachmentService;
@@ -14,9 +12,6 @@ import net.simpleframework.module.common.content.IAttachmentService;
  *         http://www.simpleframework.net
  */
 public interface INewsContext extends ICommonModuleContext {
-
-	static final String ROLE_NEWS_MANAGER = PermissionRole.toUniqueRolename(ROLECHART_SYSTEM,
-			"news_manager");
 
 	static final String MODULE_NAME = "simple-module-news";
 
