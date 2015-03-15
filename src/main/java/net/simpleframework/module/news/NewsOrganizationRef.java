@@ -1,10 +1,11 @@
 package net.simpleframework.module.news;
 
 import static net.simpleframework.common.I18n.$m;
+import static net.simpleframework.module.news.impl.NewsContext.ROLE_NEWS_MANAGER;
 import net.simpleframework.ctx.IModuleContext;
-import net.simpleframework.module.news.impl.NewsContext;
+import net.simpleframework.organization.ERoleType;
 import net.simpleframework.organization.OrganizationRef;
-import net.simpleframework.organization.RolenameConst;
+import net.simpleframework.organization.RolenameW;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -18,8 +19,7 @@ public class NewsOrganizationRef extends OrganizationRef {
 	public void onInit(final IModuleContext context) throws Exception {
 		super.onInit(context);
 
-		NewsContext.ROLE_NEWS_MANAGER = RolenameConst.toUniqueRolename(
-				RolenameConst.ROLECHART_SYSTEM, "news_manager");
-		createRole_SystemChart(NewsContext.ROLE_NEWS_MANAGER, $m("NewsOrganizationRef.0"));
+		ROLE_NEWS_MANAGER = RolenameW.toUniqueRolename(RolenameW.ROLECHART_ORG_DEFAULT, "newsmgr");
+		RolenameW.registRole("newsmgr", $m("NewsOrganizationRef.0"), null, ERoleType.normal);
 	}
 }

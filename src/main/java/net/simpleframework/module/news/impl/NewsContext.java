@@ -24,7 +24,7 @@ import net.simpleframework.module.news.NewsComment;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsContext extends AbstractCommonModuleContext implements INewsContext,
+public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext,
 		IDbEntityTableRegistry {
 	public static String ROLE_NEWS_MANAGER;
 
@@ -50,8 +50,12 @@ public class NewsContext extends AbstractCommonModuleContext implements INewsCon
 
 	@Override
 	protected Module createModule() {
-		return new Module().setManagerRole(ROLE_NEWS_MANAGER).setName(MODULE_NAME)
-				.setText($m("NewsContext.0")).setOrder(32);
+		return new Module() {
+			@Override
+			public String getManagerRole() {
+				return ROLE_NEWS_MANAGER;
+			}
+		}.setName(MODULE_NAME).setText($m("NewsContext.0")).setOrder(32);
 	}
 
 	@Override
