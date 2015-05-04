@@ -18,6 +18,7 @@ import net.simpleframework.ado.lucene.AbstractLuceneManager;
 import net.simpleframework.ado.lucene.ILuceneManager;
 import net.simpleframework.ado.lucene.LuceneDocument;
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
@@ -101,18 +102,18 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 		return Convert.toInt(COUNT_STATS.get(category.getId().toString()));
 	}
 
+	private NewsLuceneService luceneService;
+
 	@Override
 	public ILuceneManager getLuceneService() {
 		return luceneService;
 	}
 
-	NewsLuceneService luceneService;
-
 	@Override
 	public void onInit() throws Exception {
 		super.onInit();
 
-		luceneService = new NewsLuceneService(new File(newsContext.getTmpdir() + "index"));
+		luceneService = new NewsLuceneService();
 		if (!luceneService.indexExists()) {
 			getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
 				@Override
@@ -183,21 +184,31 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 		});
 	}
 
-	static class NewsLuceneService extends AbstractLuceneManager {
-		public NewsLuceneService(final File indexPath) {
-			super(indexPath, new String[] { "id", "keyWord", "topic", "content" });
+	protected class NewsLuceneService extends AbstractLuceneManager {
+		public NewsLuceneService() {
+			super(new File(newsContext.getTmpdir() + "index"));
+		}
+
+		@Override
+		protected String[] getQueryFields() {
+			return new String[] { "id", "keyWord", "topic", "content" };
 		}
 
 		@Override
 		protected Object documentToObject(final LuceneDocument doc, final Class<?> beanClass) {
-			final News news = newsContext.getNewsService().getBean(doc.get("id"));
-			return news != null && news.getStatus() == EContentStatus.publish ? news : null;
+			Object obj;
+			if (beanClass == null) {
+				obj = super.documentToObject(doc, beanClass);
+			} else {
+				obj = getBean(doc.get("id"));
+			}
+			return (obj != null && BeanUtils.getProperty(obj, "status") == EContentStatus.publish) ? obj
+					: null;
 		}
 
 		@Override
 		protected IDataQuery<?> queryAll() {
-			return newsContext.getNewsService().getEntityManager()
-					.queryBeans(new ExpressionValue("indexed=?", true));
+			return getEntityManager().queryBeans(new ExpressionValue("indexed=?", true));
 		}
 
 		@Override
