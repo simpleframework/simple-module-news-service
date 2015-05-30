@@ -42,8 +42,7 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 	@Override
 	public DbEntityTable[] createEntityTables() {
-		return new DbEntityTable[] { SF_ATTACHMENT, SF_ATTACHMENT_LOB,
-				new DbEntityTable(NewsComment.class, "sf_news_comment"),
+		return new DbEntityTable[] { new DbEntityTable(NewsComment.class, "sf_news_comment"),
 				new DbEntityTable(NewsCategory.class, "sf_news_category"),
 				new DbEntityTable(News.class, "sf_news") };
 	}
