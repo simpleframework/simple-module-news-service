@@ -63,7 +63,7 @@
       <artifactId>lucene-analyzers-smartcn</artifactId>
       <version>4.7.2</version>
     </dependency>
-       
+           
     <!-- 测试包 -->
     <dependency>
       <groupId>junit</groupId>

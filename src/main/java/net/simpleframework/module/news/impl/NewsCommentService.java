@@ -28,7 +28,7 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 
 			@Override
 			public void onBeforeDelete(final IDbEntityManager<?> manager,
-					final IParamsValue paramsValue) {
+					final IParamsValue paramsValue) throws Exception {
 				super.onBeforeDelete(manager, paramsValue);
 
 				// 修改统计值
@@ -43,7 +43,8 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 			}
 
 			@Override
-			public void onAfterInsert(final IDbEntityManager<?> manager, final Object[] beans) {
+			public void onAfterInsert(final IDbEntityManager<?> manager, final Object[] beans)
+					throws Exception {
 				super.onAfterInsert(manager, beans);
 
 				// 修改统计值

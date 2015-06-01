@@ -128,13 +128,14 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 		addListener(new DbEntityAdapterEx() {
 			@Override
 			public void onBeforeDelete(final IDbEntityManager<?> service,
-					final IParamsValue paramsValue) {
+					final IParamsValue paramsValue) throws Exception {
 				super.onBeforeDelete(service, paramsValue);
 				coll(paramsValue); // 删除前缓存
 			}
 
 			@Override
-			public void onAfterDelete(final IDbEntityManager<?> service, final IParamsValue paramsValue) {
+			public void onAfterDelete(final IDbEntityManager<?> service, final IParamsValue paramsValue)
+					throws Exception {
 				super.onAfterDelete(service, paramsValue);
 				final NewsAttachmentService aService = (NewsAttachmentService) newsContext
 						.getAttachmentService();
@@ -152,7 +153,8 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 			}
 
 			@Override
-			public void onAfterInsert(final IDbEntityManager<?> service, final Object[] beans) {
+			public void onAfterInsert(final IDbEntityManager<?> service, final Object[] beans)
+					throws Exception {
 				super.onAfterInsert(service, beans);
 
 				for (final Object o : beans) {
@@ -166,7 +168,7 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 
 			@Override
 			public void onAfterUpdate(final IDbEntityManager<?> service, final String[] columns,
-					final Object[] beans) {
+					final Object[] beans) throws Exception {
 				super.onAfterUpdate(service, columns, beans);
 
 				// 更新索引
