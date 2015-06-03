@@ -3,10 +3,8 @@ package net.simpleframework.module.news.impl;
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.IDbEntityTableRegistry;
-import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
-import net.simpleframework.ctx.task.ExecutorRunnable;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
 import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.IAttachmentService;
@@ -27,18 +25,6 @@ import net.simpleframework.module.news.NewsComment;
 public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext,
 		IDbEntityTableRegistry {
 	public static String ROLE_NEWS_MANAGER;
-
-	@Override
-	public void onInit(final IApplicationContext application) throws Exception {
-		super.onInit(application);
-
-		getTaskExecutor().addScheduledTask(60 * 10, new ExecutorRunnable() {
-			@Override
-			protected void task() throws Exception {
-				getNewsService().doUnRecommendationTask();
-			}
-		});
-	}
 
 	@Override
 	public DbEntityTable[] createEntityTables() {
