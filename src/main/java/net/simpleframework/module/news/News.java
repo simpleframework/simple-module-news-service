@@ -29,10 +29,8 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 
 	/* 主题词 */
 	private String keyWords;
-
 	/* 作者 */
 	private String author;
-
 	/* 来源 */
 	private String source;
 
@@ -41,10 +39,8 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 
 	/* 统计信息-评论数。此信息需要和关联表同步 */
 	private int comments;
-
 	/* 最后一次更新统计comments的时间 */
 	private Date lastCommentDate;
-
 	/* 是否允许评论 */
 	private boolean allowComments = true;
 
