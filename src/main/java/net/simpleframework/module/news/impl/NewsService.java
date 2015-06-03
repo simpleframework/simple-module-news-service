@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import net.simpleframework.ado.ColumnData;
-import net.simpleframework.ado.EFilterRelation;
 import net.simpleframework.ado.FilterItem;
 import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
@@ -61,8 +60,7 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		if (status != null) {
 			filterItems.add(new FilterItem("status", status));
 		} else {
-			filterItems
-					.add(new FilterItem("status", EFilterRelation.not_equal, EContentStatus.delete));
+			filterItems.addNotEqual("status", EContentStatus.delete);
 		}
 
 		return queryByParams(filterItems, orderColumns);
