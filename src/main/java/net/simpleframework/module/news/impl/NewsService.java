@@ -27,7 +27,7 @@ import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.ctx.task.ExecutorRunnable;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
 import net.simpleframework.module.common.content.EContentStatus;
-import net.simpleframework.module.common.content.impl.AbstractContentService;
+import net.simpleframework.module.common.content.impl.AbstractRecommendContentService;
 import net.simpleframework.module.news.INewsContextAware;
 import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.News;
@@ -39,7 +39,7 @@ import net.simpleframework.module.news.NewsCategory;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsService extends AbstractContentService<News> implements INewsService,
+public class NewsService extends AbstractRecommendContentService<News> implements INewsService,
 		INewsContextAware {
 
 	@Override

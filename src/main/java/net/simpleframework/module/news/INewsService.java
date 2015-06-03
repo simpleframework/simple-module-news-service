@@ -2,7 +2,7 @@ package net.simpleframework.module.news;
 
 import net.simpleframework.ado.lucene.ILuceneManager;
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.module.common.content.IContentService;
+import net.simpleframework.module.common.content.IRecommendContentService;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -10,7 +10,7 @@ import net.simpleframework.module.common.content.IContentService;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public interface INewsService extends IContentService<News> {
+public interface INewsService extends IRecommendContentService<News> {
 
 	IDataQuery<News> queryContentBeans(String category);
 
