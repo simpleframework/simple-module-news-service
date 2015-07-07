@@ -12,7 +12,6 @@ import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
 import net.simpleframework.ado.db.common.ExpressionValue;
-import net.simpleframework.ado.db.common.SQLValue;
 import net.simpleframework.ado.lucene.AbstractLuceneManager;
 import net.simpleframework.ado.lucene.ILuceneManager;
 import net.simpleframework.ado.lucene.LuceneDocument;
@@ -90,9 +89,9 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 	public int count(final NewsCategory category) {
 		if (COUNT_STATS.size() == 0) {
 			final IDataQuery<Map<String, Object>> dq = getQueryManager().query(
-					new SQLValue("select categoryId, count(*) as cc from " + getTablename(News.class)
+					"select categoryId, count(*) as cc from " + getTablename(News.class)
 							+ " a where a.domain=? and a.status<>? group by categoryId",
-							getModuleContext().getDomain(), EContentStatus.delete));
+					getModuleContext().getDomain(), EContentStatus.delete);
 			for (Map<String, Object> row; (row = dq.next()) != null;) {
 				COUNT_STATS.put(Convert.toString(row.get("categoryId")), Convert.toInt(row.get("cc")));
 			}
