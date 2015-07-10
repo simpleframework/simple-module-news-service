@@ -114,7 +114,7 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		if (!luceneService.indexExists()) {
 			getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
 				@Override
-				protected void task() throws Exception {
+				protected void task(final Map<String, Object> cache) throws Exception {
 					getLog().info($m("NewsService.0"));
 					luceneService.rebuildIndex();
 					getLog().info($m("NewsService.1"));
