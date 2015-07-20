@@ -6,10 +6,8 @@ import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.ctx.service.ado.db.AbstractDbBeanService;
 import net.simpleframework.module.common.content.ContentException;
 import net.simpleframework.module.news.INewsCategoryService;
-import net.simpleframework.module.news.INewsContextAware;
 import net.simpleframework.module.news.NewsCategory;
 
 /**
@@ -18,8 +16,8 @@ import net.simpleframework.module.news.NewsCategory;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsCategoryService extends AbstractDbBeanService<NewsCategory> implements
-		INewsCategoryService, INewsContextAware {
+public class NewsCategoryService extends AbstractNewsService<NewsCategory> implements
+		INewsCategoryService {
 
 	@Override
 	public NewsCategory getBeanByName(final String name) {
