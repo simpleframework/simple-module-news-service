@@ -44,11 +44,11 @@ public class NewsCategoryService extends AbstractNewsService<NewsCategory> imple
 	public void onInit() throws Exception {
 		super.onInit();
 
-		addListener(new DbEntityAdapterEx() {
+		addListener(new DbEntityAdapterEx<NewsCategory>() {
 			@Override
-			public void onBeforeDelete(final IDbEntityManager<?> service,
+			public void onBeforeDelete(final IDbEntityManager<NewsCategory> manager,
 					final IParamsValue paramsValue) {
-				for (final NewsCategory category : coll(paramsValue)) {
+				for (final NewsCategory category : coll(manager, paramsValue)) {
 					if (newsContext.getNewsService().queryBeans(category, null).getCount() > 0) {
 						throw ContentException.of($m("NewsCategoryService.0"));
 					}

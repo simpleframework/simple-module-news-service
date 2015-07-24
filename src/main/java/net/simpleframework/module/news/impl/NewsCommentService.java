@@ -24,16 +24,16 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 	public void onInit() throws Exception {
 		super.onInit();
 
-		addListener(new DbEntityAdapterEx() {
+		addListener(new DbEntityAdapterEx<NewsComment>() {
 
 			@Override
-			public void onBeforeDelete(final IDbEntityManager<?> manager,
+			public void onBeforeDelete(final IDbEntityManager<NewsComment> manager,
 					final IParamsValue paramsValue) throws Exception {
 				super.onBeforeDelete(manager, paramsValue);
 
 				// 修改统计值
 				final INewsService nService = newsContext.getNewsService();
-				for (final NewsComment c : coll(paramsValue)) {
+				for (final NewsComment c : coll(manager, paramsValue)) {
 					final News news = nService.getBean(c.getContentId());
 					if (news != null) {
 						news.setComments(queryComments(news).getCount() - 1);
@@ -43,14 +43,13 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 			}
 
 			@Override
-			public void onAfterInsert(final IDbEntityManager<?> manager, final Object[] beans)
-					throws Exception {
+			public void onAfterInsert(final IDbEntityManager<NewsComment> manager,
+					final NewsComment[] beans) throws Exception {
 				super.onAfterInsert(manager, beans);
 
 				// 修改统计值
 				final INewsService nService = newsContext.getNewsService();
-				for (final Object o : beans) {
-					final NewsComment c = (NewsComment) o;
+				for (final NewsComment c : beans) {
 					final News news = nService.getBean(c.getContentId());
 					if (news != null) {
 						news.setComments(queryComments(news).getCount());

@@ -5,12 +5,14 @@ import static net.simpleframework.common.I18n.$m;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.simpleframework.ado.ColumnData;
 import net.simpleframework.ado.FilterItem;
 import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
+import net.simpleframework.ado.db.IDbManager;
 import net.simpleframework.ado.db.common.ExpressionValue;
 import net.simpleframework.ado.lucene.AbstractLuceneManager;
 import net.simpleframework.ado.lucene.ILuceneManager;
@@ -85,6 +87,8 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		return queryBeans(oCategory, null, ColumnData.EMPTY);
 	}
 
+	protected Map<String, Integer> COUNT_STATS = new ConcurrentHashMap<String, Integer>();
+
 	@Override
 	public int count(final NewsCategory category) {
 		if (COUNT_STATS.size() == 0) {
@@ -122,23 +126,23 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			});
 		}
 
-		addListener(new DbEntityAdapterEx() {
+		addListener(new DbEntityAdapterEx<News>() {
 			@Override
-			public void onBeforeDelete(final IDbEntityManager<?> service,
+			public void onBeforeDelete(final IDbEntityManager<News> manager,
 					final IParamsValue paramsValue) throws Exception {
-				super.onBeforeDelete(service, paramsValue);
-				coll(paramsValue); // 删除前缓存
+				super.onBeforeDelete(manager, paramsValue);
+				coll(manager, paramsValue); // 删除前缓存
 			}
 
 			@Override
-			public void onAfterDelete(final IDbEntityManager<?> service, final IParamsValue paramsValue)
-					throws Exception {
-				super.onAfterDelete(service, paramsValue);
+			public void onAfterDelete(final IDbEntityManager<News> manager,
+					final IParamsValue paramsValue) throws Exception {
+				super.onAfterDelete(manager, paramsValue);
 				final NewsAttachmentService aService = (NewsAttachmentService) newsContext
 						.getAttachmentService();
 				final NewsCommentService cService = (NewsCommentService) newsContext
 						.getCommentService();
-				for (final News news : coll(paramsValue)) {
+				for (final News news : coll(manager, paramsValue)) {
 					final ID id = news.getId();
 					aService.deleteWith("contentId=?", id);
 					cService.deleteWith("contentId=?", id);
@@ -150,12 +154,11 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			}
 
 			@Override
-			public void onAfterInsert(final IDbEntityManager<?> service, final Object[] beans)
+			public void onAfterInsert(final IDbEntityManager<News> service, final News[] beans)
 					throws Exception {
 				super.onAfterInsert(service, beans);
 
-				for (final Object o : beans) {
-					final News news = (News) o;
+				for (final News news : beans) {
 					if (news.isIndexed()) {
 						// 添加索引
 						luceneService.doAddIndex(news);
@@ -164,21 +167,26 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			}
 
 			@Override
-			public void onAfterUpdate(final IDbEntityManager<?> service, final String[] columns,
-					final Object[] beans) throws Exception {
+			public void onAfterUpdate(final IDbEntityManager<News> service, final String[] columns,
+					final News[] beans) throws Exception {
 				super.onAfterUpdate(service, columns, beans);
 
 				// 更新索引
 				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "keyWords", true)
 						|| ArrayUtils.contains(columns, "topic", true)
 						|| ArrayUtils.contains(columns, "content", true)) {
-					for (final Object o : beans) {
-						final News news = (News) o;
+					for (final News news : beans) {
 						if (news.isIndexed()) {
 							luceneService.doUpdateIndex(news);
 						}
 					}
 				}
+			}
+
+			@Override
+			protected void doAfterEvent(final IDbManager manager, final Object params) {
+				super.doAfterEvent(manager, params);
+				COUNT_STATS.clear();
 			}
 		});
 	}
