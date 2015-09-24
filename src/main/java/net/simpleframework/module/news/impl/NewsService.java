@@ -84,7 +84,7 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		if (oCategory == null) {
 			return null;
 		}
-		return queryBeans(oCategory, null, ColumnData.EMPTY);
+		return queryBeans(oCategory, null, new ColumnData[0]);
 	}
 
 	protected Map<String, Integer> COUNT_STATS = new ConcurrentHashMap<String, Integer>();

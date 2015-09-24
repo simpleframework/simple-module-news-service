@@ -1,5 +1,7 @@
 package net.simpleframework.module.news.impl;
 
+import java.io.Serializable;
+
 import net.simpleframework.ctx.IModuleContext;
 import net.simpleframework.ctx.service.ado.db.AbstractDbBeanService;
 import net.simpleframework.module.news.INewsContextAware;
@@ -10,7 +12,8 @@ import net.simpleframework.module.news.INewsContextAware;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class AbstractNewsService<T> extends AbstractDbBeanService<T> implements INewsContextAware {
+public class AbstractNewsService<T extends Serializable> extends AbstractDbBeanService<T> implements
+		INewsContextAware {
 
 	@Override
 	public IModuleContext getModuleContext() {
