@@ -2,7 +2,6 @@ package net.simpleframework.module.news.impl;
 
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ado.db.DbEntityTable;
-import net.simpleframework.ado.db.IDbEntityTableRegistry;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
@@ -22,12 +21,11 @@ import net.simpleframework.module.news.NewsComment;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext,
-		IDbEntityTableRegistry {
+public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext {
 	public static String ROLE_NEWS_MANAGER;
 
 	@Override
-	public DbEntityTable[] createEntityTables() {
+	protected DbEntityTable[] createEntityTables() {
 		return new DbEntityTable[] { new DbEntityTable(NewsComment.class, "sf_news_comment"),
 				new DbEntityTable(NewsCategory.class, "sf_news_category"),
 				new DbEntityTable(News.class, "sf_news") };
