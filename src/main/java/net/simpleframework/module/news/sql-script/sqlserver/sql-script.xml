@@ -64,7 +64,7 @@
         contentid char(32) not null,
         createdate datetime not null,
         userid char(32) not null,
-       	comment text not null,
+       	ccomment text not null,
         primary key(id)
       );
     ]]>
