@@ -8,7 +8,6 @@
     	create table sf_news_category (
     		id char(32) not null,
     		parentid char(32),
-        domain int4 not null,
     		name varchar(32) not null,
     		text varchar(64) not null,
     		viewtemplate int2 not null,
@@ -29,7 +28,7 @@
      	create table sf_news (
         id char(32) not null,
         categoryid char(32) not null,
-        domain int4 not null,
+        domainid char(32),
         cname varchar(32),
         status int2 not null,
         createdate timestamp not null,

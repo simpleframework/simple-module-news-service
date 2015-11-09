@@ -34,7 +34,7 @@ public class NewsCategoryService extends AbstractNewsService<NewsCategory> imple
 			final ColumnData... orderColumns) {
 		if (parent == null) {
 			final FilterItems items = FilterItems.of();
-			items.addEqual("domain", getModuleContext().getDomain()).addIsNull("parentid");
+			items.addIsNull("parentid");
 			return queryByParams(items, orderColumns);
 		}
 		return super.queryChildren(parent, orderColumns);

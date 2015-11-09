@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.simpleframework.ado.ColumnData;
-import net.simpleframework.ado.FilterItem;
 import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
@@ -43,14 +42,21 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		INewsContextAware {
 
 	@Override
-	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory,
+	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, ID domainId,
 			final EContentStatus status, final TimePeriod timePeriod, FilterItems filterItems,
 			final ColumnData... orderColumns) {
 		if (filterItems == null) {
 			filterItems = FilterItems.of();
 		}
 
-		filterItems.addEqual("domain", getModuleContext().getDomain());
+		if (domainId == null) {
+			final String domain = getModuleContext().getDomain();
+			if (domain != null) {
+				domainId = ID.of(domain);
+			}
+		}
+		filterItems.addEqual("domainId", domainId);
+
 		if (oCategory != null) {
 			filterItems.addEqual("categoryId", oCategory.getId());
 		}
@@ -59,12 +65,18 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		}
 
 		if (status != null) {
-			filterItems.add(new FilterItem("status", status));
+			filterItems.addEqual("status", status);
 		} else {
 			filterItems.addNotEqual("status", EContentStatus.delete);
 		}
-
 		return queryByParams(filterItems, orderColumns);
+	}
+
+	@Override
+	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory,
+			final EContentStatus status, final TimePeriod timePeriod, final FilterItems filterItems,
+			final ColumnData... orderColumns) {
+		return queryBeans(oCategory, null, status, timePeriod, filterItems, orderColumns);
 	}
 
 	@Override
