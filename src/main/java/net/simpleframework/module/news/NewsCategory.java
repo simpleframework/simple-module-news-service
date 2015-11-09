@@ -3,7 +3,6 @@ package net.simpleframework.module.news;
 import java.util.Date;
 
 import net.simpleframework.ado.bean.IDateAwareBean;
-import net.simpleframework.ado.bean.IDomainBeanAware;
 import net.simpleframework.ado.bean.INameBeanAware;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
@@ -17,10 +16,7 @@ import net.simpleframework.module.common.content.ECategoryMark;
  *         http://www.simpleframework.net
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
-public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAware, INameBeanAware,
-		IDateAwareBean {
-	/* 域，用在在线系统。默认为0 */
-	private int domain;
+public class NewsCategory extends AbstractCategoryBean implements INameBeanAware, IDateAwareBean {
 
 	/* 查看模板 */
 	private int viewTemplate;
@@ -34,16 +30,6 @@ public class NewsCategory extends AbstractCategoryBean implements IDomainBeanAwa
 	private ID userId;
 	/* 创建日期 */
 	private Date createDate;
-
-	@Override
-	public int getDomain() {
-		return domain;
-	}
-
-	@Override
-	public void setDomain(final int domain) {
-		this.domain = domain;
-	}
 
 	public int getViewTemplate() {
 		return viewTemplate;

@@ -21,8 +21,8 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 	/* 唯一名称，可为null */
 	private String cname;
 
-	/* 域，用在在线系统。默认为0 */
-	private int domain;
+	/* 域 */
+	private ID domainId;
 
 	/* 类目id */
 	private ID categoryId;
@@ -55,14 +55,12 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 		this.cname = cname;
 	}
 
-	@Override
-	public int getDomain() {
-		return domain;
+	public ID getDomainId() {
+		return domainId;
 	}
 
-	@Override
-	public void setDomain(final int domain) {
-		this.domain = domain;
+	public void setDomainId(final ID domainId) {
+		this.domainId = domainId;
 	}
 
 	public ID getCategoryId() {
