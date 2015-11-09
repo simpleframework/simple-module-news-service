@@ -92,7 +92,7 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 
 	@Override
 	public IDataQuery<News> queryContentBeans(final String category) {
-		final NewsCategory oCategory = _newscService.getBeanByName(category);
+		final NewsCategory oCategory = _newsCategoryService.getBeanByName(category);
 		if (oCategory == null) {
 			return null;
 		}

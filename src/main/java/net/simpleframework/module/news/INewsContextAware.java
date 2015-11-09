@@ -14,5 +14,6 @@ public interface INewsContextAware extends IModuleContextAware {
 	static INewsContext newsContext = ModuleContextFactory.get(INewsContext.class);
 
 	static INewsService _newsService = newsContext.getNewsService();
-	static INewsCategoryService _newscService = newsContext.getNewsCategoryService();
+	static INewsCategoryService _newsCategoryService = newsContext.getNewsCategoryService();
+	static INewsCommentService _newsCommentService = newsContext.getCommentService();
 }
