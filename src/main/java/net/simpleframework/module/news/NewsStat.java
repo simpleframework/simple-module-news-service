@@ -12,7 +12,7 @@ import net.simpleframework.common.ID;
 public class NewsStat extends AbstractIdBean {
 	/* 类目id */
 	private ID categoryId;
-	/* 机构id */
+	/* 域id */
 	private ID domainId;
 
 	/* 总数 */

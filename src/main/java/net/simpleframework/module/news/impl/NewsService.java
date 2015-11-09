@@ -150,14 +150,10 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			public void onAfterDelete(final IDbEntityManager<News> manager,
 					final IParamsValue paramsValue) throws Exception {
 				super.onAfterDelete(manager, paramsValue);
-				final NewsAttachmentService aService = (NewsAttachmentService) newsContext
-						.getAttachmentService();
-				final NewsCommentService cService = (NewsCommentService) newsContext
-						.getCommentService();
 				for (final News news : coll(manager, paramsValue)) {
 					final ID id = news.getId();
-					aService.deleteWith("contentId=?", id);
-					cService.deleteWith("contentId=?", id);
+					newsContext.getAttachmentService().deleteWith("contentId=?", id);
+					_newsCommentService.deleteWith("contentId=?", id);
 					// 删除索引
 					if (news.isIndexed()) {
 						luceneService.doDeleteIndex(news);
@@ -200,6 +196,11 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 				super.doAfterEvent(manager, params);
 				COUNT_STATS.clear();
 			}
+		});
+
+		// 统计
+		addListener(new DbEntityAdapterEx<News>() {
+
 		});
 	}
 

@@ -1,5 +1,6 @@
 package net.simpleframework.module.news.impl;
 
+import net.simpleframework.common.ID;
 import net.simpleframework.module.news.INewsStatService;
 import net.simpleframework.module.news.NewsStat;
 
@@ -10,4 +11,10 @@ import net.simpleframework.module.news.NewsStat;
  *         http://www.simpleframework.net
  */
 public class NewsStatService extends AbstractNewsService<NewsStat> implements INewsStatService {
+
+	@Override
+	public NewsStat getNewsStat(final ID categoryId, final ID domainId) {
+		final StringBuilder sql = new StringBuilder();
+		return getBean(sql);
+	}
 }

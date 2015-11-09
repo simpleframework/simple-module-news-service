@@ -1,5 +1,6 @@
 package net.simpleframework.module.news;
 
+import net.simpleframework.common.ID;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
 
 /**
@@ -10,4 +11,12 @@ import net.simpleframework.ctx.service.ado.db.IDbBeanService;
  */
 public interface INewsStatService extends IDbBeanService<NewsStat> {
 
+	/**
+	 * 获取统计对象
+	 * 
+	 * @param categoryId
+	 * @param domainId
+	 * @return
+	 */
+	NewsStat getNewsStat(ID categoryId, ID domainId);
 }
