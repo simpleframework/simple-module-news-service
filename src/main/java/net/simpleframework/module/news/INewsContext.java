@@ -36,6 +36,13 @@ public interface INewsContext extends ICommonModuleContext {
 	 */
 	INewsCommentService getCommentService();
 
+	/**
+	 * 获取统计服务
+	 * 
+	 * @return
+	 */
+	INewsStatService getNewsStatService();
+
 	@Override
 	IAttachmentService<Attachment> getAttachmentService();
 

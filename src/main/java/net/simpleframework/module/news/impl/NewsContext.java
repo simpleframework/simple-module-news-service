@@ -11,6 +11,7 @@ import net.simpleframework.module.news.INewsCategoryService;
 import net.simpleframework.module.news.INewsCommentService;
 import net.simpleframework.module.news.INewsContext;
 import net.simpleframework.module.news.INewsService;
+import net.simpleframework.module.news.INewsStatService;
 import net.simpleframework.module.news.News;
 import net.simpleframework.module.news.NewsCategory;
 import net.simpleframework.module.news.NewsComment;
@@ -61,6 +62,11 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	@Override
 	public INewsService getNewsService() {
 		return singleton(NewsService.class);
+	}
+
+	@Override
+	public INewsStatService getNewsStatService() {
+		return singleton(NewsStatService.class);
 	}
 
 	@Override
