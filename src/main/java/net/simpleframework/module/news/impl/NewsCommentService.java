@@ -7,7 +7,6 @@ import net.simpleframework.ado.db.IDbEntityManager;
 import net.simpleframework.module.common.content.impl.AbstractCommentService;
 import net.simpleframework.module.news.INewsCommentService;
 import net.simpleframework.module.news.INewsContextAware;
-import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.News;
 import net.simpleframework.module.news.NewsComment;
 
@@ -32,12 +31,11 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 				super.onBeforeDelete(manager, paramsValue);
 
 				// 修改统计值
-				final INewsService nService = newsContext.getNewsService();
 				for (final NewsComment c : coll(manager, paramsValue)) {
-					final News news = nService.getBean(c.getContentId());
+					final News news = _newsService.getBean(c.getContentId());
 					if (news != null) {
 						news.setComments(queryComments(news).getCount() - 1);
-						nService.update(new String[] { "comments" }, news);
+						_newsService.update(new String[] { "comments" }, news);
 					}
 				}
 			}
@@ -48,13 +46,12 @@ public class NewsCommentService extends AbstractCommentService<NewsComment> impl
 				super.onAfterInsert(manager, beans);
 
 				// 修改统计值
-				final INewsService nService = newsContext.getNewsService();
 				for (final NewsComment c : beans) {
-					final News news = nService.getBean(c.getContentId());
+					final News news = _newsService.getBean(c.getContentId());
 					if (news != null) {
 						news.setComments(queryComments(news).getCount());
 						news.setLastCommentDate(new Date());
-						nService.update(new String[] { "comments", "lastCommentDate" }, news);
+						_newsService.update(new String[] { "comments", "lastCommentDate" }, news);
 					}
 				}
 			}

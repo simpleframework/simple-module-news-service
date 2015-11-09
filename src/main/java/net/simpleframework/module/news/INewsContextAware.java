@@ -12,4 +12,7 @@ import net.simpleframework.ctx.ModuleContextFactory;
 public interface INewsContextAware extends IModuleContextAware {
 
 	static INewsContext newsContext = ModuleContextFactory.get(INewsContext.class);
+
+	static INewsService _newsService = newsContext.getNewsService();
+	static INewsCategoryService _newscService = newsContext.getNewsCategoryService();
 }
