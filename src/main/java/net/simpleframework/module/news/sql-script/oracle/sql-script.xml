@@ -68,4 +68,17 @@
       );
     ]]>
 	</tran-sql>
+  <tran-sql>
+    <![CDATA[
+      create table sf_news_stat (
+        id char(32) not null,
+        categoryid char(32),
+        domainid char(32),
+        nums number(11) not null,
+        nums_publish number(11) not null,
+        nums_delete number(11) not null,
+        primary key(id)
+      );
+    ]]>
+  </tran-sql>
 </sql-script>

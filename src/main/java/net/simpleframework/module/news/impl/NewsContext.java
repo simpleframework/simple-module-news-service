@@ -14,6 +14,7 @@ import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.News;
 import net.simpleframework.module.news.NewsCategory;
 import net.simpleframework.module.news.NewsComment;
+import net.simpleframework.module.news.NewsStat;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -28,7 +29,8 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	protected DbEntityTable[] createEntityTables() {
 		return new DbEntityTable[] { new DbEntityTable(NewsComment.class, "sf_news_comment"),
 				new DbEntityTable(NewsCategory.class, "sf_news_category"),
-				new DbEntityTable(News.class, "sf_news") };
+				new DbEntityTable(News.class, "sf_news"),
+				new DbEntityTable(NewsStat.class, "sf_news_stat") };
 	}
 
 	@Override
