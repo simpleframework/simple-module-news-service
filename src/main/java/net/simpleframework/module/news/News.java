@@ -55,10 +55,12 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 		this.cname = cname;
 	}
 
+	@Override
 	public ID getDomainId() {
 		return domainId;
 	}
 
+	@Override
 	public void setDomainId(final ID domainId) {
 		this.domainId = domainId;
 	}

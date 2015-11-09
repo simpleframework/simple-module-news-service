@@ -106,7 +106,7 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		if (COUNT_STATS.size() == 0) {
 			final IDataQuery<Map<String, Object>> dq = getQueryManager().query(
 					"select categoryId, count(*) as cc from " + getTablename(News.class)
-							+ " a where a.domain=? and a.status<>? group by categoryId",
+							+ " a where a.domainId=? and a.status<>? group by categoryId",
 					getModuleContext().getDomain(), EContentStatus.delete);
 			for (Map<String, Object> row; (row = dq.next()) != null;) {
 				COUNT_STATS.put(Convert.toString(row.get("categoryId")), Convert.toInt(row.get("cc")));
