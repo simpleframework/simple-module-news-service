@@ -42,21 +42,14 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		INewsContextAware {
 
 	@Override
-	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, ID domainId,
+	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, final ID domainId,
 			final EContentStatus status, final TimePeriod timePeriod, FilterItems filterItems,
 			final ColumnData... orderColumns) {
 		if (filterItems == null) {
 			filterItems = FilterItems.of();
 		}
 
-		if (domainId == null) {
-			final String domain = getModuleContext().getDomain();
-			if (domain != null) {
-				domainId = ID.of(domain);
-			}
-		}
 		filterItems.addEqual("domainId", domainId);
-
 		if (oCategory != null) {
 			filterItems.addEqual("categoryId", oCategory.getId());
 		}
@@ -200,7 +193,12 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 
 		// 统计
 		addListener(new DbEntityAdapterEx<News>() {
+			@Override
+			public void onAfterInsert(final IDbEntityManager<News> manager, final News[] beans)
+					throws Exception {
+				super.onAfterInsert(manager, beans);
 
+			}
 		});
 	}
 
