@@ -31,6 +31,7 @@ import net.simpleframework.module.news.INewsContextAware;
 import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.News;
 import net.simpleframework.module.news.NewsCategory;
+import net.simpleframework.module.news.NewsStat;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -197,9 +198,19 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			public void onAfterInsert(final IDbEntityManager<News> manager, final News[] beans)
 					throws Exception {
 				super.onAfterInsert(manager, beans);
-
+				for (final News news : beans) {
+					updateStats(news);
+				}
 			}
 		});
+	}
+
+	void updateStats(final News news) {
+		final NewsStatService _newsStatServiceImpl = (NewsStatService) _newsStatService;
+		final NewsStat stat = _newsStatService.getNewsStat(news.getCategoryId(), news.getDomainId());
+		// _newsStatServiceImpl.reset(stat);
+		_newsStatServiceImpl.setNewsStat(stat);
+		_newsStatService.update(stat);
 	}
 
 	protected class NewsLuceneService extends AbstractLuceneManager {
