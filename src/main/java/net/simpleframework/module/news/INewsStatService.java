@@ -19,4 +19,6 @@ public interface INewsStatService extends IDbBeanService<NewsStat> {
 	 * @return
 	 */
 	NewsStat getNewsStat(ID categoryId, ID domainId);
+
+	int getNewsStat_delete(ID domainId);
 }

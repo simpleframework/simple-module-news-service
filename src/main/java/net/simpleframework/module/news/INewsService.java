@@ -32,14 +32,6 @@ public interface INewsService extends IRecommendContentService<News> {
 	IDataQuery<News> queryImageNews(NewsCategory category);
 
 	/**
-	 * 获取指定类目新闻的数量
-	 * 
-	 * @param categoryId
-	 * @return
-	 */
-	int count(NewsCategory category);
-
-	/**
 	 * 根据名称获取新闻对象
 	 * 
 	 * @param name

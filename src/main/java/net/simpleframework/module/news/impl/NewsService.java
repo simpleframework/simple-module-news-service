@@ -5,20 +5,17 @@ import static net.simpleframework.common.I18n.$m;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.simpleframework.ado.ColumnData;
 import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
-import net.simpleframework.ado.db.IDbManager;
 import net.simpleframework.ado.db.common.ExpressionValue;
 import net.simpleframework.ado.lucene.AbstractLuceneManager;
 import net.simpleframework.ado.lucene.ILuceneManager;
 import net.simpleframework.ado.lucene.LuceneDocument;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.BeanUtils;
-import net.simpleframework.common.Convert;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.TimePeriod;
@@ -49,8 +46,9 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		if (filterItems == null) {
 			filterItems = FilterItems.of();
 		}
-
-		filterItems.addEqual("domainId", domainId);
+		if (domainId != null) {
+			filterItems.addEqual("domainId", domainId);
+		}
 		if (oCategory != null) {
 			filterItems.addEqual("categoryId", oCategory.getId());
 		}
@@ -93,22 +91,6 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		return queryBeans(oCategory, null, new ColumnData[0]);
 	}
 
-	protected Map<String, Integer> COUNT_STATS = new ConcurrentHashMap<String, Integer>();
-
-	@Override
-	public int count(final NewsCategory category) {
-		if (COUNT_STATS.size() == 0) {
-			final IDataQuery<Map<String, Object>> dq = getQueryManager().query(
-					"select categoryId, count(*) as cc from " + getTablename(News.class)
-							+ " a where a.domainId=? and a.status<>? group by categoryId",
-					getModuleContext().getDomain(), EContentStatus.delete);
-			for (Map<String, Object> row; (row = dq.next()) != null;) {
-				COUNT_STATS.put(Convert.toString(row.get("categoryId")), Convert.toInt(row.get("cc")));
-			}
-		}
-		return Convert.toInt(COUNT_STATS.get(category.getId().toString()));
-	}
-
 	private NewsLuceneService luceneService;
 
 	@Override
@@ -148,6 +130,10 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 					final ID id = news.getId();
 					newsContext.getAttachmentService().deleteWith("contentId=?", id);
 					_newsCommentService.deleteWith("contentId=?", id);
+
+					// 更新状态
+					updateStats(news);
+
 					// 删除索引
 					if (news.isIndexed()) {
 						luceneService.doDeleteIndex(news);
@@ -159,8 +145,10 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			public void onAfterInsert(final IDbEntityManager<News> service, final News[] beans)
 					throws Exception {
 				super.onAfterInsert(service, beans);
-
 				for (final News news : beans) {
+					// 更新状态
+					updateStats(news);
+
 					if (news.isIndexed()) {
 						// 添加索引
 						luceneService.doAddIndex(news);
@@ -172,6 +160,12 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			public void onAfterUpdate(final IDbEntityManager<News> service, final String[] columns,
 					final News[] beans) throws Exception {
 				super.onAfterUpdate(service, columns, beans);
+				// 更新状态
+				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "status", true)) {
+					for (final News news : beans) {
+						updateStats(news);
+					}
+				}
 
 				// 更新索引
 				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "keyWords", true)
@@ -184,31 +178,13 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 					}
 				}
 			}
-
-			@Override
-			protected void doAfterEvent(final IDbManager manager, final Object params) {
-				super.doAfterEvent(manager, params);
-				COUNT_STATS.clear();
-			}
-		});
-
-		// 统计
-		addListener(new DbEntityAdapterEx<News>() {
-			@Override
-			public void onAfterInsert(final IDbEntityManager<News> manager, final News[] beans)
-					throws Exception {
-				super.onAfterInsert(manager, beans);
-				for (final News news : beans) {
-					updateStats(news);
-				}
-			}
 		});
 	}
 
 	void updateStats(final News news) {
 		final NewsStatService _newsStatServiceImpl = (NewsStatService) _newsStatService;
 		final NewsStat stat = _newsStatService.getNewsStat(news.getCategoryId(), news.getDomainId());
-		// _newsStatServiceImpl.reset(stat);
+		_newsStatServiceImpl.reset(stat);
 		_newsStatServiceImpl.setNewsStat(stat);
 		_newsStatService.update(stat);
 	}

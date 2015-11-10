@@ -20,6 +20,7 @@ public class NewsStat extends AbstractIdBean {
 
 	/* 发布的数量 */
 	private int nums_publish;
+
 	/* 删除的数量 */
 	private int nums_delete;
 
