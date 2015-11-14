@@ -8,9 +8,11 @@
     	create table sf_news_category (
     		id char(32) not null,
     		parentid char(32),
+        domainid char(32),
     		name varchar(32) not null,
     		text varchar(64) not null,
     		viewtemplate tinyint not null,
+        vrole varchar(64),
     		mark tinyint not null,
     		createdate timestamp not null,
         userid char(32) not null,

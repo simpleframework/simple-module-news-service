@@ -17,9 +17,8 @@ import net.simpleframework.module.common.content.ECategoryMark;
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
 public class NewsCategory extends AbstractCategoryBean implements INameBeanAware, IDateAwareBean {
-
-	/* 查看模板 */
-	private int viewTemplate;
+	/* 域，要求 */
+	private ID domainId;
 
 	/* 名称或编码，唯一 */
 	private String name;
@@ -30,6 +29,19 @@ public class NewsCategory extends AbstractCategoryBean implements INameBeanAware
 	private ID userId;
 	/* 创建日期 */
 	private Date createDate;
+
+	/* 查看模板 */
+	private int viewTemplate;
+	/* 发布范围角色 */
+	private String vrole;
+
+	public ID getDomainId() {
+		return domainId;
+	}
+
+	public void setDomainId(final ID domainId) {
+		this.domainId = domainId;
+	}
 
 	public int getViewTemplate() {
 		return viewTemplate;
@@ -76,6 +88,14 @@ public class NewsCategory extends AbstractCategoryBean implements INameBeanAware
 	@Override
 	public void setCreateDate(final Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getVrole() {
+		return vrole;
+	}
+
+	public void setVrole(final String vrole) {
+		this.vrole = vrole;
 	}
 
 	private static final long serialVersionUID = -1520445282796635254L;
