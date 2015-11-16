@@ -132,8 +132,12 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 				super.onAfterDelete(manager, paramsValue);
 				for (final News news : coll(manager, paramsValue)) {
 					final ID id = news.getId();
-					newsContext.getAttachmentService().deleteWith("contentId=?", id);
-					_newsCommentService.deleteWith("contentId=?", id);
+					// 删除附件
+					newsContext.getAttachmentService().deleteWith("contentid=?", id);
+					// 删除评论
+					_newsCommentService.deleteWith("contentid=?", id);
+					// 删除统计
+					_newsStatService.deleteWith("categoryid=?", id);
 
 					// 更新状态
 					updateStats(news);
