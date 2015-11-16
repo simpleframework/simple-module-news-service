@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import net.simpleframework.ado.ColumnData;
+import net.simpleframework.ado.FilterItem;
 import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
@@ -46,16 +47,22 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		if (filterItems == null) {
 			filterItems = FilterItems.of();
 		}
-		if (domainId != null) {
-			filterItems.addEqual("domainId", domainId);
-		}
+
 		if (oCategory != null) {
 			filterItems.addEqual("categoryId", oCategory.getId());
 		}
+
+		final FilterItem nullDomain = FilterItem.isNull("domainId");
+		if (domainId != null) {
+			filterItems.append(nullDomain.setLbracket(true)).append(
+					FilterItem.or("domainId", domainId).setRbracket(true));
+		} else {
+			filterItems.add(nullDomain);
+		}
+
 		if (timePeriod != null) {
 			filterItems.addEqual("createdate", timePeriod);
 		}
-
 		if (status != null) {
 			filterItems.addEqual("status", status);
 		} else {

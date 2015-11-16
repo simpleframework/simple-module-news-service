@@ -23,27 +23,21 @@ import net.simpleframework.module.news.NewsStat;
 public class NewsStatService extends AbstractNewsService<NewsStat> implements INewsStatService {
 
 	@Override
-	public int getNewsStat_delete(final ID domainId) {
-		if (domainId == null) {
-			return sum("nums_delete").intValue();
-		} else {
-			return sum("nums_delete", "domainid=?", domainId).intValue();
-		}
-	}
-
-	@Override
 	public NewsStat getNewsStat(final ID categoryId, final ID domainId) {
 		final StringBuilder sql = new StringBuilder("categoryid=?");
 		final List<Object> params = ArrayUtils.toParams(categoryId);
 		if (domainId != null) {
 			sql.append(" and domainid=?");
 			params.add(domainId);
+		} else {
+			sql.append(" and domainid is null");
 		}
 		NewsStat stat = getBean(sql, params.toArray());
 		if (stat == null) {
 			stat = createBean();
 			stat.setCategoryId(categoryId);
 			stat.setDomainId(domainId);
+			setNewsStat(stat);
 			insert(stat);
 		}
 		return stat;
@@ -65,6 +59,8 @@ public class NewsStatService extends AbstractNewsService<NewsStat> implements IN
 		if (domainId != null) {
 			sql.append(" and n.domainid=?");
 			params.add(domainId);
+		} else {
+			sql.append(" and n.domainid is null");
 		}
 		sql.append(" group by n.status");
 		final IDataQuery<Map<String, Object>> dq = getQueryManager().query(sql, params.toArray());

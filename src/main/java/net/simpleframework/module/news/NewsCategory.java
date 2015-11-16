@@ -37,10 +37,12 @@ public class NewsCategory extends AbstractCategoryBean implements INameBeanAware
 	/* 发布范围角色 */
 	private String vrole;
 
+	@Override
 	public ID getDomainId() {
 		return domainId;
 	}
 
+	@Override
 	public void setDomainId(final ID domainId) {
 		this.domainId = domainId;
 	}
