@@ -52,12 +52,9 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			filterItems.addEqual("categoryId", oCategory.getId());
 		}
 
-		final FilterItem nullDomain = FilterItem.isNull("domainId");
 		if (domainId != null) {
-			filterItems.append(nullDomain.setLbracket(true)).append(
-					FilterItem.or("domainId", domainId).setRbracket(true));
-		} else {
-			filterItems.add(nullDomain);
+			filterItems.add(FilterItem.isNull("domainId").setLbracket(true));
+			filterItems.add(FilterItem.or("domainId", domainId).setRbracket(true));
 		}
 
 		if (timePeriod != null) {
