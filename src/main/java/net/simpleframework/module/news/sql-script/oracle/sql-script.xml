@@ -13,7 +13,6 @@
     		text varchar2(64 char) not null,
     		viewtemplate number(4) not null,
         vrole varchar2(64),
-    		mark number(4) not null,
     		createdate timestamp not null,
         userid char(32) not null,
     		description varchar2(256 char),

@@ -8,7 +8,6 @@ import net.simpleframework.ado.bean.INameBeanAware;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
-import net.simpleframework.module.common.content.ECategoryMark;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -24,8 +23,6 @@ public class NewsCategory extends AbstractCategoryBean implements INameBeanAware
 
 	/* 名称或编码，唯一 */
 	private String name;
-	/* 标识 */
-	private ECategoryMark mark;
 
 	/* 创建人 */
 	private ID userId;
@@ -63,14 +60,6 @@ public class NewsCategory extends AbstractCategoryBean implements INameBeanAware
 	@Override
 	public void setName(final String name) {
 		this.name = name;
-	}
-
-	public ECategoryMark getMark() {
-		return mark == null ? ECategoryMark.normal : mark;
-	}
-
-	public void setMark(final ECategoryMark mark) {
-		this.mark = mark;
 	}
 
 	public ID getUserId() {
