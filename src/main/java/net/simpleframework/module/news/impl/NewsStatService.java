@@ -23,6 +23,20 @@ import net.simpleframework.module.news.NewsStat;
 public class NewsStatService extends AbstractNewsService<NewsStat> implements INewsStatService {
 
 	@Override
+	public int getAllNums(final ID categoryId, final String prop) {
+		return sum(prop, "categoryid=?", categoryId).intValue();
+	}
+
+	@Override
+	public int getAllNums_delete(final ID domainId) {
+		if (domainId == null) {
+			return sum("nums_delete").intValue();
+		} else {
+			return sum("nums_delete", "domainid=? or domainid is null", domainId).intValue();
+		}
+	}
+
+	@Override
 	public NewsStat getNewsStat(final ID categoryId, final ID domainId) {
 		final StringBuilder sql = new StringBuilder("categoryid=?");
 		final List<Object> params = ArrayUtils.toParams(categoryId);
