@@ -24,7 +24,6 @@ import net.simpleframework.module.news.NewsStat;
  *         http://www.simpleframework.net
  */
 public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext {
-	public static String ROLE_NEWS_MANAGER;
 
 	@Override
 	protected DbEntityTable[] createEntityTables() {
@@ -36,12 +35,7 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 	@Override
 	protected Module createModule() {
-		return new Module() {
-			@Override
-			public String getManagerRole() {
-				return ROLE_NEWS_MANAGER;
-			}
-		}.setName(MODULE_NAME).setText($m("NewsContext.0")).setOrder(32);
+		return new Module().setName(MODULE_NAME).setText($m("NewsContext.0")).setOrder(32);
 	}
 
 	@Override
