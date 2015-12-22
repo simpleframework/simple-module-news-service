@@ -169,7 +169,8 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 					final News[] beans) throws Exception {
 				super.onAfterUpdate(service, columns, beans);
 				// 更新状态
-				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "status", true)) {
+				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "status", true)
+						|| ArrayUtils.contains(columns, "categoryId", true)) {
 					for (final News news : beans) {
 						updateStats(news);
 					}
