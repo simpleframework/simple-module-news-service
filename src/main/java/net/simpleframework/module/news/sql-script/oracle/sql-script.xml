@@ -42,6 +42,7 @@
         recommendationdate timestamp,
         recommendationduration number(11) not null,
         imagemark number(1) not null,
+        videomark number(1) not null,
         contentmark number(11) not null,
         comments number(11) not null,
         lastcommentdate timestamp,

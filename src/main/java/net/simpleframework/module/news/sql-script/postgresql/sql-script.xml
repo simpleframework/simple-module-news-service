@@ -42,6 +42,7 @@
         recommendationdate timestamp,
         recommendationduration int4 not null,
         imagemark bool not null,
+        videomark bool not null,
         contentmark int4 not null,
         comments int4 not null,
         lastcommentdate timestamp,

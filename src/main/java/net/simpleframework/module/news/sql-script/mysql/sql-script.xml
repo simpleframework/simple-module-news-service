@@ -42,6 +42,7 @@
         recommendationdate datetime,
         recommendationduration int not null,
         imagemark bit not null,
+        videomark bit not null,
         contentmark int not null,
         comments int not null,
         lastcommentdate datetime,
