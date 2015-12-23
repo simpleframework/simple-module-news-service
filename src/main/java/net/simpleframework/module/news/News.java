@@ -34,15 +34,17 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 	/* 来源 */
 	private String source;
 
-	/* 图片新闻 */
+	/* 图片标识 */
 	private boolean imageMark;
+	/* 视频标识 */
+	private boolean videoMark;
 
 	/* 统计信息-评论数。此信息需要和关联表同步 */
 	private int comments;
-	/* 最后一次更新统计comments的时间 */
-	private Date lastCommentDate;
 	/* 是否允许评论 */
 	private boolean allowComments = true;
+	/* 最后一次更新统计comments的时间 */
+	private Date lastCommentDate;
 
 	/* 是否允许建立索引 */
 	private boolean indexed = true;
@@ -135,6 +137,14 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 
 	public void setImageMark(final boolean imageMark) {
 		this.imageMark = imageMark;
+	}
+
+	public boolean isVideoMark() {
+		return videoMark;
+	}
+
+	public void setVideoMark(final boolean videoMark) {
+		this.videoMark = videoMark;
 	}
 
 	@Override
