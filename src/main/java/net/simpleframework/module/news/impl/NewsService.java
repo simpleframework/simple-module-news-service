@@ -165,6 +165,23 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 			}
 
 			@Override
+			public void onBeforeUpdate(final IDbEntityManager<News> manager, final String[] columns,
+					final News[] beans) throws Exception {
+				super.onBeforeUpdate(manager, columns, beans);
+				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "categoryId", true)) {
+					for (final News news : beans) {
+						final Object categoryId = queryFor("categoryId", "id=?", news.getId());
+						final NewsCategory category = _newsCategoryService.getBean(categoryId);
+						ID _categoryId;
+						if (category != null
+								&& !(_categoryId = category.getId()).equals(news.getCategoryId())) {
+							news.setAttr("_categoryId", _categoryId);
+						}
+					}
+				}
+			}
+
+			@Override
 			public void onAfterUpdate(final IDbEntityManager<News> service, final String[] columns,
 					final News[] beans) throws Exception {
 				super.onAfterUpdate(service, columns, beans);
@@ -173,6 +190,11 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 						|| ArrayUtils.contains(columns, "categoryId", true)) {
 					for (final News news : beans) {
 						updateStats(news);
+
+						final ID _categoryId = (ID) news.getAttr("_categoryId");
+						if (_categoryId != null) {
+							updateStats(_categoryId, news.getDomainId());
+						}
 					}
 				}
 
@@ -191,8 +213,12 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 	}
 
 	void updateStats(final News news) {
+		updateStats(news.getCategoryId(), news.getDomainId());
+	}
+
+	void updateStats(final ID categoryId, final ID domainId) {
 		final NewsStatService _newsStatServiceImpl = (NewsStatService) _newsStatService;
-		final NewsStat stat = _newsStatService.getNewsStat(news.getCategoryId(), news.getDomainId());
+		final NewsStat stat = _newsStatService.getNewsStat(categoryId, domainId);
 		_newsStatServiceImpl.reset(stat);
 		_newsStatServiceImpl.setNewsStat(stat);
 		_newsStatService.update(stat);
