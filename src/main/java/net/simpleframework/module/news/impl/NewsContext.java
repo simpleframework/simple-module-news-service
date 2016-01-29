@@ -30,7 +30,8 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 		return new DbEntityTable[] { new DbEntityTable(NewsComment.class, "sf_news_comment"),
 				new DbEntityTable(NewsCategory.class, "sf_news_category"),
 				new DbEntityTable(News.class, "sf_news"),
-				new DbEntityTable(NewsStat.class, "sf_news_stat") };
+				new DbEntityTable(NewsStat.class, "sf_news_stat"),
+				new DbEntityTable(NewsAttachment.class, "sf_attachment"), SF_ATTACHMENT_LOB };
 	}
 
 	@Override
