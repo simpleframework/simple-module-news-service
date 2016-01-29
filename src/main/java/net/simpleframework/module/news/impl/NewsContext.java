@@ -5,7 +5,6 @@ import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
-import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.IAttachmentService;
 import net.simpleframework.module.news.INewsCategoryService;
 import net.simpleframework.module.news.INewsCommentService;
@@ -13,6 +12,7 @@ import net.simpleframework.module.news.INewsContext;
 import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.INewsStatService;
 import net.simpleframework.module.news.News;
+import net.simpleframework.module.news.NewsAttachment;
 import net.simpleframework.module.news.NewsCategory;
 import net.simpleframework.module.news.NewsComment;
 import net.simpleframework.module.news.NewsStat;
@@ -39,7 +39,7 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	}
 
 	@Override
-	public IAttachmentService<Attachment> getAttachmentService() {
+	public IAttachmentService<NewsAttachment> getAttachmentService() {
 		return singleton(NewsAttachmentService.class);
 	}
 

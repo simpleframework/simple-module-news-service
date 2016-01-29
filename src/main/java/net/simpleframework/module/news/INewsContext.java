@@ -2,7 +2,6 @@ package net.simpleframework.module.news;
 
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.module.common.ICommonModuleContext;
-import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.IAttachmentService;
 
 /**
@@ -44,7 +43,7 @@ public interface INewsContext extends ICommonModuleContext {
 	INewsStatService getNewsStatService();
 
 	@Override
-	IAttachmentService<Attachment> getAttachmentService();
+	IAttachmentService<NewsAttachment> getAttachmentService();
 
 	/**
 	 * 获取机构的引用
