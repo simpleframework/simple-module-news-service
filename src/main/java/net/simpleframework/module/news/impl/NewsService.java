@@ -60,6 +60,7 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 		if (timePeriod != null) {
 			filterItems.addEqual("createdate", timePeriod);
 		}
+
 		if (status != null) {
 			filterItems.addEqual("status", status);
 		} else {
@@ -83,7 +84,13 @@ public class NewsService extends AbstractRecommendContentService<News> implement
 	@Override
 	public IDataQuery<News> queryImageNews(final NewsCategory oCategory) {
 		return queryBeans(oCategory, EContentStatus.publish, null, FilterItems.of("imageMark", true),
-				new ColumnData[] { ColumnData.DESC("recommendation"), ColumnData.DESC("createdate") });
+				new ColumnData[] { ColumnData.DESC("createdate") });
+	}
+
+	@Override
+	public IDataQuery<News> queryVideoNews(final NewsCategory oCategory) {
+		return queryBeans(oCategory, EContentStatus.publish, null, FilterItems.of("videoMark", true),
+				new ColumnData[] { ColumnData.DESC("createdate") });
 	}
 
 	@Override

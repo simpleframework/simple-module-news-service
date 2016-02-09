@@ -32,6 +32,14 @@ public interface INewsService extends IRecommendContentService<News> {
 	IDataQuery<News> queryImageNews(NewsCategory category);
 
 	/**
+	 * 查找视频新闻
+	 * 
+	 * @param category
+	 * @return
+	 */
+	IDataQuery<News> queryVideoNews(NewsCategory category);
+
+	/**
 	 * 根据名称获取新闻对象
 	 * 
 	 * @param name

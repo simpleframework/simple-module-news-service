@@ -14,8 +14,7 @@ import net.simpleframework.module.common.content.AbstractRecommendContentBean;
  *         http://www.simpleframework.net
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityUpdateLogAdapter",
-		"net.simpleframework.module.log.EntityDeleteLogAdapter" }, columns = { "status",
-		"recommendation", "topic" })
+		"net.simpleframework.module.log.EntityDeleteLogAdapter" }, columns = { "status", "topic" })
 public class News extends AbstractRecommendContentBean implements IDomainBeanAware {
 
 	/* 唯一名称，可为null */
