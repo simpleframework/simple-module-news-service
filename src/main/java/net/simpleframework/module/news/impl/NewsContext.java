@@ -1,9 +1,14 @@
 package net.simpleframework.module.news.impl;
 
 import static net.simpleframework.common.I18n.$m;
+import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.DbEntityTable;
+import net.simpleframework.ado.db.IDbEntityManager;
+import net.simpleframework.common.coll.ArrayUtils;
+import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
+import net.simpleframework.ctx.service.ado.db.AbstractDbBeanService.DbEntityAdapterEx;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
 import net.simpleframework.module.common.content.IAttachmentService;
 import net.simpleframework.module.news.INewsCategoryService;
@@ -67,5 +72,50 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	@Override
 	public IModuleRef getOrganizationRef() {
 		return getRef("net.simpleframework.module.news.NewsOrganizationRef");
+	}
+
+	@Override
+	public void onInit(final IApplicationContext application) throws Exception {
+		super.onInit(application);
+
+		final IAttachmentService<NewsAttachment> attachService = getAttachmentService();
+		attachService.addListener(new DbEntityAdapterEx<NewsAttachment>() {
+			@Override
+			public void onBeforeDelete(final IDbEntityManager<NewsAttachment> manager,
+					final IParamsValue paramsValue) throws Exception {
+				super.onBeforeDelete(manager, paramsValue);
+				for (final NewsAttachment attach : coll(manager, paramsValue)) {
+					doVideoTime(attach, -attach.getVideoTime());
+				}
+			}
+
+			@Override
+			public void onAfterInsert(final IDbEntityManager<NewsAttachment> manager,
+					final NewsAttachment[] beans) throws Exception {
+				super.onAfterInsert(manager, beans);
+				for (final NewsAttachment attach : beans) {
+					doVideoTime(attach, 0);
+				}
+			}
+
+			@Override
+			public void onAfterUpdate(final IDbEntityManager<NewsAttachment> manager,
+					final String[] columns, final NewsAttachment[] beans) throws Exception {
+				super.onAfterUpdate(manager, columns, beans);
+				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "videoTime", true)) {
+					for (final NewsAttachment attach : beans) {
+						doVideoTime(attach, 0);
+					}
+				}
+			}
+
+			private void doVideoTime(final NewsAttachment attach, final int delta) {
+				final INewsService newsService = getNewsService();
+				final News news = newsService.getBean(attach.getContentId());
+				news.setVideoTime(attachService.sum("videoTime", "contentId=?", news.getId())
+						.intValue() + delta);
+				newsService.update(new String[] { "videoTime" }, news);
+			}
+		});
 	}
 }
