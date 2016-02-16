@@ -37,6 +37,8 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 	private boolean imageMark;
 	/* 视频标识 */
 	private boolean videoMark;
+	/* 视频时长，单位s */
+	private int videoTime;
 
 	/* 统计信息-评论数。此信息需要和关联表同步 */
 	private int comments;
@@ -144,6 +146,14 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 
 	public void setVideoMark(final boolean videoMark) {
 		this.videoMark = videoMark;
+	}
+
+	public int getVideoTime() {
+		return videoTime;
+	}
+
+	public void setVideoTime(final int videoTime) {
+		this.videoTime = videoTime;
 	}
 
 	@Override

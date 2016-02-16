@@ -44,6 +44,7 @@
         imagemark bool not null,
         videomark bool not null,
         contentmark int4 not null,
+        videotime int4 not null,
         comments int4 not null,
         lastcommentdate timestamp,
         allowcomments bool not null,

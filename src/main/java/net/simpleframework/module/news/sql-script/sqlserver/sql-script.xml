@@ -44,6 +44,7 @@
         imagemark bit not null,
         videomark bit not null,
         contentmark int not null,
+        videotime int not null,
         comments int not null,
         lastcommentdate datetime,
         allowcomments bit not null,
