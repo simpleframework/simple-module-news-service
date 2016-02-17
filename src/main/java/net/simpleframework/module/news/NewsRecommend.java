@@ -1,5 +1,7 @@
 package net.simpleframework.module.news;
 
+import static net.simpleframework.common.I18n.$m;
+
 import java.util.Date;
 
 import net.simpleframework.ado.bean.AbstractDateAwareBean;
@@ -78,13 +80,30 @@ public class NewsRecommend extends AbstractDateAwareBean {
 	}
 
 	public static enum ERecommendStatus {
-		ready,
-
-		running,
-
-		complete,
-
-		abort
+		ready {
+			@Override
+			public String toString() {
+				return $m("ERecommendStatus.ready");
+			}
+		},
+		running {
+			@Override
+			public String toString() {
+				return $m("ERecommendStatus.running");
+			}
+		},
+		complete {
+			@Override
+			public String toString() {
+				return $m("ERecommendStatus.complete");
+			}
+		},
+		abort {
+			@Override
+			public String toString() {
+				return $m("ERecommendStatus.abort");
+			}
+		}
 	}
 
 	private static final long serialVersionUID = 6285609326593701390L;
