@@ -79,6 +79,7 @@
         rlevel number(11) not null,
         dstartdate timestamp,
         denddate timestamp,
+        description varchar2(256 char),
         primary key(id)
       );
     ]]>

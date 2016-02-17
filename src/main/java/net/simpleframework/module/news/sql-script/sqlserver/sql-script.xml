@@ -79,6 +79,7 @@
         rlevel int not null,
         dstartdate datetime,
         denddate datetime,
+        description varchar(256),
         primary key(id)
       );
     ]]>

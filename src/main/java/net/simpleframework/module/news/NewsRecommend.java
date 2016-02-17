@@ -26,6 +26,9 @@ public class NewsRecommend extends AbstractDateAwareBean {
 	/* 结束时间 */
 	private Date dendDate;
 
+	/* 描述 */
+	private String description;
+
 	public ID getNewsId() {
 		return newsId;
 	}
@@ -64,6 +67,14 @@ public class NewsRecommend extends AbstractDateAwareBean {
 
 	public void setDendDate(final Date dendDate) {
 		this.dendDate = dendDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(final String description) {
+		this.description = description;
 	}
 
 	public static enum ERecommendStatus {
