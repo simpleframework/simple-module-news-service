@@ -38,7 +38,7 @@ public class NewsRecommend extends AbstractDateAwareBean {
 	}
 
 	public ERecommendStatus getStatus() {
-		return status;
+		return status == null ? ERecommendStatus.ready : status;
 	}
 
 	public void setStatus(final ERecommendStatus status) {
