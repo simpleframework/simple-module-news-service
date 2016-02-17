@@ -21,6 +21,9 @@ public interface INewsContextAware extends IModuleContextAware {
 	/* 新闻评论服务 */
 	static INewsCommentService _newsCommentService = newsContext.getCommentService();
 
+	/* 新闻推荐服务 */
+	static INewsRecommendService _newsRecommendService = newsContext.getNewsRecommendService();
+
 	/* 新闻统计信息服务 */
 	static INewsStatService _newsStatService = newsContext.getNewsStatService();
 }

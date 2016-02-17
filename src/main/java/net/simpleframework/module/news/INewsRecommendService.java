@@ -1,5 +1,6 @@
 package net.simpleframework.module.news;
 
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
 
 /**
@@ -10,4 +11,11 @@ import net.simpleframework.ctx.service.ado.db.IDbBeanService;
  *         http://www.simpleframework.net
  */
 public interface INewsRecommendService extends IDbBeanService<NewsRecommend> {
+
+	/**
+	 * @param news
+	 * 
+	 * @return
+	 */
+	IDataQuery<NewsRecommend> queryRecommends(News news);
 }
