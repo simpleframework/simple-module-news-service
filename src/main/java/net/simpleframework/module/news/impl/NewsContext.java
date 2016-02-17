@@ -14,12 +14,14 @@ import net.simpleframework.module.common.content.IAttachmentService;
 import net.simpleframework.module.news.INewsCategoryService;
 import net.simpleframework.module.news.INewsCommentService;
 import net.simpleframework.module.news.INewsContext;
+import net.simpleframework.module.news.INewsRecommendService;
 import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.INewsStatService;
 import net.simpleframework.module.news.News;
 import net.simpleframework.module.news.NewsAttachment;
 import net.simpleframework.module.news.NewsCategory;
 import net.simpleframework.module.news.NewsComment;
+import net.simpleframework.module.news.NewsRecommend;
 import net.simpleframework.module.news.NewsStat;
 
 /**
@@ -32,9 +34,10 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 	@Override
 	protected DbEntityTable[] createEntityTables() {
-		return new DbEntityTable[] { new DbEntityTable(NewsComment.class, "sf_news_comment"),
-				new DbEntityTable(NewsCategory.class, "sf_news_category"),
+		return new DbEntityTable[] { new DbEntityTable(NewsCategory.class, "sf_news_category"),
 				new DbEntityTable(News.class, "sf_news"),
+				new DbEntityTable(NewsComment.class, "sf_news_comment"),
+				new DbEntityTable(NewsRecommend.class, "sf_news_recommend"),
 				new DbEntityTable(NewsStat.class, "sf_news_stat"),
 				new DbEntityTable(NewsAttachment.class, "sf_attachment"), SF_ATTACHMENT_LOB };
 	}
@@ -45,13 +48,8 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	}
 
 	@Override
-	public IAttachmentService<NewsAttachment> getAttachmentService() {
-		return singleton(NewsAttachmentService.class);
-	}
-
-	@Override
-	public INewsCommentService getCommentService() {
-		return singleton(NewsCommentService.class);
+	public INewsService getNewsService() {
+		return singleton(NewsService.class);
 	}
 
 	@Override
@@ -60,13 +58,23 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	}
 
 	@Override
-	public INewsService getNewsService() {
-		return singleton(NewsService.class);
+	public INewsCommentService getCommentService() {
+		return singleton(NewsCommentService.class);
+	}
+
+	@Override
+	public INewsRecommendService getNewsRecommendService() {
+		return singleton(NewsRecommendService.class);
 	}
 
 	@Override
 	public INewsStatService getNewsStatService() {
 		return singleton(NewsStatService.class);
+	}
+
+	@Override
+	public IAttachmentService<NewsAttachment> getAttachmentService() {
+		return singleton(NewsAttachmentService.class);
 	}
 
 	@Override

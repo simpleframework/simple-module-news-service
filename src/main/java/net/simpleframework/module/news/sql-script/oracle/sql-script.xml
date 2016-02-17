@@ -38,13 +38,11 @@
         keywords varchar2(128 char),
         author varchar2(32 char),
         source varchar2(32 char),
-        recommendation number(11) not null,
-        recommendationdate timestamp,
-        recommendationduration number(11) not null,
         imagemark number(1) not null,
         videomark number(1) not null,
         contentmark number(11) not null,
         videotime number(11) not null,
+        rlevel number(11) not null,
         comments number(11) not null,
         lastcommentdate timestamp,
         allowcomments number(1) not null,
@@ -71,6 +69,20 @@
       );
     ]]>
 	</tran-sql>
+  <tran-sql>
+    <![CDATA[
+      create table sf_news_recommend (
+        id char(32) not null,
+        newsid char(32) not null,
+        createdate timestamp not null,
+        status number(4) not null,
+        rlevel number(11) not null,
+        dstartdate timestamp,
+        denddate timestamp,
+        primary key(id)
+      );
+    ]]>
+  </tran-sql>
   <tran-sql>
     <![CDATA[
       create table sf_news_stat (

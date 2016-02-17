@@ -5,17 +5,18 @@ import java.util.Date;
 import net.simpleframework.ado.bean.IDomainBeanAware;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
-import net.simpleframework.module.common.content.AbstractRecommendContentBean;
+import net.simpleframework.module.common.content.AbstractContentBean;
 
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityUpdateLogAdapter",
 		"net.simpleframework.module.log.EntityDeleteLogAdapter" }, columns = { "status", "topic" })
-public class News extends AbstractRecommendContentBean implements IDomainBeanAware {
+public class News extends AbstractContentBean implements IDomainBeanAware {
 
 	/* 唯一名称，可为null */
 	private String cname;
@@ -40,10 +41,13 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 	/* 视频时长，单位s */
 	private int videoTime;
 
-	/* 统计信息-评论数。此信息需要和关联表同步 */
-	private int comments;
+	/* 推荐级别 */
+	private int rlevel;
+
 	/* 是否允许评论 */
 	private boolean allowComments = true;
+	/* 统计信息-评论数。此信息需要和关联表同步 */
+	private int comments;
 	/* 最后一次更新统计comments的时间 */
 	private Date lastCommentDate;
 
@@ -98,6 +102,14 @@ public class News extends AbstractRecommendContentBean implements IDomainBeanAwa
 
 	public void setSource(final String source) {
 		this.source = source;
+	}
+
+	public int getRlevel() {
+		return rlevel;
+	}
+
+	public void setRlevel(final int rlevel) {
+		this.rlevel = rlevel;
 	}
 
 	public int getComments() {

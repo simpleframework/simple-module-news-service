@@ -36,6 +36,13 @@ public interface INewsContext extends ICommonModuleContext {
 	INewsCommentService getCommentService();
 
 	/**
+	 * 推荐服务
+	 * 
+	 * @return
+	 */
+	INewsRecommendService getNewsRecommendService();
+
+	/**
 	 * 获取统计服务
 	 * 
 	 * @return

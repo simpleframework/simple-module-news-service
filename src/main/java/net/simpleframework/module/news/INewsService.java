@@ -8,7 +8,7 @@ import net.simpleframework.common.ID;
 import net.simpleframework.common.TimePeriod;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
 import net.simpleframework.module.common.content.EContentStatus;
-import net.simpleframework.module.common.content.IRecommendContentService;
+import net.simpleframework.module.common.content.IContentService;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -16,7 +16,7 @@ import net.simpleframework.module.common.content.IRecommendContentService;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public interface INewsService extends IRecommendContentService<News> {
+public interface INewsService extends IContentService<News> {
 
 	IDataQuery<News> queryBeans(AbstractCategoryBean category, ID domainId, EContentStatus status,
 			TimePeriod timePeriod, FilterItems filterItems, ColumnData... orderColumns);
