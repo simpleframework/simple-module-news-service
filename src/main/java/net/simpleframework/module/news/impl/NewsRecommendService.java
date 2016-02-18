@@ -7,10 +7,11 @@ import java.util.Map;
 import net.simpleframework.ado.IParamsValue;
 import net.simpleframework.ado.db.IDbEntityManager;
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.ado.trans.TransactionVoidCallback;
 import net.simpleframework.ctx.task.ExecutorRunnableEx;
 import net.simpleframework.ctx.task.ITaskExecutor;
+import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.common.content.ContentException;
+import net.simpleframework.module.news.INewsContext;
 import net.simpleframework.module.news.INewsRecommendService;
 import net.simpleframework.module.news.News;
 import net.simpleframework.module.news.NewsRecommend;
@@ -40,6 +41,13 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 	public void doAbort(final NewsRecommend recommend) {
 	}
 
+	void _doCheck() {
+	}
+
+	@Transaction(context = INewsContext.class)
+	public void doRecommend_inTran(final NewsRecommend r) {
+	}
+
 	@Override
 	public void onInit() throws Exception {
 		super.onInit();
@@ -48,11 +56,7 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 		taskExecutor.addScheduledTask(new ExecutorRunnableEx("newsrecommend_check") {
 			@Override
 			protected void task(final Map<String, Object> cache) throws Exception {
-				doExecuteTransaction(new TransactionVoidCallback() {
-					@Override
-					protected void doTransactionVoidCallback() throws Throwable {
-					}
-				});
+				_doCheck();
 			}
 		});
 
