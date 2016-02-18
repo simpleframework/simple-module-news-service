@@ -30,7 +30,7 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 
 	@Override
 	public IDataQuery<NewsRecommend> queryRecommends(final Object news) {
-		return query("newsid=?", getIdParam(news));
+		return query("newsid=? order by createdate desc", getIdParam(news));
 	}
 
 	@Override
@@ -104,6 +104,18 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 				for (final NewsRecommend r : coll(manager, paramsValue)) {
 					if (r.getStatus() == ERecommendStatus.running) {
 						throw ContentException.of($m("NewsRecommendService.0"));
+					}
+				}
+			}
+
+			@Override
+			public void onBeforeUpdate(final IDbEntityManager<NewsRecommend> manager,
+					final String[] columns, final NewsRecommend[] beans) throws Exception {
+				super.onBeforeUpdate(manager, columns, beans);
+				for (final NewsRecommend r : beans) {
+					final ERecommendStatus status = r.getStatus();
+					if (status != ERecommendStatus.ready) {
+						throw ContentException.of($m("NewsRecommendService.1", status));
 					}
 				}
 			}
