@@ -17,7 +17,7 @@ public interface INewsRecommendService extends IDbBeanService<NewsRecommend> {
 	 * 
 	 * @return
 	 */
-	IDataQuery<NewsRecommend> queryRecommends(News news);
+	IDataQuery<NewsRecommend> queryRecommends(Object news);
 
 	/**
 	 * 获取正在运行的推荐
@@ -25,7 +25,7 @@ public interface INewsRecommendService extends IDbBeanService<NewsRecommend> {
 	 * @param news
 	 * @return
 	 */
-	NewsRecommend queryRunningRecommend(News news);
+	NewsRecommend queryRunningRecommend(Object news);
 
 	void doAbort(NewsRecommend recommend);
 }

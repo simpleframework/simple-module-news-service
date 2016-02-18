@@ -29,13 +29,13 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 		INewsRecommendService {
 
 	@Override
-	public IDataQuery<NewsRecommend> queryRecommends(final News news) {
-		return query("newsid=?", news.getId());
+	public IDataQuery<NewsRecommend> queryRecommends(final Object news) {
+		return query("newsid=?", getIdParam(news));
 	}
 
 	@Override
-	public NewsRecommend queryRunningRecommend(final News news) {
-		return getBean("newsid=? and status=?", news.getId(), ERecommendStatus.running);
+	public NewsRecommend queryRunningRecommend(final Object news) {
+		return getBean("newsid=? and status=?", getIdParam(news), ERecommendStatus.running);
 	}
 
 	@Override
@@ -48,6 +48,11 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 			final Date startDate = r.getDstartDate();
 			final Date n = new Date();
 			if (startDate == null || startDate.before(n)) {
+				// 如果存在运行的推荐，则放弃
+				final NewsRecommend r2 = queryRunningRecommend(r.getNewsId());
+				if (r2 != null) {
+					_doStatus(r2, ERecommendStatus.abort);
+				}
 				_doStatus(r, ERecommendStatus.running);
 			}
 		}
@@ -104,9 +109,9 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 			}
 
 			@Override
-			public void onAfterUpdate(final IDbEntityManager<NewsRecommend> manager,
-					final String[] columns, final NewsRecommend[] beans) throws Exception {
-				super.onAfterUpdate(manager, columns, beans);
+			public void onAfterInsert(final IDbEntityManager<NewsRecommend> manager,
+					final NewsRecommend[] beans) throws Exception {
+				super.onAfterInsert(manager, beans);
 				for (final NewsRecommend r : beans) {
 					_doRecommendTask(r);
 				}
