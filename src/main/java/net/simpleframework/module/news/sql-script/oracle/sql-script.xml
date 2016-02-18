@@ -42,7 +42,7 @@
         videomark number(1) not null,
         contentmark number(11) not null,
         videotime number(11) not null,
-        rlevel number(11) not null,
+        rlevel number(4) not null,
         comments number(11) not null,
         lastcommentdate timestamp,
         allowcomments number(1) not null,

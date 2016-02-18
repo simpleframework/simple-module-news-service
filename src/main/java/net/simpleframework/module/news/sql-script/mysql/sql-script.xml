@@ -42,7 +42,7 @@
         videomark bit not null,
         contentmark int not null,
         videotime int not null,
-        rlevel int not null,
+        rlevel tinyint not null,
         comments int not null,
         lastcommentdate datetime,
         allowcomments bit not null,
