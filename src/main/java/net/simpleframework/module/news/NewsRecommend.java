@@ -23,10 +23,8 @@ public class NewsRecommend extends AbstractDateAwareBean {
 	/* 推荐级别 */
 	private int rlevel;
 
-	/* 开始时间 */
-	private Date dstartDate;
-	/* 结束时间 */
-	private Date dendDate;
+	/* 设计开始时间和设计结束时间 */
+	private Date dstartDate, dendDate;
 
 	/* 描述 */
 	private String description;

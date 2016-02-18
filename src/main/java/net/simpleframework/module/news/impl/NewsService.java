@@ -144,6 +144,8 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 					newsContext.getAttachmentService().deleteWith("contentid=?", id);
 					// 删除评论
 					_newsCommentService.deleteWith("contentid=?", id);
+					// 删除推荐
+					_newsRecommendService.deleteWith("newsid=?", id);
 					// 删除统计
 					_newsStatService.deleteWith("categoryid=?", id);
 

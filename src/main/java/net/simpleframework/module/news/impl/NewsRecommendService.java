@@ -2,6 +2,7 @@ package net.simpleframework.module.news.impl;
 
 import static net.simpleframework.common.I18n.$m;
 
+import java.util.Date;
 import java.util.Map;
 
 import net.simpleframework.ado.IParamsValue;
@@ -39,13 +40,38 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 
 	@Override
 	public void doAbort(final NewsRecommend recommend) {
+		_doStatus(recommend, ERecommendStatus.abort);
 	}
 
-	void _doCheck() {
+	void _doRecommendTask(final NewsRecommend r) {
+		if (r.getStatus() == ERecommendStatus.ready) {
+			final Date startDate = r.getDstartDate();
+			final Date n = new Date();
+			if (startDate == null || startDate.before(n)) {
+				_doStatus(r, ERecommendStatus.running);
+			}
+		}
+	}
+
+	private void _doStatus(final NewsRecommend r, final ERecommendStatus status) {
+		r.setStatus(status);
+		update(new String[] { "status" }, r);
+
+		final News news = _newsService.getBean(r.getNewsId());
+		news.setRlevel(status == ERecommendStatus.running ? r.getRlevel() : 0);
+		_newsService.update(new String[] { "rlevel" }, news);
 	}
 
 	@Transaction(context = INewsContext.class)
 	public void doRecommend_inTran(final NewsRecommend r) {
+		if (r.getStatus() == ERecommendStatus.ready) {
+			_doRecommendTask(r);
+		} else {
+			final Date endDate = r.getDendDate();
+			if (endDate != null && endDate.before(new Date())) {
+				_doStatus(r, ERecommendStatus.complete);
+			}
+		}
 	}
 
 	@Override
@@ -56,7 +82,12 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 		taskExecutor.addScheduledTask(new ExecutorRunnableEx("newsrecommend_check") {
 			@Override
 			protected void task(final Map<String, Object> cache) throws Exception {
-				_doCheck();
+				final IDataQuery<NewsRecommend> dq = query("status=? or status=?",
+						ERecommendStatus.ready, ERecommendStatus.running).setFetchSize(0);
+				NewsRecommend r;
+				while ((r = dq.next()) != null) {
+					doRecommend_inTran(r);
+				}
 			}
 		});
 
@@ -65,11 +96,19 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 			public void onBeforeDelete(final IDbEntityManager<NewsRecommend> manager,
 					final IParamsValue paramsValue) throws Exception {
 				super.onBeforeDelete(manager, paramsValue);
-
 				for (final NewsRecommend r : coll(manager, paramsValue)) {
 					if (r.getStatus() == ERecommendStatus.running) {
 						throw ContentException.of($m("NewsRecommendService.0"));
 					}
+				}
+			}
+
+			@Override
+			public void onAfterUpdate(final IDbEntityManager<NewsRecommend> manager,
+					final String[] columns, final NewsRecommend[] beans) throws Exception {
+				super.onAfterUpdate(manager, columns, beans);
+				for (final NewsRecommend r : beans) {
+					_doRecommendTask(r);
 				}
 			}
 		});
