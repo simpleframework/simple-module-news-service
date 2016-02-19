@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import net.simpleframework.ado.ColumnData;
+import net.simpleframework.ado.EFilterRelation;
 import net.simpleframework.ado.FilterItem;
 import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
@@ -92,6 +93,18 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 	public IDataQuery<News> queryVideoNews(final NewsCategory oCategory) {
 		return queryBeans(oCategory, EContentStatus.publish, null, FilterItems.of("videoMark", true),
 				new ColumnData[] { ColumnData.DESC("createdate") });
+	}
+
+	private final ColumnData[] RECOMMENDATION_ORDER_COLUMNS = ArrayUtils
+			.add(new ColumnData[] { ColumnData.DESC("rlevel") }, ColumnData.class,
+					getDefaultOrderColumns());
+
+	@Override
+	public IDataQuery<News> queryRecommendBeans(final NewsCategory category,
+			final TimePeriod timePeriod) {
+		return queryBeans(category, EContentStatus.publish, timePeriod,
+				FilterItems.of(new FilterItem("rlevel", EFilterRelation.gt, 0)),
+				RECOMMENDATION_ORDER_COLUMNS);
 	}
 
 	@Override

@@ -109,18 +109,6 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 			}
 
 			@Override
-			public void onBeforeUpdate(final IDbEntityManager<NewsRecommend> manager,
-					final String[] columns, final NewsRecommend[] beans) throws Exception {
-				super.onBeforeUpdate(manager, columns, beans);
-				for (final NewsRecommend r : beans) {
-					final ERecommendStatus status = r.getStatus();
-					if (status != ERecommendStatus.ready) {
-						throw ContentException.of($m("NewsRecommendService.1", status));
-					}
-				}
-			}
-
-			@Override
 			public void onAfterInsert(final IDbEntityManager<NewsRecommend> manager,
 					final NewsRecommend[] beans) throws Exception {
 				super.onAfterInsert(manager, beans);
