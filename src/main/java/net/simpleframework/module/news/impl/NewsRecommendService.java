@@ -43,6 +43,15 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 		_doStatus(recommend, ERecommendStatus.abort);
 	}
 
+	private void _doStatus(final NewsRecommend r, final ERecommendStatus status) {
+		r.setStatus(status);
+		update(new String[] { "status" }, r);
+
+		final News news = _newsService.getBean(r.getNewsId());
+		news.setRlevel(status == ERecommendStatus.running ? r.getRlevel() : 0);
+		_newsService.update(new String[] { "rlevel" }, news);
+	}
+
 	void _doRecommendTask(final NewsRecommend r) {
 		if (r.getStatus() == ERecommendStatus.ready) {
 			final Date startDate = r.getDstartDate();
@@ -56,15 +65,6 @@ public class NewsRecommendService extends AbstractNewsService<NewsRecommend> imp
 				_doStatus(r, ERecommendStatus.running);
 			}
 		}
-	}
-
-	private void _doStatus(final NewsRecommend r, final ERecommendStatus status) {
-		r.setStatus(status);
-		update(new String[] { "status" }, r);
-
-		final News news = _newsService.getBean(r.getNewsId());
-		news.setRlevel(status == ERecommendStatus.running ? r.getRlevel() : 0);
-		_newsService.update(new String[] { "rlevel" }, news);
 	}
 
 	@Transaction(context = INewsContext.class)
