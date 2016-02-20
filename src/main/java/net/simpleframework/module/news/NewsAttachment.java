@@ -10,5 +10,10 @@ import net.simpleframework.module.common.content.Attachment;
  */
 public class NewsAttachment extends Attachment {
 
+	@Override
+	public int getImodule() {
+		return 11;
+	}
+
 	private static final long serialVersionUID = 5420987166480558990L;
 }
