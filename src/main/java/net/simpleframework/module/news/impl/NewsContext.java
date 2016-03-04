@@ -8,6 +8,7 @@ import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
+import net.simpleframework.ctx.ModuleRefUtils;
 import net.simpleframework.ctx.service.ado.db.AbstractDbBeanService.DbEntityAdapterEx;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
 import net.simpleframework.module.common.content.IAttachmentService;
@@ -79,7 +80,7 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 	@Override
 	public IModuleRef getOrganizationRef() {
-		return getRef("net.simpleframework.module.news.NewsOrganizationRef");
+		return ModuleRefUtils.getRef("net.simpleframework.module.news.NewsOrganizationRef");
 	}
 
 	@Override
