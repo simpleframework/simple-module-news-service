@@ -6,6 +6,7 @@ import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
 import net.simpleframework.ctx.ModuleRefUtils;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
+import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.IAttachmentService;
 import net.simpleframework.module.news.INewsCategoryService;
 import net.simpleframework.module.news.INewsCommentService;
@@ -41,6 +42,11 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	@Override
 	protected Module createModule() {
 		return new Module().setName(MODULE_NAME).setText($m("NewsContext.0")).setOrder(32);
+	}
+
+	@Override
+	public int getAttachmentType(final Attachment attach) {
+		return 0;
 	}
 
 	@Override

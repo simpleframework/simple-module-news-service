@@ -2,6 +2,7 @@ package net.simpleframework.module.news;
 
 import net.simpleframework.ctx.IModuleContextAware;
 import net.simpleframework.ctx.ModuleContextFactory;
+import net.simpleframework.module.common.content.IAttachmentService;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -23,6 +24,9 @@ public interface INewsContextAware extends IModuleContextAware {
 
 	/* 新闻推荐服务 */
 	static INewsRecommendService _newsRecommendService = newsContext.getNewsRecommendService();
+
+	/* 附件服务 */
+	static IAttachmentService<NewsAttachment> _attachService = newsContext.getAttachmentService();
 
 	/* 新闻统计信息服务 */
 	static INewsStatService _newsStatService = newsContext.getNewsStatService();

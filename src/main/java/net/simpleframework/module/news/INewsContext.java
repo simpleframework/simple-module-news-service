@@ -2,6 +2,7 @@ package net.simpleframework.module.news;
 
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.module.common.ICommonModuleContext;
+import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.IAttachmentService;
 
 /**
@@ -13,6 +14,8 @@ import net.simpleframework.module.common.content.IAttachmentService;
 public interface INewsContext extends ICommonModuleContext {
 
 	static final String MODULE_NAME = "simple-module-news";
+
+	int getAttachmentType(Attachment attach);
 
 	/**
 	 * 获取新闻类目管理器
