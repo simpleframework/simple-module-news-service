@@ -1,6 +1,6 @@
 package net.simpleframework.module.news.impl;
 
-import net.simpleframework.module.news.INewsContextAware;
+import net.simpleframework.ctx.IModuleContext;
 import net.simpleframework.module.news.NewsAttachment;
 
 /**
@@ -10,6 +10,10 @@ import net.simpleframework.module.news.NewsAttachment;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsAttachmentService extends AbstractNewsAttachmentService<NewsAttachment> implements
-		INewsContextAware {
+public class NewsAttachmentService extends AbstractNewsAttachmentService<NewsAttachment> {
+
+	@Override
+	public IModuleContext getModuleContext() {
+		return newsContext;
+	}
 }
