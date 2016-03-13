@@ -1,6 +1,6 @@
 package net.simpleframework.module.news.impl;
 
-import net.simpleframework.module.news.INewsContextAware;
+import net.simpleframework.module.common.content.impl.AbstractAttachmentService;
 import net.simpleframework.module.news.NewsAttachment;
 
 /**
@@ -10,6 +10,6 @@ import net.simpleframework.module.news.NewsAttachment;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsAttachmentService extends AbstractNewsAttachmentService<NewsAttachment> implements
-		INewsContextAware {
+public abstract class AbstractNewsAttachmentService<T extends NewsAttachment> extends
+		AbstractAttachmentService<T> {
 }
