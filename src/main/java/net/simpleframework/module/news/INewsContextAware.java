@@ -3,6 +3,7 @@ package net.simpleframework.module.news;
 import net.simpleframework.ctx.IModuleContextAware;
 import net.simpleframework.ctx.ModuleContextFactory;
 import net.simpleframework.module.common.content.IAttachmentService;
+import net.simpleframework.module.news.bean.NewsAttachment;
 
 /**
  * Licensed under the Apache License, Version 2.0

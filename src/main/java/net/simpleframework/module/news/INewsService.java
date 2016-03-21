@@ -9,6 +9,8 @@ import net.simpleframework.common.TimePeriod;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
 import net.simpleframework.module.common.content.EContentStatus;
 import net.simpleframework.module.common.content.IContentService;
+import net.simpleframework.module.news.bean.News;
+import net.simpleframework.module.news.bean.NewsCategory;
 
 /**
  * Licensed under the Apache License, Version 2.0

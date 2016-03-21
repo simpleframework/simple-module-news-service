@@ -14,12 +14,13 @@ import net.simpleframework.module.news.INewsContext;
 import net.simpleframework.module.news.INewsRecommendService;
 import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.INewsStatService;
-import net.simpleframework.module.news.News;
-import net.simpleframework.module.news.NewsAttachment;
-import net.simpleframework.module.news.NewsCategory;
-import net.simpleframework.module.news.NewsComment;
-import net.simpleframework.module.news.NewsRecommend;
-import net.simpleframework.module.news.NewsStat;
+import net.simpleframework.module.news.bean.News;
+import net.simpleframework.module.news.bean.NewsAttachment;
+import net.simpleframework.module.news.bean.NewsCategory;
+import net.simpleframework.module.news.bean.NewsComment;
+import net.simpleframework.module.news.bean.NewsFee;
+import net.simpleframework.module.news.bean.NewsRecommend;
+import net.simpleframework.module.news.bean.NewsStat;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -33,9 +34,13 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	protected DbEntityTable[] createEntityTables() {
 		return new DbEntityTable[] { new DbEntityTable(NewsCategory.class, "sf_news_category"),
 				new DbEntityTable(News.class, "sf_news"),
+
+				new DbEntityTable(NewsStat.class, "sf_news_stat"),
+
 				new DbEntityTable(NewsComment.class, "sf_news_comment"),
 				new DbEntityTable(NewsRecommend.class, "sf_news_recommend"),
-				new DbEntityTable(NewsStat.class, "sf_news_stat"),
+				new DbEntityTable(NewsFee.class, "sf_news_fee"),
+
 				new DbEntityTable(NewsAttachment.class, "sf_attachment"), SF_ATTACHMENT_LOB };
 	}
 

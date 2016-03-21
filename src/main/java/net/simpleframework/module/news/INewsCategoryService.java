@@ -2,6 +2,7 @@ package net.simpleframework.module.news;
 
 import net.simpleframework.ctx.service.ado.ITreeBeanServiceAware;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
+import net.simpleframework.module.news.bean.NewsCategory;
 
 /**
  * Licensed under the Apache License, Version 2.0

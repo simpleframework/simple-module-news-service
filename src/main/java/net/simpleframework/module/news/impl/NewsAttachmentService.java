@@ -10,8 +10,8 @@ import net.simpleframework.lib.it.sauronsoftware.jave.Encoder;
 import net.simpleframework.lib.it.sauronsoftware.jave.MultimediaInfo;
 import net.simpleframework.module.common.content.impl.AbstractAttachmentService;
 import net.simpleframework.module.news.INewsContextAware;
-import net.simpleframework.module.news.News;
-import net.simpleframework.module.news.NewsAttachment;
+import net.simpleframework.module.news.bean.News;
+import net.simpleframework.module.news.bean.NewsAttachment;
 
 /**
  * Licensed under the Apache License, Version 2.0

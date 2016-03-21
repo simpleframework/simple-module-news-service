@@ -7,8 +7,8 @@ import net.simpleframework.ado.db.IDbEntityManager;
 import net.simpleframework.module.common.content.impl.AbstractCommentService;
 import net.simpleframework.module.news.INewsCommentService;
 import net.simpleframework.module.news.INewsContextAware;
-import net.simpleframework.module.news.News;
-import net.simpleframework.module.news.NewsComment;
+import net.simpleframework.module.news.bean.News;
+import net.simpleframework.module.news.bean.NewsComment;
 
 /**
  * Licensed under the Apache License, Version 2.0

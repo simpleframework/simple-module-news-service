@@ -1,4 +1,4 @@
-package net.simpleframework.module.news;
+package net.simpleframework.module.news.bean;
 
 import net.simpleframework.ado.bean.ITreeBeanAware;
 import net.simpleframework.ado.db.common.EntityInterceptor;

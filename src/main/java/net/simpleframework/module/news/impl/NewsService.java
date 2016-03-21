@@ -28,9 +28,9 @@ import net.simpleframework.module.common.content.EContentStatus;
 import net.simpleframework.module.common.content.impl.AbstractContentService;
 import net.simpleframework.module.news.INewsContextAware;
 import net.simpleframework.module.news.INewsService;
-import net.simpleframework.module.news.News;
-import net.simpleframework.module.news.NewsCategory;
-import net.simpleframework.module.news.NewsStat;
+import net.simpleframework.module.news.bean.News;
+import net.simpleframework.module.news.bean.NewsCategory;
+import net.simpleframework.module.news.bean.NewsStat;
 
 /**
  * Licensed under the Apache License, Version 2.0

@@ -1,4 +1,4 @@
-package net.simpleframework.module.news;
+package net.simpleframework.module.news.bean;
 
 import java.util.Date;
 

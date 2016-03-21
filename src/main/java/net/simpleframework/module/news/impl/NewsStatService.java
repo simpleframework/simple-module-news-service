@@ -11,8 +11,8 @@ import net.simpleframework.common.ID;
 import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.module.common.content.EContentStatus;
 import net.simpleframework.module.news.INewsStatService;
-import net.simpleframework.module.news.News;
-import net.simpleframework.module.news.NewsStat;
+import net.simpleframework.module.news.bean.News;
+import net.simpleframework.module.news.bean.NewsStat;
 
 /**
  * Licensed under the Apache License, Version 2.0

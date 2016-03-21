@@ -2,6 +2,7 @@ package net.simpleframework.module.news;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
+import net.simpleframework.module.news.bean.NewsRecommend;
 
 /**
  * Licensed under the Apache License, Version 2.0

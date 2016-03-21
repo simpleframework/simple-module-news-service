@@ -4,6 +4,7 @@ import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.module.common.ICommonModuleContext;
 import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.IAttachmentService;
+import net.simpleframework.module.news.bean.NewsAttachment;
 
 /**
  * Licensed under the Apache License, Version 2.0

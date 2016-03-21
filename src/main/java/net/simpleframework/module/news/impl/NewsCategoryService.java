@@ -8,7 +8,7 @@ import net.simpleframework.ado.db.IDbEntityManager;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.module.common.content.ContentException;
 import net.simpleframework.module.news.INewsCategoryService;
-import net.simpleframework.module.news.NewsCategory;
+import net.simpleframework.module.news.bean.NewsCategory;
 
 /**
  * Licensed under the Apache License, Version 2.0

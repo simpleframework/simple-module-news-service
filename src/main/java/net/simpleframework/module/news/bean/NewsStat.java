@@ -1,4 +1,4 @@
-package net.simpleframework.module.news;
+package net.simpleframework.module.news.bean;
 
 import net.simpleframework.ado.bean.AbstractIdBean;
 import net.simpleframework.common.ID;

@@ -2,6 +2,7 @@ package net.simpleframework.module.news;
 
 import net.simpleframework.ctx.service.ado.ITreeBeanServiceAware;
 import net.simpleframework.module.common.content.ICommentService;
+import net.simpleframework.module.news.bean.NewsComment;
 
 /**
  * Licensed under the Apache License, Version 2.0

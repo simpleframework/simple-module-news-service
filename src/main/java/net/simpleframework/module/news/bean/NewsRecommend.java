@@ -1,4 +1,4 @@
-package net.simpleframework.module.news;
+package net.simpleframework.module.news.bean;
 
 import static net.simpleframework.common.I18n.$m;
 
