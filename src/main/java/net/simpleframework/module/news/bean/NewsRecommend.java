@@ -15,7 +15,7 @@ import net.simpleframework.common.ID;
  *         http://www.simpleframework.net
  */
 public class NewsRecommend extends AbstractDateAwareBean {
-	/* 主题id */
+
 	private ID newsId;
 	/* 推荐状态 */
 	private ERecommendStatus status;
