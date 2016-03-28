@@ -89,7 +89,7 @@ public class NewsAttachmentService extends AbstractAttachmentService<NewsAttachm
 			// 统计视频时间
 			final News news = _newsService.getBean(attach.getContentId());
 			if (news != null) {
-				news.setVideoTime(_attachService.sum("videoTime", "contentId=?", news.getId())
+				news.setVideoTime(_newsAttachService.sum("videoTime", "contentId=?", news.getId())
 						.intValue() + delta);
 				_newsService.update(new String[] { "videoTime" }, news);
 			}
