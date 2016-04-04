@@ -11,12 +11,12 @@ import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ctx.task.ExecutorRunnableEx;
 import net.simpleframework.ctx.task.ITaskExecutor;
 import net.simpleframework.ctx.trans.Transaction;
+import net.simpleframework.module.common.bean.AbstractRecommend.ERecommendStatus;
 import net.simpleframework.module.common.content.ContentException;
 import net.simpleframework.module.news.INewsContext;
 import net.simpleframework.module.news.INewsRecommendService;
 import net.simpleframework.module.news.bean.News;
 import net.simpleframework.module.news.bean.NewsRecommend;
-import net.simpleframework.module.news.bean.NewsRecommend.ERecommendStatus;
 
 /**
  * Licensed under the Apache License, Version 2.0
