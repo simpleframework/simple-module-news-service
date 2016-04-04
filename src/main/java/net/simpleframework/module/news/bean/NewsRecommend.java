@@ -1,7 +1,7 @@
 package net.simpleframework.module.news.bean;
 
 import net.simpleframework.common.ID;
-import net.simpleframework.module.common.bean.AbstractRecommend;
+import net.simpleframework.module.common.content.AbstractRecommend;
 
 /**
  * Licensed under the Apache License, Version 2.0
