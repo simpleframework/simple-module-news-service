@@ -31,7 +31,7 @@ public class NewsFee extends AbstractIdBean {
 	}
 
 	public float getPrice() {
-		return NumberUtils.toFloat(price, 2);
+		return NumberUtils.toMoney(price);
 	}
 
 	public void setPrice(final float price) {
