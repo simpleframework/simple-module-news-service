@@ -26,6 +26,15 @@ public interface INewsService extends IContentService<News> {
 	IDataQuery<News> queryContentBeans(String category);
 
 	/**
+	 * 查询用户创建的
+	 * 
+	 * @param userId
+	 * @param status
+	 * @return
+	 */
+	IDataQuery<News> queryContentBeans(ID userId, EContentStatus status);
+
+	/**
 	 * 查找图片新闻
 	 * 
 	 * @param category

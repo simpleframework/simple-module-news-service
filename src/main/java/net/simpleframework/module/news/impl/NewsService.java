@@ -116,6 +116,12 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 		return queryBeans(oCategory, null, new ColumnData[0]);
 	}
 
+	@Override
+	public IDataQuery<News> queryContentBeans(final ID userId, final EContentStatus status) {
+		return queryBeans(null, status, null, FilterItems.of("userId", userId),
+				new ColumnData[] { ColumnData.DESC("createdate") });
+	}
+
 	private NewsLuceneService luceneService;
 
 	@Override
