@@ -5,6 +5,7 @@ import java.util.Date;
 import net.simpleframework.ado.bean.IDomainBeanAware;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.common.ID;
+import net.simpleframework.common.NumberUtils;
 import net.simpleframework.module.common.content.AbstractContentBean;
 
 /**
@@ -33,6 +34,9 @@ public class News extends AbstractContentBean implements IDomainBeanAware {
 	private String author;
 	/* 来源 */
 	private String source;
+
+	/* 价格，默认为0 */
+	private float nprice;
 
 	/* 图片标识 */
 	private boolean imageMark;
@@ -102,6 +106,14 @@ public class News extends AbstractContentBean implements IDomainBeanAware {
 
 	public void setSource(final String source) {
 		this.source = source;
+	}
+
+	public float getNprice() {
+		return NumberUtils.toMoney(nprice);
+	}
+
+	public void setNprice(final float nprice) {
+		this.nprice = nprice;
 	}
 
 	public int getRlevel() {
