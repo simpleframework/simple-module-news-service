@@ -18,7 +18,6 @@ import net.simpleframework.module.news.bean.News;
 import net.simpleframework.module.news.bean.NewsAttachment;
 import net.simpleframework.module.news.bean.NewsCategory;
 import net.simpleframework.module.news.bean.NewsComment;
-import net.simpleframework.module.news.bean.NewsFee;
 import net.simpleframework.module.news.bean.NewsRecommend;
 import net.simpleframework.module.news.bean.NewsStat;
 
@@ -39,7 +38,6 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 				new DbEntityTable(NewsComment.class, "sf_news_comment"),
 				new DbEntityTable(NewsRecommend.class, "sf_news_recommend"),
-				new DbEntityTable(NewsFee.class, "sf_news_fee"),
 
 				new DbEntityTable(NewsAttachment.class, "sf_attachment"), SF_ATTACHMENT_LOB };
 	}
