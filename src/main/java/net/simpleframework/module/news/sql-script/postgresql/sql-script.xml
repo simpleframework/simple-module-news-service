@@ -38,7 +38,6 @@
         keywords varchar(128),
         author varchar(32),
         source varchar(32),
-        nprice float4 not null,
         imagemark bool not null,
         videomark bool not null,
         contentmark int4 not null,
