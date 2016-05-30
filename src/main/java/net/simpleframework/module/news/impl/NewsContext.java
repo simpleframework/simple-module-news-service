@@ -44,7 +44,7 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 	@Override
 	protected Module createModule() {
-		return new Module().setName(MODULE_NAME).setText($m("NewsContext.0")).setOrder(32);
+		return super.createModule().setName(MODULE_NAME).setText($m("NewsContext.0")).setOrder(32);
 	}
 
 	@Override
