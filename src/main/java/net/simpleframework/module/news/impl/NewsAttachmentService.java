@@ -30,6 +30,11 @@ public class NewsAttachmentService extends AbstractAttachmentService<NewsAttachm
 		addListener(new _NewsAttachmentAdapter());
 	}
 
+	@Override
+	public long getAttachsize(final Object user) {
+		return sum("attachsize", "userid=? and imodule=?", getIdParam(user), 11).longValue();
+	}
+
 	public static class _NewsAttachmentAdapter extends DbEntityAdapterEx<NewsAttachment> {
 
 		@Override
