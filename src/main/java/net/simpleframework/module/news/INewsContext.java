@@ -48,6 +48,13 @@ public interface INewsContext extends ICommonModuleContext {
 	INewsRecommendService getNewsRecommendService();
 
 	/**
+	 * 审核记录服务
+	 * 
+	 * @return
+	 */
+	INewsAuditService getNewsAuditService();
+
+	/**
 	 * 获取统计服务
 	 * 
 	 * @return

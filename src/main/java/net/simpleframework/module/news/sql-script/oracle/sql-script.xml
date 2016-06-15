@@ -86,6 +86,19 @@
   </tran-sql>
   <tran-sql>
     <![CDATA[
+      create table sf_news_audit (
+        id char(32) not null,
+        newsid char(32) not null,
+        createdate timestamp not null,
+        userid char(32) not null,
+        apass number(1) not null,
+        ccomment varchar2(256 char) not null,
+        primary key(id)
+      );
+    ]]>
+  </tran-sql>
+  <tran-sql>
+    <![CDATA[
       create table sf_news_stat (
         id char(32) not null,
         categoryid char(32),

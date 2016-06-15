@@ -18,6 +18,7 @@ public interface INewsContextAware extends IModuleContextAware {
 
 	/* 新闻服务 */
 	static INewsService _newsService = newsContext.getNewsService();
+
 	/* 新闻类目服务 */
 	static INewsCategoryService _newsCategoryService = newsContext.getNewsCategoryService();
 
@@ -26,6 +27,9 @@ public interface INewsContextAware extends IModuleContextAware {
 
 	/* 新闻推荐服务 */
 	static INewsRecommendService _newsRecommendService = newsContext.getNewsRecommendService();
+
+	/* 审核记录服务 */
+	static INewsAuditService _newsAuditService = newsContext.getNewsAuditService();
 
 	/* 附件服务 */
 	static IAttachmentService<NewsAttachment> _newsAttachService = newsContext

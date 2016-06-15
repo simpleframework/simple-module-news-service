@@ -13,7 +13,7 @@ import net.simpleframework.module.common.content.AbstractRecommend;
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
 public class NewsRecommend extends AbstractRecommend {
-
+	/* 新闻id */
 	private ID newsId;
 
 	public ID getNewsId() {

@@ -8,6 +8,7 @@ import net.simpleframework.ctx.ModuleRefUtils;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
 import net.simpleframework.module.common.content.Attachment;
 import net.simpleframework.module.common.content.IAttachmentService;
+import net.simpleframework.module.news.INewsAuditService;
 import net.simpleframework.module.news.INewsCategoryService;
 import net.simpleframework.module.news.INewsCommentService;
 import net.simpleframework.module.news.INewsContext;
@@ -16,6 +17,7 @@ import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.INewsStatService;
 import net.simpleframework.module.news.bean.News;
 import net.simpleframework.module.news.bean.NewsAttachment;
+import net.simpleframework.module.news.bean.NewsAudit;
 import net.simpleframework.module.news.bean.NewsCategory;
 import net.simpleframework.module.news.bean.NewsComment;
 import net.simpleframework.module.news.bean.NewsRecommend;
@@ -39,6 +41,8 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 				new DbEntityTable(NewsComment.class, "sf_news_comment"),
 				new DbEntityTable(NewsRecommend.class, "sf_news_recommend"),
+
+				new DbEntityTable(NewsAudit.class, "sf_news_audit"),
 
 				new DbEntityTable(NewsAttachment.class, "sf_attachment"), SF_ATTACHMENT_LOB };
 	}
@@ -71,6 +75,11 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 	@Override
 	public INewsRecommendService getNewsRecommendService() {
 		return singleton(NewsRecommendService.class);
+	}
+
+	@Override
+	public INewsAuditService getNewsAuditService() {
+		return singleton(NewsAuditService.class);
 	}
 
 	@Override
