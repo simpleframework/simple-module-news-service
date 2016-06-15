@@ -1,5 +1,6 @@
 package net.simpleframework.module.news.bean;
 
+import net.simpleframework.ado.db.common.EntityInterceptor;
 import net.simpleframework.module.common.content.Attachment;
 
 /**
@@ -9,6 +10,7 @@ import net.simpleframework.module.common.content.Attachment;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
+@EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
 public class NewsAttachment extends Attachment {
 
 	@Override
