@@ -49,7 +49,7 @@ public abstract class NewsContext extends AbstractCommonModuleContext implements
 
 	@Override
 	public int getAttachmentType(final Attachment attach) {
-		return 0;
+		return attach.getAttachtype();
 	}
 
 	@Override
