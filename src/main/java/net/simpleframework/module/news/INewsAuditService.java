@@ -1,6 +1,8 @@
 package net.simpleframework.module.news;
 
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
+import net.simpleframework.module.news.bean.News;
 import net.simpleframework.module.news.bean.NewsAudit;
 
 /**
@@ -12,4 +14,11 @@ import net.simpleframework.module.news.bean.NewsAudit;
  */
 public interface INewsAuditService extends IDbBeanService<NewsAudit> {
 
+	/**
+	 * 查询新闻的审核记录
+	 * 
+	 * @param news
+	 * @return
+	 */
+	IDataQuery<NewsAudit> queryAudits(News news);
 }

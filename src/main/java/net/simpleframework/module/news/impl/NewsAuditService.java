@@ -1,6 +1,9 @@
 package net.simpleframework.module.news.impl;
 
+import net.simpleframework.ado.query.DataQueryUtils;
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.module.news.INewsAuditService;
+import net.simpleframework.module.news.bean.News;
 import net.simpleframework.module.news.bean.NewsAudit;
 
 /**
@@ -11,4 +14,12 @@ import net.simpleframework.module.news.bean.NewsAudit;
  *         http://www.simpleframework.net
  */
 public class NewsAuditService extends AbstractNewsService<NewsAudit> implements INewsAuditService {
+
+	@Override
+	public IDataQuery<NewsAudit> queryAudits(final News news) {
+		if (news == null) {
+			return DataQueryUtils.nullQuery();
+		}
+		return query("newsid=?", news.getId());
+	}
 }
