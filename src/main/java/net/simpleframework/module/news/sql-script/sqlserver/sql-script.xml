@@ -34,6 +34,7 @@
         status tinyint not null,
         createdate datetime not null,
         userid char(32) not null,
+        astatus tinyint not null,
         topic varchar(128) not null,
         keywords varchar(128),
         author varchar(32),
