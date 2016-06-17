@@ -7,7 +7,7 @@ import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.TimePeriod;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
-import net.simpleframework.module.common.content.EContentStatus;
+import net.simpleframework.module.common.content.AbstractContentBean.EContentStatus;
 import net.simpleframework.module.common.content.IContentService;
 import net.simpleframework.module.news.bean.News;
 import net.simpleframework.module.news.bean.NewsCategory;

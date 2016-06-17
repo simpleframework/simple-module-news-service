@@ -24,7 +24,7 @@ import net.simpleframework.common.TimePeriod;
 import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.ctx.task.ExecutorRunnable;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
-import net.simpleframework.module.common.content.EContentStatus;
+import net.simpleframework.module.common.content.AbstractContentBean.EContentStatus;
 import net.simpleframework.module.common.content.impl.AbstractContentService;
 import net.simpleframework.module.news.INewsContextAware;
 import net.simpleframework.module.news.INewsService;

@@ -27,6 +27,9 @@ public class News extends AbstractContentBean implements IDomainBeanAware {
 	/* 类目id */
 	private ID categoryId;
 
+	/* 审核状态 */
+	private EAuditStatus astatus;
+
 	/* 主题词 */
 	private String keyWords;
 	/* 作者 */
@@ -78,6 +81,14 @@ public class News extends AbstractContentBean implements IDomainBeanAware {
 
 	public void setCategoryId(final ID categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public EAuditStatus getAstatus() {
+		return astatus;
+	}
+
+	public void setAstatus(final EAuditStatus astatus) {
+		this.astatus = astatus;
 	}
 
 	public String getKeyWords() {

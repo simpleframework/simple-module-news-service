@@ -9,7 +9,7 @@ import net.simpleframework.common.BeanUtils.PropertyWrapper;
 import net.simpleframework.common.Convert;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.coll.ArrayUtils;
-import net.simpleframework.module.common.content.EContentStatus;
+import net.simpleframework.module.common.content.AbstractContentBean.EContentStatus;
 import net.simpleframework.module.news.INewsStatService;
 import net.simpleframework.module.news.bean.News;
 import net.simpleframework.module.news.bean.NewsStat;
