@@ -84,7 +84,7 @@ public class News extends AbstractContentBean implements IDomainBeanAware {
 	}
 
 	public EAuditStatus getAstatus() {
-		return astatus;
+		return astatus == null ? EAuditStatus.none : astatus;
 	}
 
 	public void setAstatus(final EAuditStatus astatus) {
