@@ -35,8 +35,8 @@ public class NewsAuditService extends AbstractNewsService<NewsAudit> implements 
 		} else {
 			news.setAstatus(EAuditStatus.fail);
 			news.setStatus(EContentStatus.edit);
-			// LdescVal.set(bean, description);
 		}
+		LdescVal.set(news, ccomment);
 		_newsService.update(new String[] { "status", "astatus" }, news);
 		return audit;
 	}
@@ -46,6 +46,6 @@ public class NewsAuditService extends AbstractNewsService<NewsAudit> implements 
 		if (news == null) {
 			return DataQueryUtils.nullQuery();
 		}
-		return query("newsid=?", news.getId());
+		return query("newsid=? order by createdate desc", news.getId());
 	}
 }
