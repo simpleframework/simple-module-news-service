@@ -90,8 +90,12 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 	}
 
 	@Override
-	public IDataQuery<News> queryVideoNews(final NewsCategory oCategory) {
-		return queryBeans(oCategory, EContentStatus.publish, null, FilterItems.of("videoMark", true),
+	public IDataQuery<News> queryVideoNews(final ID userId, final NewsCategory oCategory) {
+		final FilterItems items = FilterItems.of("videoMark", true);
+		if (userId != null) {
+			items.addEqual("userid", userId);
+		}
+		return queryBeans(oCategory, EContentStatus.publish, null, items,
 				new ColumnData[] { ColumnData.DESC("createdate") });
 	}
 
