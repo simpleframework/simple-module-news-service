@@ -47,6 +47,7 @@
         comments int4 not null,
         lastcommentdate timestamp,
         allowcomments bool not null,
+        fee bool not null,
         indexed bool not null,
         views int4 not null,
         description varchar(256),
