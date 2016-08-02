@@ -26,11 +26,6 @@ public class NewsCategoryService extends AbstractNewsService<NewsCategory> imple
 	}
 
 	@Override
-	protected ColumnData[] getDefaultOrderColumns() {
-		return ORDER_OORDER;
-	}
-
-	@Override
 	public IDataQuery<NewsCategory> queryChildren(final NewsCategory parent,
 			final ColumnData... orderColumns) {
 		if (parent == null) {
