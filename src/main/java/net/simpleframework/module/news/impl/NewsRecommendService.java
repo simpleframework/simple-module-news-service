@@ -15,8 +15,8 @@ import net.simpleframework.module.news.bean.NewsRecommend;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsRecommendService extends AbstractRecommendService<NewsRecommend> implements
-		INewsRecommendService, INewsContextAware {
+public class NewsRecommendService extends AbstractRecommendService<NewsRecommend>
+		implements INewsRecommendService, INewsContextAware {
 
 	@Override
 	public IDataQuery<NewsRecommend> queryRecommends(final Object news) {

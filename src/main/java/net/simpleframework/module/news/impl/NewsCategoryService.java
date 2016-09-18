@@ -1,6 +1,7 @@
 package net.simpleframework.module.news.impl;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.ado.ColumnData;
 import net.simpleframework.ado.FilterItems;
 import net.simpleframework.ado.IParamsValue;
@@ -17,8 +18,8 @@ import net.simpleframework.module.news.bean.NewsCategory;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsCategoryService extends AbstractNewsService<NewsCategory> implements
-		INewsCategoryService {
+public class NewsCategoryService extends AbstractNewsService<NewsCategory>
+		implements INewsCategoryService {
 
 	@Override
 	public NewsCategory getBeanByName(final String name) {

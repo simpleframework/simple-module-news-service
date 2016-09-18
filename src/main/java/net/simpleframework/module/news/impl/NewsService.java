@@ -39,8 +39,8 @@ import net.simpleframework.module.news.bean.NewsStat;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsService extends AbstractContentService<News> implements INewsService,
-		INewsContextAware {
+public class NewsService extends AbstractContentService<News>
+		implements INewsService, INewsContextAware {
 
 	@Override
 	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, final ID domainId,
@@ -99,9 +99,9 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 				new ColumnData[] { ColumnData.DESC("createdate") });
 	}
 
-	private final ColumnData[] RECOMMENDATION_ORDER_COLUMNS = ArrayUtils
-			.add(new ColumnData[] { ColumnData.DESC("rlevel") }, ColumnData.class,
-					getDefaultOrderColumns());
+	private final ColumnData[] RECOMMENDATION_ORDER_COLUMNS = ArrayUtils.add(
+			new ColumnData[] { ColumnData.DESC("rlevel") }, ColumnData.class,
+			getDefaultOrderColumns());
 
 	@Override
 	public IDataQuery<News> queryRecommendBeans(final NewsCategory category,
@@ -276,8 +276,8 @@ public class NewsService extends AbstractContentService<News> implements INewsSe
 			} else {
 				obj = getBean(doc.get("id"));
 			}
-			return (obj != null && BeanUtils.getProperty(obj, "status") == EContentStatus.publish) ? obj
-					: null;
+			return (obj != null && BeanUtils.getProperty(obj, "status") == EContentStatus.publish)
+					? obj : null;
 		}
 
 		@Override

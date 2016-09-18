@@ -13,8 +13,8 @@ import net.simpleframework.module.news.INewsContextAware;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class AbstractNewsService<T extends Serializable> extends AbstractDbBeanService<T> implements
-		INewsContextAware {
+public class AbstractNewsService<T extends Serializable> extends AbstractDbBeanService<T>
+		implements INewsContextAware {
 
 	@Override
 	public IModuleContext getModuleContext() {

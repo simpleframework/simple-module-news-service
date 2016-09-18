@@ -11,8 +11,8 @@ import net.simpleframework.module.news.bean.NewsCategory;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public interface INewsCategoryService extends IDbBeanService<NewsCategory>,
-		ITreeBeanServiceAware<NewsCategory> {
+public interface INewsCategoryService
+		extends IDbBeanService<NewsCategory>, ITreeBeanServiceAware<NewsCategory> {
 
 	/**
 	 * 根据名字获取类目对象

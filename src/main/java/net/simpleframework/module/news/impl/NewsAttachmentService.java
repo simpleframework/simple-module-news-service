@@ -20,8 +20,8 @@ import net.simpleframework.module.news.bean.NewsAttachment;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsAttachmentService extends AbstractAttachmentService<NewsAttachment> implements
-		INewsContextAware {
+public class NewsAttachmentService extends AbstractAttachmentService<NewsAttachment>
+		implements INewsContextAware {
 
 	@Override
 	public void onInit() throws Exception {
@@ -94,8 +94,9 @@ public class NewsAttachmentService extends AbstractAttachmentService<NewsAttachm
 			// 统计视频时间
 			final News news = _newsService.getBean(attach.getContentId());
 			if (news != null) {
-				news.setVideoTime(_newsAttachService.sum("videoTime", "contentId=?", news.getId())
-						.intValue() + delta);
+				news.setVideoTime(
+						_newsAttachService.sum("videoTime", "contentId=?", news.getId()).intValue()
+								+ delta);
 				_newsService.update(new String[] { "videoTime" }, news);
 			}
 		}

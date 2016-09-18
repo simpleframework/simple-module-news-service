@@ -11,6 +11,6 @@ import net.simpleframework.module.news.bean.NewsComment;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public interface INewsCommentService extends ICommentService<NewsComment>,
-		ITreeBeanServiceAware<NewsComment> {
+public interface INewsCommentService
+		extends ICommentService<NewsComment>, ITreeBeanServiceAware<NewsComment> {
 }

@@ -17,8 +17,8 @@ import net.simpleframework.module.news.bean.NewsComment;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsCommentService extends AbstractCommentService<NewsComment> implements
-		INewsCommentService, INewsContextAware {
+public class NewsCommentService extends AbstractCommentService<NewsComment>
+		implements INewsCommentService, INewsContextAware {
 
 	@Override
 	public void onInit() throws Exception {

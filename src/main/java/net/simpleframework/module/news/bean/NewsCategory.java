@@ -17,8 +17,8 @@ import net.simpleframework.module.common.content.AbstractCategoryBean;
  *         http://www.simpleframework.net
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
-public class NewsCategory extends AbstractCategoryBean implements INameBeanAware, IDateAwareBean,
-		IDomainBeanAware {
+public class NewsCategory extends AbstractCategoryBean
+		implements INameBeanAware, IDateAwareBean, IDomainBeanAware {
 	/* 域 */
 	private ID domainId;
 
