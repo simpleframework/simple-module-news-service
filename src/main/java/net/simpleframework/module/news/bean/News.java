@@ -55,7 +55,7 @@ public class News extends AbstractContentBean implements IDomainBeanAware {
 	private Date lastCommentDate;
 
 	/* 收费方式 */
-	private short fee;
+	private int fee;
 	/* 是否允许建立索引 */
 	private boolean indexed = true;
 
@@ -181,11 +181,11 @@ public class News extends AbstractContentBean implements IDomainBeanAware {
 		this.videoTime = videoTime;
 	}
 
-	public short isFee() {
+	public int getFee() {
 		return fee;
 	}
 
-	public void setFee(final short fee) {
+	public void setFee(final int fee) {
 		this.fee = fee;
 	}
 
