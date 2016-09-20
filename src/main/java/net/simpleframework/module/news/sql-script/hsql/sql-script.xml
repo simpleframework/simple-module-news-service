@@ -47,7 +47,7 @@
         comments int not null,
         lastcommentdate timestamp,
         allowcomments bit not null,
-        fee bit not null,
+        fee tinyint not null,
         indexed bit not null,
         views int not null,
         description varchar(256),

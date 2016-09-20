@@ -47,7 +47,7 @@
         comments number(11) not null,
         lastcommentdate timestamp,
         allowcomments number(1) not null,
-        fee number(1) not null,
+        fee number(4) not null,
         indexed number(1) not null,
         views number(11) not null,
         description varchar2(256 char),
