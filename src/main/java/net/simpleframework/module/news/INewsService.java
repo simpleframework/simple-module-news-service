@@ -45,13 +45,16 @@ public interface INewsService extends IContentService<News> {
 	IDataQuery<News> queryImageNews(NewsCategory category);
 
 	/**
-	 * 查找视频新闻
+	 * 查找视频
 	 * 
 	 * @param userId
 	 * @param category
+	 * @param items
+	 * @param orderColumns
 	 * @return
 	 */
-	IDataQuery<News> queryVideoNews(ID userId, NewsCategory category);
+	IDataQuery<News> queryVideoNews(FilterItems items, ID userId, NewsCategory category,
+			ColumnData... orderColumns);
 
 	IDataQuery<News> queryRecommendBeans(NewsCategory category, TimePeriod timePeriod);
 

@@ -86,17 +86,21 @@ public class NewsService extends AbstractContentService<News>
 	@Override
 	public IDataQuery<News> queryImageNews(final NewsCategory oCategory) {
 		return queryBeans(oCategory, EContentStatus.publish, null, FilterItems.of("imageMark", true),
-				new ColumnData[] { ColumnData.DESC("createdate") });
+				ORDER_CREATEDATE);
 	}
 
 	@Override
-	public IDataQuery<News> queryVideoNews(final ID userId, final NewsCategory oCategory) {
-		final FilterItems items = FilterItems.of("videoMark", true);
+	public IDataQuery<News> queryVideoNews(FilterItems items, final ID userId,
+			final NewsCategory category, final ColumnData... orderColumns) {
+		if (items == null) {
+			items = FilterItems.of();
+		}
+		items.addEqual("videoMark", true);
 		if (userId != null) {
 			items.addEqual("userid", userId);
 		}
-		return queryBeans(oCategory, EContentStatus.publish, null, items,
-				new ColumnData[] { ColumnData.DESC("createdate") });
+		return queryBeans(category, EContentStatus.publish, null, items,
+				ArrayUtils.isEmpty(orderColumns) ? ORDER_CREATEDATE : orderColumns);
 	}
 
 	private final ColumnData[] RECOMMENDATION_ORDER_COLUMNS = ArrayUtils.add(
@@ -123,8 +127,7 @@ public class NewsService extends AbstractContentService<News>
 	@Override
 	public IDataQuery<News> queryContentBeans(final ID userId, final NewsCategory category,
 			final EContentStatus status) {
-		return queryBeans(category, status, null, FilterItems.of("userId", userId),
-				new ColumnData[] { ColumnData.DESC("createdate") });
+		return queryBeans(category, status, null, FilterItems.of("userId", userId), ORDER_CREATEDATE);
 	}
 
 	private NewsLuceneService luceneService;
