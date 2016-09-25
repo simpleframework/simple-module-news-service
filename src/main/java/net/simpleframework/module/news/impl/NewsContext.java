@@ -31,7 +31,7 @@ import net.simpleframework.module.news.bean.NewsStat;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class NewsContext extends AbstractCommonModuleContext implements INewsContext {
+public class NewsContext extends AbstractCommonModuleContext implements INewsContext {
 
 	@Override
 	protected DbEntityTable[] createEntityTables() {
