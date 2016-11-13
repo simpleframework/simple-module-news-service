@@ -39,8 +39,8 @@ import net.simpleframework.module.news.bean.NewsStat;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsService extends AbstractContentService<News>
-		implements INewsService, INewsContextAware {
+public class NewsService extends AbstractContentService<News> implements INewsService,
+		INewsContextAware {
 
 	@Override
 	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, final ID domainId,
@@ -103,9 +103,9 @@ public class NewsService extends AbstractContentService<News>
 				ArrayUtils.isEmpty(orderColumns) ? ORDER_CREATEDATE : orderColumns);
 	}
 
-	private final ColumnData[] RECOMMENDATION_ORDER_COLUMNS = ArrayUtils.add(
-			new ColumnData[] { ColumnData.DESC("rlevel") }, ColumnData.class,
-			getDefaultOrderColumns());
+	private final ColumnData[] RECOMMENDATION_ORDER_COLUMNS = ArrayUtils
+			.add(new ColumnData[] { ColumnData.DESC("rlevel") }, ColumnData.class,
+					getDefaultOrderColumns());
 
 	@Override
 	public IDataQuery<News> queryRecommendBeans(final NewsCategory category,
@@ -261,9 +261,13 @@ public class NewsService extends AbstractContentService<News>
 		_newsStatService.update(stat);
 	}
 
+	protected File getIndexDir() {
+		return getApplicationContext().getContextSettings().getHomeFile("/index/news/");
+	}
+
 	protected class NewsLuceneService extends AbstractLuceneManager {
 		public NewsLuceneService() {
-			super(new File(newsContext.getTmpdir() + "index"));
+			super(getIndexDir());
 		}
 
 		@Override
@@ -279,8 +283,8 @@ public class NewsService extends AbstractContentService<News>
 			} else {
 				obj = getBean(doc.get("id"));
 			}
-			return (obj != null && BeanUtils.getProperty(obj, "status") == EContentStatus.publish)
-					? obj : null;
+			return (obj != null && BeanUtils.getProperty(obj, "status") == EContentStatus.publish) ? obj
+					: null;
 		}
 
 		@Override
