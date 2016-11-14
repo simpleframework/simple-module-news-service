@@ -39,8 +39,8 @@ import net.simpleframework.module.news.bean.NewsStat;
  *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class NewsService extends AbstractContentService<News>
-		implements INewsService, INewsContextAware {
+public class NewsService extends AbstractContentService<News> implements INewsService,
+		INewsContextAware {
 
 	@Override
 	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, final ID domainId,
@@ -103,9 +103,9 @@ public class NewsService extends AbstractContentService<News>
 				ArrayUtils.isEmpty(orderColumns) ? ORDER_CREATEDATE : orderColumns);
 	}
 
-	private final ColumnData[] RECOMMENDATION_ORDER_COLUMNS = ArrayUtils.add(
-			new ColumnData[] { ColumnData.DESC("rlevel") }, ColumnData.class,
-			getDefaultOrderColumns());
+	private final ColumnData[] RECOMMENDATION_ORDER_COLUMNS = ArrayUtils
+			.add(new ColumnData[] { ColumnData.DESC("rlevel") }, ColumnData.class,
+					getDefaultOrderColumns());
 
 	@Override
 	public IDataQuery<News> queryRecommendBeans(final NewsCategory category,
@@ -135,6 +135,10 @@ public class NewsService extends AbstractContentService<News>
 	@Override
 	public ILuceneManager getLuceneService() {
 		return luceneService;
+	}
+
+	protected boolean isIndexed(final News news) {
+		return news.isIndexed();
 	}
 
 	@Override
@@ -180,7 +184,7 @@ public class NewsService extends AbstractContentService<News>
 					updateStats(news);
 
 					// 删除索引
-					if (news.isIndexed()) {
+					if (isIndexed(news)) {
 						luceneService.doDeleteIndex(news);
 					}
 				}
@@ -194,7 +198,7 @@ public class NewsService extends AbstractContentService<News>
 					// 更新状态
 					updateStats(news);
 
-					if (news.isIndexed()) {
+					if (isIndexed(news)) {
 						// 添加索引
 						luceneService.doAddIndex(news);
 					}
@@ -240,7 +244,7 @@ public class NewsService extends AbstractContentService<News>
 						|| ArrayUtils.contains(columns, "topic", true)
 						|| ArrayUtils.contains(columns, "content", true)) {
 					for (final News news : beans) {
-						if (news.isIndexed()) {
+						if (isIndexed(news)) {
 							luceneService.doUpdateIndex(news);
 						}
 					}
@@ -283,8 +287,8 @@ public class NewsService extends AbstractContentService<News>
 			} else {
 				obj = getBean(doc.get("id"));
 			}
-			return (obj != null && BeanUtils.getProperty(obj, "status") == EContentStatus.publish)
-					? obj : null;
+			return (obj != null && BeanUtils.getProperty(obj, "status") == EContentStatus.publish) ? obj
+					: null;
 		}
 
 		@Override
