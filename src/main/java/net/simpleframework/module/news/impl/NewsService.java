@@ -183,9 +183,13 @@ public class NewsService extends AbstractContentService<News>
 					// 更新状态
 					updateStats(news);
 
-					// 删除索引
-					if (isIndexed(news)) {
-						luceneService.doDeleteIndex(news);
+					try {
+						// 删除索引
+						if (isIndexed(news)) {
+							luceneService.doDeleteIndex(news);
+						}
+					} catch (final Exception e) {
+						log.warn(e);
 					}
 				}
 			}
@@ -198,9 +202,13 @@ public class NewsService extends AbstractContentService<News>
 					// 更新状态
 					updateStats(news);
 
-					if (isIndexed(news)) {
-						// 添加索引
-						luceneService.doAddIndex(news);
+					try {
+						if (isIndexed(news)) {
+							// 添加索引
+							luceneService.doAddIndex(news);
+						}
+					} catch (final Exception e) {
+						log.warn(e);
 					}
 				}
 			}
@@ -244,8 +252,12 @@ public class NewsService extends AbstractContentService<News>
 						|| ArrayUtils.contains(columns, "topic", true)
 						|| ArrayUtils.contains(columns, "content", true)) {
 					for (final News news : beans) {
-						if (isIndexed(news)) {
-							luceneService.doUpdateIndex(news);
+						try {
+							if (isIndexed(news)) {
+								luceneService.doUpdateIndex(news);
+							}
+						} catch (final Exception e) {
+							log.warn(e);
 						}
 					}
 				}
