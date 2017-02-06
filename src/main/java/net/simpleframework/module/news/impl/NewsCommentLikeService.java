@@ -35,6 +35,7 @@ public class NewsCommentLikeService extends AbstractLikeService<NewsComment, New
 	public NewsCommentLike addLike(final NewsComment tc, final ID userId) {
 		final NewsCommentLike like = createBean();
 		like.setCommentId(tc.getId());
+		like.setNewsId(tc.getContentId());
 		like.setUserId(userId);
 		like.setCreateDate(new Date());
 		insert(like);
