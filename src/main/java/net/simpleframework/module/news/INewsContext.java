@@ -40,6 +40,8 @@ public interface INewsContext extends ICommonModuleContext {
 	 */
 	INewsCommentService getCommentService();
 
+	INewsCommentLikeService getNewsCommentLikeService();
+
 	/**
 	 * 推荐服务
 	 * 

@@ -17,6 +17,9 @@ public class NewsComment extends AbstractComment implements ITreeBeanAware {
 	/* 父id */
 	private ID parentId;
 
+	/* 点赞数 */
+	private int likes;
+
 	@Override
 	public ID getParentId() {
 		return parentId;
@@ -25,6 +28,14 @@ public class NewsComment extends AbstractComment implements ITreeBeanAware {
 	@Override
 	public void setParentId(final ID parentId) {
 		this.parentId = parentId;
+	}
+
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(final int likes) {
+		this.likes = likes;
 	}
 
 	private static final long serialVersionUID = 5679649774061437068L;
