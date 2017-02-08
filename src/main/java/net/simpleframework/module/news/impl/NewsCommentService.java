@@ -33,6 +33,9 @@ public class NewsCommentService extends AbstractCommentService<NewsComment>
 
 				// 修改统计值
 				for (final NewsComment c : coll(manager, paramsValue)) {
+					// 删除赞
+					_newsCommentLikeService.deleteWith("commentid=?", c.getId());
+
 					final News news = _newsService.getBean(c.getContentId());
 					if (news != null) {
 						news.setComments(queryComments(news).getCount() - 1);

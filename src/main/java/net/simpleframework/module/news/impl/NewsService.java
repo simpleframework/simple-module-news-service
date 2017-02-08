@@ -184,8 +184,6 @@ public class NewsService extends AbstractContentService<News>
 					newsContext.getAttachmentService().deleteWith("contentid=?", id);
 					// 删除评论
 					_newsCommentService.deleteWith("contentid=?", id);
-					// 删除赞
-					_newsCommentLikeService.deleteWith("newsid=?", id);
 					// 删除推荐
 					_newsRecommendService.deleteWith("newsid=?", id);
 					// 删除统计
