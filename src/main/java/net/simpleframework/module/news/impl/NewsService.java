@@ -313,11 +313,6 @@ public class NewsService extends AbstractContentService<News>
 		}
 
 		@Override
-		protected IDataQuery<?> queryAll() {
-			return getEntityManager().queryBeans(new ExpressionValue("indexed=?", true));
-		}
-
-		@Override
 		protected void objectToDocument(final Object object, final LuceneDocument doc)
 				throws IOException {
 			super.objectToDocument(object, doc);
@@ -329,6 +324,11 @@ public class NewsService extends AbstractContentService<News>
 				content = trimContent(news.getContent());
 			}
 			doc.addTextField("content", content, false);
+		}
+
+		@Override
+		protected IDataQuery<?> queryAll() {
+			return getEntityManager().queryBeans(new ExpressionValue("indexed=?", true));
 		}
 	}
 }
