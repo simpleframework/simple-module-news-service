@@ -1,7 +1,5 @@
 package net.simpleframework.module.news.impl;
 
-import static net.simpleframework.common.I18n.$m;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -155,16 +153,20 @@ public class NewsService extends AbstractContentService<News>
 		super.onInit();
 
 		luceneService = new NewsLuceneService();
-		if (!luceneService.indexExists()) {
-			getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
-				@Override
-				protected void task(final Map<String, Object> cache) throws Exception {
-					getLog().info($m("NewsService.0"));
+		getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
+			@Override
+			protected void task(final Map<String, Object> cache) throws Exception {
+				if (!luceneService.indexExists()) {
+					oprintln("Rebuild news index...");
 					luceneService.rebuildIndex();
-					getLog().info($m("NewsService.1"));
+					oprintln("Rebuild news index end.");
+				} else {
+					oprintln("Optimize news index...");
+					luceneService.optimize();
+					oprintln("Optimize news index end.");
 				}
-			});
-		}
+			}
+		});
 
 		addListener(new DbEntityAdapterEx<News>() {
 			@Override
