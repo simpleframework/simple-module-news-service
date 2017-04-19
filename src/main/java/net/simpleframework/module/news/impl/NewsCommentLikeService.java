@@ -1,8 +1,5 @@
 package net.simpleframework.module.news.impl;
 
-import java.util.Date;
-
-import net.simpleframework.common.ID;
 import net.simpleframework.ctx.IModuleContext;
 import net.simpleframework.module.common.content.impl.AbstractLikeService;
 import net.simpleframework.module.news.INewsCommentLikeService;
@@ -26,20 +23,9 @@ public class NewsCommentLikeService extends AbstractLikeService<NewsComment, New
 	}
 
 	@Override
-	public NewsCommentLike getLike(final NewsComment tc, final Object userId) {
-		return tc == null ? null
-				: getBean("commentid=? and userid=?", tc.getId(), getIdParam(userId));
-	}
-
-	@Override
-	public NewsCommentLike addLike(final NewsComment tc, final ID userId) {
-		final NewsCommentLike like = createBean();
-		like.setCommentId(tc.getId());
-		like.setNewsId(tc.getContentId());
-		like.setUserId(userId);
-		like.setCreateDate(new Date());
-		insert(like);
-		return like;
+	protected void setLike(final NewsCommentLike like, final NewsComment comment) {
+		like.setCommentId(comment.getId());
+		like.setNewsId(comment.getContentId());
 	}
 
 	@Override
