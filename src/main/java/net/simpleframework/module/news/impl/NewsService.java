@@ -20,7 +20,7 @@ import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.TimePeriod;
 import net.simpleframework.common.coll.ArrayUtils;
-import net.simpleframework.ctx.task.ExecutorRunnable;
+import net.simpleframework.ctx.task.ExecutorRunnableEx;
 import net.simpleframework.module.common.content.AbstractCategoryBean;
 import net.simpleframework.module.common.content.AbstractContentBean.EContentStatus;
 import net.simpleframework.module.common.content.impl.AbstractContentService;
@@ -153,7 +153,7 @@ public class NewsService extends AbstractContentService<News>
 		super.onInit();
 
 		luceneService = new NewsLuceneService();
-		getModuleContext().getTaskExecutor().execute(new ExecutorRunnable() {
+		getModuleContext().getTaskExecutor().execute(new ExecutorRunnableEx("lucene_startup_news") {
 			@Override
 			protected void task(final Map<String, Object> cache) throws Exception {
 				if (!luceneService.indexExists()) {
