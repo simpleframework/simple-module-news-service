@@ -4,6 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.lucene.index.Term;
+import org.apache.lucene.queries.TermFilter;
+import org.apache.lucene.search.FilteredQuery;
+import org.apache.lucene.search.Query;
+
 import net.simpleframework.ado.ColumnData;
 import net.simpleframework.ado.EFilterRelation;
 import net.simpleframework.ado.FilterItem;
@@ -15,7 +20,6 @@ import net.simpleframework.ado.lucene.AbstractLuceneManager;
 import net.simpleframework.ado.lucene.ILuceneManager;
 import net.simpleframework.ado.lucene.LuceneDocument;
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.common.BeanUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.TimePeriod;
@@ -299,7 +303,13 @@ public class NewsService extends AbstractContentService<News>
 
 		@Override
 		protected String[] getQueryFields() {
-			return new String[] { "id", "keyWord", "topic", "content" };
+			return new String[] { "keyWord", "topic", "content" };
+		}
+
+		@Override
+		protected Query getQuery(final String[] queryFields, final String queryString) {
+			return new FilteredQuery(super.getQuery(queryFields, queryString),
+					new TermFilter(new Term("status", "publish")));
 		}
 
 		@Override
@@ -310,8 +320,7 @@ public class NewsService extends AbstractContentService<News>
 			} else {
 				obj = getBean(doc.get("id"));
 			}
-			return (obj != null && BeanUtils.getProperty(obj, "status") == EContentStatus.publish)
-					? obj : null;
+			return obj;
 		}
 
 		@Override
@@ -319,6 +328,7 @@ public class NewsService extends AbstractContentService<News>
 				throws IOException {
 			super.objectToDocument(object, doc);
 			final News news = (News) object;
+			doc.addStringField("status", news.getStatus().name(), false);
 			doc.addStringFields("keyWord", StringUtils.split(news.getKeyWords(), " "), false);
 			doc.addTextField("topic", news.getTopic(), false);
 			String content = news.getDescription();
