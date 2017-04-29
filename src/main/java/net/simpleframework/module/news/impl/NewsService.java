@@ -308,8 +308,11 @@ public class NewsService extends AbstractContentService<News>
 
 		@Override
 		protected Query getQuery(final String[] queryFields, final String queryString) {
-			return new FilteredQuery(super.getQuery(queryFields, queryString),
-					new TermFilter(new Term("status", "publish")));
+			final Query query = super.getQuery(queryFields, queryString);
+			if (query == null) {
+				return null;
+			}
+			return new FilteredQuery(query, new TermFilter(new Term("status", "publish")));
 		}
 
 		@Override
