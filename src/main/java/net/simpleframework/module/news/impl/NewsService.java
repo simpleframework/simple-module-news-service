@@ -263,8 +263,10 @@ public class NewsService extends AbstractContentService<News>
 				}
 
 				// 更新索引
-				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "keyWords", true)
+				if (ArrayUtils.isEmpty(columns) || ArrayUtils.contains(columns, "status", true)
+						|| ArrayUtils.contains(columns, "keyWords", true)
 						|| ArrayUtils.contains(columns, "topic", true)
+						|| ArrayUtils.contains(columns, "description", true)
 						|| ArrayUtils.contains(columns, "content", true)) {
 					for (final News news : beans) {
 						try {
@@ -316,14 +318,8 @@ public class NewsService extends AbstractContentService<News>
 		}
 
 		@Override
-		protected Object documentToObject(final LuceneDocument doc, final Class<?> beanClass) {
-			Object obj;
-			if (beanClass == null) {
-				obj = super.documentToObject(doc, beanClass);
-			} else {
-				obj = getBean(doc.get("id"));
-			}
-			return obj;
+		protected Object documentToObject(final LuceneDocument doc, final Class<?> bClass) {
+			return bClass != null ? getBean(doc.get("id")) : super.documentToObject(doc, bClass);
 		}
 
 		@Override
