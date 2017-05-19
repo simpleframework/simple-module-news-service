@@ -61,9 +61,13 @@ public class NewsAttachmentService extends AbstractAttachmentService<NewsAttachm
 					if (StringUtils.hasText(ext)) {
 						if (MimeTypes.getMimeType(ext).startsWith("video/")) {
 							final Encoder encoder = new Encoder();
-							final MultimediaInfo info = encoder.getInfo(af.getAttachment());
-							final int duration = (int) (info.getDuration() / 1000);
-							attach.setVideoTime(duration);
+							try {
+								final MultimediaInfo info = encoder.getInfo(af.getAttachment());
+								final int duration = (int) (info.getDuration() / 1000);
+								attach.setVideoTime(duration);
+							} catch (final Exception e) {
+								getLog().warn(e);
+							}
 						}
 					}
 				}
