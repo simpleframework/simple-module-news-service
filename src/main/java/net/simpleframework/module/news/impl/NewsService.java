@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queries.TermFilter;
-import org.apache.lucene.search.FilteredQuery;
+import org.apache.lucene.queries.TermsQuery;
+import org.apache.lucene.search.BooleanClause.Occur;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Query;
 
 import net.simpleframework.ado.ColumnData;
@@ -314,7 +315,10 @@ public class NewsService extends AbstractContentService<News>
 			if (query == null) {
 				return null;
 			}
-			return new FilteredQuery(query, new TermFilter(new Term("status", "publish")));
+			final BooleanQuery.Builder builder = new BooleanQuery.Builder();
+			builder.add(query, Occur.MUST);
+			builder.add(new TermsQuery(new Term("status", "publish")), Occur.MUST);
+			return builder.build();
 		}
 
 		@Override
