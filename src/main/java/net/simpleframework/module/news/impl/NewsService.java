@@ -55,7 +55,7 @@ public class NewsService extends AbstractContentService<News>
 	}
 
 	@Override
-	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, final ID domainId,
+	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, final String domainId,
 			final EContentStatus status, final TimePeriod timePeriod, FilterItems filterItems,
 			final ColumnData... orderColumns) {
 		if (filterItems == null) {
@@ -287,7 +287,7 @@ public class NewsService extends AbstractContentService<News>
 		updateStats(news.getCategoryId(), news.getDomainId());
 	}
 
-	void updateStats(final ID categoryId, final ID domainId) {
+	void updateStats(final ID categoryId, final String domainId) {
 		final NewsStatService _newsStatServiceImpl = (NewsStatService) _newsStatService;
 		final NewsStat stat = _newsStatService.getNewsStat(categoryId, domainId);
 		_newsStatServiceImpl.reset(stat);

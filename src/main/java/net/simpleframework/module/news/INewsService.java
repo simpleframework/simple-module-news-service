@@ -23,8 +23,9 @@ public interface INewsService extends IContentService<News> {
 
 	News createBean(ID userId);
 
-	IDataQuery<News> queryBeans(AbstractCategoryBean category, ID domainId, EContentStatus status,
-			TimePeriod timePeriod, FilterItems filterItems, ColumnData... orderColumns);
+	IDataQuery<News> queryBeans(AbstractCategoryBean category, String domainId,
+			EContentStatus status, TimePeriod timePeriod, FilterItems filterItems,
+			ColumnData... orderColumns);
 
 	IDataQuery<News> queryContentBeans(String category);
 

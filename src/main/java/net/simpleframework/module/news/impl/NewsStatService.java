@@ -38,7 +38,7 @@ public class NewsStatService extends AbstractNewsService<NewsStat> implements IN
 	}
 
 	@Override
-	public NewsStat getNewsStat(final ID categoryId, final ID domainId) {
+	public NewsStat getNewsStat(final ID categoryId, final String domainId) {
 		final StringBuilder sql = new StringBuilder("categoryid=?");
 		final List<Object> params = ArrayUtils.toParams(categoryId);
 		if (domainId != null) {
@@ -70,7 +70,7 @@ public class NewsStatService extends AbstractNewsService<NewsStat> implements IN
 		final List<Object> params = ArrayUtils.toParams(stat.getCategoryId());
 		final StringBuilder sql = new StringBuilder("select status, count(*) as c from ")
 				.append(getTablename(News.class)).append(" n where n.categoryid=?");
-		final ID domainId = stat.getDomainId();
+		final String domainId = stat.getDomainId();
 		if (domainId != null) {
 			sql.append(" and n.domainid=?");
 			params.add(domainId);

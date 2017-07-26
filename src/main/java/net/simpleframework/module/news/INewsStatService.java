@@ -20,7 +20,7 @@ public interface INewsStatService extends IDbBeanService<NewsStat> {
 	 * @param domainId
 	 * @return
 	 */
-	NewsStat getNewsStat(ID categoryId, ID domainId);
+	NewsStat getNewsStat(ID categoryId, String domainId);
 
 	int getAllNums(ID categoryId, String prop);
 

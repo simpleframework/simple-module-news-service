@@ -14,7 +14,7 @@ public class NewsStat extends AbstractIdBean {
 	/* 类目id */
 	private ID categoryId;
 	/* 域id */
-	private ID domainId;
+	private String domainId;
 
 	/* 总数 */
 	private int nums;
@@ -33,11 +33,11 @@ public class NewsStat extends AbstractIdBean {
 		this.categoryId = categoryId;
 	}
 
-	public ID getDomainId() {
+	public String getDomainId() {
 		return domainId;
 	}
 
-	public void setDomainId(final ID domainId) {
+	public void setDomainId(final String domainId) {
 		this.domainId = domainId;
 	}
 
