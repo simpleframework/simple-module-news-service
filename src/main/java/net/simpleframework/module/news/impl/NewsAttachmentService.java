@@ -59,7 +59,8 @@ public class NewsAttachmentService extends AbstractAttachmentService<NewsAttachm
 				if (af != null) {
 					final String ext = attach.getFileExt();
 					if (StringUtils.hasText(ext)) {
-						if (MimeTypes.getMimeType(ext).startsWith("video/")) {
+						final String mimeType = MimeTypes.getMimeType(ext);
+						if (mimeType.startsWith("video/") || mimeType.startsWith("audio/")) {
 							final Encoder encoder = new Encoder();
 							try {
 								final MultimediaInfo info = encoder.getInfo(af.getAttachment());
