@@ -3,6 +3,7 @@ package net.simpleframework.module.news.impl;
 import static net.simpleframework.common.I18n.$m;
 
 import net.simpleframework.ado.db.DbEntityTable;
+import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.IModuleRef;
 import net.simpleframework.ctx.Module;
 import net.simpleframework.ctx.ModuleRefUtils;
@@ -14,6 +15,7 @@ import net.simpleframework.module.news.INewsCategoryService;
 import net.simpleframework.module.news.INewsCommentLikeService;
 import net.simpleframework.module.news.INewsCommentService;
 import net.simpleframework.module.news.INewsContext;
+import net.simpleframework.module.news.INewsContextAware;
 import net.simpleframework.module.news.INewsRecommendService;
 import net.simpleframework.module.news.INewsService;
 import net.simpleframework.module.news.INewsStatService;
@@ -105,5 +107,13 @@ public class NewsContext extends AbstractCommonModuleContext implements INewsCon
 	@Override
 	public IModuleRef getOrganizationRef() {
 		return ModuleRefUtils.getRef("net.simpleframework.module.news.NewsOrganizationRef");
+	}
+
+	@Override
+	public void onInit(final IApplicationContext application) throws Exception {
+		super.onInit(application);
+
+		// 预初始化服务
+		oprintln("[***NewsContext Service onInit***] " + INewsContextAware.newsContext);
 	}
 }
