@@ -29,6 +29,9 @@ public class News extends AbstractContentBean {
 	/* 审核状态 */
 	private EAuditStatus astatus;
 
+	/* 类别（字典） */
+	private String nclass;
+
 	/* 主题词 */
 	private String keyWords;
 	/* 作者 */
@@ -88,6 +91,14 @@ public class News extends AbstractContentBean {
 
 	public void setAstatus(final EAuditStatus astatus) {
 		this.astatus = astatus;
+	}
+
+	public String getNclass() {
+		return nclass;
+	}
+
+	public void setNclass(final String nclass) {
+		this.nclass = nclass;
 	}
 
 	public String getKeyWords() {

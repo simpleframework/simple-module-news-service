@@ -23,7 +23,7 @@ public interface INewsService extends IContentService<News> {
 
 	News createBean(ID userId);
 
-	IDataQuery<News> queryBeans(AbstractCategoryBean category, String domainId,
+	IDataQuery<News> queryBeans(AbstractCategoryBean category, String domainId, String nclass,
 			EContentStatus status, TimePeriod timePeriod, FilterItems filterItems,
 			ColumnData... orderColumns);
 

@@ -11,6 +11,7 @@ import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Query;
 
 import net.simpleframework.ado.ColumnData;
+import net.simpleframework.ado.EFilterOpe;
 import net.simpleframework.ado.EFilterRelation;
 import net.simpleframework.ado.FilterItem;
 import net.simpleframework.ado.FilterItems;
@@ -56,8 +57,8 @@ public class NewsService extends AbstractContentService<News>
 
 	@Override
 	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory, final String domainId,
-			final EContentStatus status, final TimePeriod timePeriod, FilterItems filterItems,
-			final ColumnData... orderColumns) {
+			final String nclass, final EContentStatus status, final TimePeriod timePeriod,
+			FilterItems filterItems, final ColumnData... orderColumns) {
 		if (filterItems == null) {
 			filterItems = FilterItems.of();
 		}
@@ -69,6 +70,26 @@ public class NewsService extends AbstractContentService<News>
 		if (domainId != null) {
 			filterItems.add(FilterItem.isNull("domainId").setLbracket(true));
 			filterItems.add(FilterItem.or("domainId", domainId).setRbracket(true));
+		}
+
+		if (StringUtils.hasText(nclass)) {
+			String[] arr = StringUtils.split(nclass, ";");
+			if (arr.length >= 2) {
+				arr = ArrayUtils.add(arr, nclass);
+			}
+			int i = 0;
+			for (final String s : arr) {
+				final FilterItem item = new FilterItem("nclass", s);
+				if (i++ == 0) {
+					item.setLbracket(true);
+				} else {
+					item.setOpe(EFilterOpe.or);
+				}
+				if (i == arr.length) {
+					item.setRbracket(true);
+				}
+				filterItems.add(item);
+			}
 		}
 
 		if (timePeriod != null) {
@@ -87,7 +108,7 @@ public class NewsService extends AbstractContentService<News>
 	public IDataQuery<News> queryBeans(final AbstractCategoryBean oCategory,
 			final EContentStatus status, final TimePeriod timePeriod, final FilterItems filterItems,
 			final ColumnData... orderColumns) {
-		return queryBeans(oCategory, null, status, timePeriod, filterItems, orderColumns);
+		return queryBeans(oCategory, null, null, status, timePeriod, filterItems, orderColumns);
 	}
 
 	@Override
