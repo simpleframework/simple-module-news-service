@@ -61,6 +61,9 @@ public class News extends AbstractContentBean {
 	/* 是否允许建立索引 */
 	private boolean indexed = true;
 
+	/* 附加属性，json格式 */
+	private String props;
+
 	public String getCname() {
 		return cname;
 	}
@@ -195,6 +198,14 @@ public class News extends AbstractContentBean {
 
 	public void setFee(final int fee) {
 		this.fee = fee;
+	}
+
+	public String getProps() {
+		return props;
+	}
+
+	public void setProps(final String props) {
+		this.props = props;
 	}
 
 	@Override
