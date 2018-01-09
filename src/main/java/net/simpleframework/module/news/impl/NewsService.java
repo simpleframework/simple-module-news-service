@@ -331,8 +331,9 @@ public class NewsService extends AbstractContentService<News>
 		}
 
 		@Override
-		protected Query getQuery(final String[] queryFields, final String queryString) {
-			final Query query = super.getQuery(queryFields, queryString);
+		protected Query getQuery(final String domain, final String[] queryFields,
+				final String queryString) {
+			final Query query = super.getQuery(domain, queryFields, queryString);
 			if (query == null) {
 				return null;
 			}
