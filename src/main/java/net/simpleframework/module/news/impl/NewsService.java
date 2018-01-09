@@ -338,8 +338,11 @@ public class NewsService extends AbstractContentService<News>
 				return null;
 			}
 			final BooleanQuery.Builder builder = new BooleanQuery.Builder();
-			builder.add(query, Occur.MUST);
+			if (StringUtils.hasText(domain)) {
+				builder.add(new TermsQuery(new Term("userid", domain)), Occur.MUST);
+			}
 			builder.add(new TermsQuery(new Term("status", "publish")), Occur.MUST);
+			builder.add(query, Occur.MUST);
 			return builder.build();
 		}
 
@@ -353,6 +356,7 @@ public class NewsService extends AbstractContentService<News>
 				throws IOException {
 			super.objectToDocument(object, doc);
 			final News news = (News) object;
+			doc.addStringField("userid", String.valueOf(news.getUserId()), false);
 			doc.addStringField("status", news.getStatus().name(), false);
 			doc.addStringFields("keyWord", StringUtils.split(news.getKeyWords(), " "), false);
 			doc.addTextField("topic", news.getTopic(), false);
