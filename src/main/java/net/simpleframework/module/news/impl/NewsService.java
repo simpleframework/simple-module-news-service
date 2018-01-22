@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queries.TermsQuery;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
 
 import net.simpleframework.ado.ColumnData;
 import net.simpleframework.ado.EFilterOpe;
@@ -339,9 +339,9 @@ public class NewsService extends AbstractContentService<News>
 			}
 			final BooleanQuery.Builder builder = new BooleanQuery.Builder();
 			if (StringUtils.hasText(domain)) {
-				builder.add(new TermsQuery(new Term("userid", domain)), Occur.MUST);
+				builder.add(new TermQuery(new Term("userid", domain)), Occur.MUST);
 			}
-			builder.add(new TermsQuery(new Term("status", "publish")), Occur.MUST);
+			builder.add(new TermQuery(new Term("status", "publish")), Occur.MUST);
 			builder.add(query, Occur.MUST);
 			return builder.build();
 		}
