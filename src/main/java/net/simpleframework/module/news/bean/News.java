@@ -56,6 +56,9 @@ public class News extends AbstractContentBean {
 	/* 最后一次更新统计comments的时间 */
 	private Date lastCommentDate;
 
+	/* 禁止打赏 */
+	private boolean disabledReward;
+
 	/* 收费方式 */
 	private int fee;
 	/* 是否允许建立索引 */
@@ -198,6 +201,14 @@ public class News extends AbstractContentBean {
 
 	public void setFee(final int fee) {
 		this.fee = fee;
+	}
+
+	public boolean isDisabledReward() {
+		return disabledReward;
+	}
+
+	public void setDisabledReward(final boolean disabledReward) {
+		this.disabledReward = disabledReward;
 	}
 
 	public String getProps() {
