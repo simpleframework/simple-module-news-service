@@ -47,9 +47,10 @@ public class NewsService extends AbstractContentService<News>
 		implements INewsService, INewsContextAware {
 
 	@Override
-	public News createBean(final ID userId) {
-		assertTimeInterval(new ExpressionValue("userid=?", userId), 60);
-
+	public News createBean(final ID userId, final boolean assertTimeInterval) {
+		if (assertTimeInterval) {
+			assertTimeInterval(new ExpressionValue("userid=?", userId), 60);
+		}
 		final News news = super.createBean();
 		news.setUserId(userId);
 		return news;

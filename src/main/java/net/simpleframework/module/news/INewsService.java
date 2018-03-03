@@ -21,7 +21,7 @@ import net.simpleframework.module.news.bean.NewsCategory;
  */
 public interface INewsService extends IContentService<News> {
 
-	News createBean(ID userId);
+	News createBean(ID userId, boolean assertTimeInterval);
 
 	IDataQuery<News> queryBeans(AbstractCategoryBean category, String domainId, String nclass,
 			EContentStatus status, TimePeriod timePeriod, FilterItems filterItems,
