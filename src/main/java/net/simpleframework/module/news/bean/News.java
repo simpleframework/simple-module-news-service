@@ -58,6 +58,8 @@ public class News extends AbstractContentBean {
 
 	/* 禁止打赏 */
 	private boolean disabledReward;
+	/* 隐藏关联文档 */
+	private boolean hideLikes;
 
 	/* 收费方式 */
 	private int fee;
@@ -209,6 +211,14 @@ public class News extends AbstractContentBean {
 
 	public void setDisabledReward(final boolean disabledReward) {
 		this.disabledReward = disabledReward;
+	}
+
+	public boolean isHideLikes() {
+		return hideLikes;
+	}
+
+	public void setHideLikes(final boolean hideLikes) {
+		this.hideLikes = hideLikes;
 	}
 
 	public String getProps() {
