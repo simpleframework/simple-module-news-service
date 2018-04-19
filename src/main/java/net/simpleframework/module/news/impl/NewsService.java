@@ -164,7 +164,7 @@ public class NewsService extends AbstractContentService<News>
 		return queryBeans(category, status, null, FilterItems.of("userId", userId), ORDER_CREATEDATE);
 	}
 
-	private NewsLuceneService luceneService;
+	protected NewsLuceneService luceneService;
 
 	@Override
 	public ILuceneManager getLuceneService() {
@@ -221,14 +221,7 @@ public class NewsService extends AbstractContentService<News>
 					// 更新状态
 					updateStats(news);
 
-					try {
-						// 删除索引
-						if (isIndexed(news)) {
-							luceneService.doDeleteIndex(news);
-						}
-					} catch (final Exception e) {
-						log.warn(e);
-					}
+					doIndex_delete(news);
 				}
 			}
 
@@ -240,14 +233,7 @@ public class NewsService extends AbstractContentService<News>
 					// 更新状态
 					updateStats(news);
 
-					try {
-						if (isIndexed(news)) {
-							// 添加索引
-							luceneService.doAddIndex(news);
-						}
-					} catch (final Exception e) {
-						log.warn(e);
-					}
+					doIndex_insert(news);
 				}
 			}
 
@@ -292,13 +278,7 @@ public class NewsService extends AbstractContentService<News>
 						|| ArrayUtils.contains(columns, "description", true)
 						|| ArrayUtils.contains(columns, "content", true)) {
 					for (final News news : beans) {
-						try {
-							if (isIndexed(news)) {
-								luceneService.doUpdateIndex(news);
-							}
-						} catch (final Exception e) {
-							log.warn(e);
-						}
+						doIndex_update(news);
 					}
 				}
 			}
@@ -319,6 +299,38 @@ public class NewsService extends AbstractContentService<News>
 
 	protected File getIndexDir() {
 		return getApplicationContext().getContextSettings().getHomeFile("/index/news/");
+	}
+
+	protected void doIndex_insert(final News news) {
+		try {
+			if (isIndexed(news)) {
+				// 添加索引
+				luceneService.doAddIndex(news);
+			}
+		} catch (final Exception e) {
+			log.warn(e);
+		}
+	}
+
+	protected void doIndex_update(final News news) {
+		try {
+			if (isIndexed(news)) {
+				luceneService.doUpdateIndex(news);
+			}
+		} catch (final Exception e) {
+			log.warn(e);
+		}
+	}
+
+	protected void doIndex_delete(final News news) {
+		try {
+			// 删除索引
+			if (isIndexed(news)) {
+				luceneService.doDeleteIndex(news);
+			}
+		} catch (final Exception e) {
+			log.warn(e);
+		}
 	}
 
 	protected class NewsLuceneService extends AbstractLuceneManager {
