@@ -51,7 +51,9 @@ public class NewsContext extends AbstractCommonModuleContext implements INewsCon
 
 				new DbEntityTable(NewsAudit.class, "sf_news_audit"),
 
-				new DbEntityTable(NewsAttachment.class, "sf_attachment"), SF_ATTACHMENT_LOB };
+				new DbEntityTable(NewsAttachment.class, "sf_attachment").setUniqueColumns("id",
+						"imodule"),
+				SF_ATTACHMENT_LOB };
 	}
 
 	@Override
