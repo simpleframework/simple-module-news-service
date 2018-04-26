@@ -56,11 +56,6 @@ public class News extends AbstractContentBean {
 	/* 最后一次更新统计comments的时间 */
 	private Date lastCommentDate;
 
-	// /* 禁止打赏 */
-	// private boolean disabledReward;
-	// /* 隐藏关联文档 */
-	// private boolean hideLikes;
-
 	/* 收费方式 */
 	private int fee;
 	/* 是否允许建立索引 */
